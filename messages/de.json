@@ -1,0 +1,389 @@
+{
+  "nav": {
+    "howItWorks": "So funktioniert es",
+    "inspiration": "Inspiration",
+    "examples": "Beispiele",
+    "faq": "FAQ",
+    "cta": "Ihr Lied erstellen",
+    "tagline": "Persönliche Songs nach Maß",
+    "giftcard": "Geschenkgutschein"
+  },
+  "hero": {
+    "badge1": "Ein einzigartiges Geschenk, das wirklich berührt",
+    "badge2": "Nur €14,95 · In 10 Minuten in Ihrem Postfach",
+    "title": "Schenken Sie jemandem ein Lied, das er nie vergessen wird.",
+    "subtitle": "Für einen Geburtstag, ein Jubiläum oder einen besonderen Moment. Sie erzählen die Geschichte, SongFactory macht ein einzigartiges Lied daraus.",
+    "priceNote": "€14,95 · MP3 per E-Mail · Innerhalb von 10 Minuten",
+    "cta": "Ihr Lied erstellen",
+    "ctaSecondary": "Inspiration ansehen",
+    "benefit1": "Vollständig personalisiert auf Basis Ihrer Geschichte",
+    "benefit2": "Das Geschenk, das sie noch Jahre später hören werden",
+    "benefit3": "In Minuten bestellt, ohne Aufwand",
+    "cardTagline": "Ihre Geschichte in Musik",
+    "cardForLabel": "Perfekt für",
+    "cardForValue": "Geburtstag, Liebe, Jubiläum oder Überraschung",
+    "cardFeelLabel": "Gefühl",
+    "cardFeelValue": "Persönlich, emotional und originell",
+    "cardResultLabel": "Ergebnis",
+    "cardResultValue": "Ein Lied, das man nicht vergisst"
+  },
+  "strip": {
+    "item1Title": "Vollständig personalisiert",
+    "item1Desc": "Ihre Erinnerungen, Ihre Geschichte und Ihre Atmosphäre bilden die Grundlage des Liedes.",
+    "item2Title": "Ein Geschenk mit Emotion",
+    "item2Desc": "Etwas, das berührt, wie es keine Blumen je könnten.",
+    "item3Title": "Einfach und schnell",
+    "item3Desc": "Ein klarer Ablauf ohne Aufwand, damit das Bestellen mühelos ist."
+  },
+  "occasions": {
+    "label": "Inspiration",
+    "title": "Ein maßgeschneidertes Lied für jeden besonderen Moment.",
+    "subtitle": "Jeder besondere Moment verdient ein einzigartiges Lied. Wählen Sie den Anlass, der zu Ihnen passt.",
+    "cta": "Dieses Lied erstellen",
+    "card1Title": "Für Ihren Partner",
+    "card1Desc": "Ein persönliches Lied für Liebe, Wertschätzung oder eine Überraschung.",
+    "card2Title": "Geburtstag",
+    "card2Desc": "Machen Sie einen Geburtstag zu einem Geschenk, das wirklich in Erinnerung bleibt.",
+    "card3Title": "Für Ihre Eltern",
+    "card3Desc": "Dankbarkeit, Erinnerungen und Emotion in einem einzigartigen Stück.",
+    "card4Title": "Jubiläum",
+    "card4Desc": "Feiern Sie einen besonderen Meilenstein mit einem maßgeschneiderten Lied.",
+    "card5Title": "Abschied oder Dankeschön",
+    "card5Desc": "Lassen Sie Worte in etwas verwandeln, das wirklich ankommt.",
+    "card6Title": "Lustig und originell",
+    "card6Desc": "Ein leichtes, überraschendes Lied mit Insider-Witzen und Erinnerungen."
+  },
+  "howItWorks": {
+    "label": "So funktioniert es",
+    "title": "Ein einzigartiges persönliches Lied in 3 einfachen Schritten.",
+    "subtitle": "Kein komplizierter Prozess. Einfach klar, persönlich und auf ein schönes Erlebnis ausgerichtet.",
+    "step1Title": "Erzählen Sie Ihre Geschichte",
+    "step1Desc": "Geben Sie an, für wen das Lied ist, welche Erinnerungen es gibt und welche Atmosphäre passt.",
+    "step2Title": "Wählen Sie Stil und Stimmung",
+    "step2Desc": "Romantisch, emotional, fröhlich oder witzig — Sie bestimmen die Richtung.",
+    "step3Title": "Erhalten Sie Ihr Lied",
+    "step3Desc": "Wir machen daraus ein Lied, das sich anfühlt, als hätten Sie es selbst geschrieben."
+  },
+  "gift": {
+    "label": "Was Sie schenken",
+    "title": "Kein Geschenk aus dem Laden. Eines, das wirklich berührt.",
+    "subtitle": "Sie schenken jemandem ein Lied, das nur über ihn handelt. Sein Name, seine Geschichte, seine Erinnerungen. Etwas, das er immer wieder hören kann.",
+    "point1": "Erstellt auf Basis Ihrer persönlichen Geschichte",
+    "point2": "Einzigartig — kein Lied ist gleich",
+    "point3": "Innerhalb von 10 Minuten als MP3 geliefert"
+  },
+  "pricing": {
+    "label": "Preis",
+    "included": "Alles inklusive",
+    "item1": "2 Versionen Ihres Liedes",
+    "item2": "Vollständige Liedtexte",
+    "item3": "MP3 per E-Mail",
+    "item4": "Innerhalb von 10 Minuten geliefert",
+    "item5": "Vollständig personalisiert",
+    "cta": "Ihr Lied erstellen",
+    "disclaimer": "Einmalige Zahlung, kein Abo"
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Häufig gestellte Fragen",
+    "q1": "Was kostet ein persönliches Lied?",
+    "a1": "Ein vollständig personalisiertes Lied kostet €14,95. Sie zahlen einmalig und erhalten Ihr Lied innerhalb von 10 Minuten.",
+    "q2": "Wie schnell erhalte ich mein Lied?",
+    "a2": "Nach Ihrer Bestellung erhalten Sie innerhalb von 10 Minuten eine MP3 per E-Mail. Bereit zum Verschenken oder Aufbewahren.",
+    "q3": "Wie persönlich ist das Lied?",
+    "a3": "Das Lied wird vollständig aus Ihrer Geschichte, Namen, Erinnerungen und der von Ihnen angegebenen Atmosphäre aufgebaut.",
+    "q4": "Für welche Anlässe funktioniert das?",
+    "a4": "Geburtstage, Liebe, Jubiläen, Dankeschöns, Abschiede oder einfach als originelle Überraschung.",
+    "q5": "Was, wenn ich nicht zufrieden bin?",
+    "a5": "Wir tun alles, um ein schönes Ergebnis zu liefern. Weitere Informationen finden Sie in unseren allgemeinen Geschäftsbedingungen.",
+    "q6": "Welche Musikstile stehen zur Auswahl?",
+    "a6": "Pop, Ballade, Akustisch, Jazz und Lustig — Sie bestimmen die Richtung.",
+    "q7": "Kann ich ein Lied als Geschenk für jemand anderen bestellen?",
+    "a7": "Ja. Sie füllen die Geschichte aus, wir erstellen das Lied, Sie verschenken es.",
+    "q8": "Was passiert mit meinen Daten?",
+    "a8": "Nur zur Erstellung Ihres Liedes verwendet, danach nicht gespeichert oder geteilt."
+  },
+  "qualityPromise": {
+    "label": "Qualitätsgarantie",
+    "title": "Unser Qualitätsversprechen",
+    "description": "Jede Bestellung wird innerhalb von 48 Stunden persönlich von uns überprüft. Erfüllt das Lied unsere Qualitätsstandards nicht, erhalten Sie automatisch zwei handgefertigte Lieder mit Liedtexten — kostenlos und ohne dass Sie etwas tun müssen.",
+    "icon1Title": "Persönliche Qualitätskontrolle",
+    "icon1Desc": "Jedes Lied wird von unserem Team angehört und bewertet",
+    "icon2Title": "Innerhalb von 48 Stunden",
+    "icon2Desc": "Sie erfahren schnell, ob alles perfekt ist",
+    "icon3Title": "Zwei neue Lieder + Texte",
+    "icon3Desc": "Nicht gut genug? Sie erhalten ein handgefertigtes Alternativ"
+  },
+  "terms": {
+    "article1Title": "1. KI-generierter Inhalt",
+    "article1Body": "Liedtexte, Musik und etwaige zusätzliche Inhalte werden ganz oder teilweise mithilfe künstlicher Intelligenz (KI) auf der Grundlage der von Ihnen bereitgestellten Informationen erstellt. Songfactory übernimmt eine Bemühenspflicht und keine Erfolgspflicht.",
+    "article2Title": "2. Persönlicher und kreativer Charakter",
+    "article2Body": "Jedes Lied ist subjektiver und kreativer Natur. Unterschiede in Stil, Ton, Stimme und Interpretation sind dem Prozess inhärent und stellen keinen gültigen Grund für Ablehnung, Stornierung oder Rückerstattung dar.",
+    "article3Title": "3. Nutzungsrechte (Lizenz)",
+    "article3Body": "Nach der Lieferung erhalten Sie eine persönliche, nicht ausschließliche und nicht übertragbare Lizenz für private Zwecke. Kommerzielle Nutzung ist ohne schriftliche Genehmigung nicht gestattet.",
+    "article4Title": "4. Kommerzielle Nutzung",
+    "article4Body": "Wenn Sie das Lied kommerziell nutzen möchten, müssen Sie uns vorab für eine zusätzliche Lizenzvereinbarung kontaktieren.",
+    "article5Title": "5. Bereitgestellte Informationen",
+    "article5Body": "Sie sind vollständig verantwortlich für den Inhalt, die Richtigkeit und die Rechtmäßigkeit der bereitgestellten Informationen.",
+    "article6Title": "6. Qualitätskontrolle",
+    "article6Body": "Songfactory führt nach jeder Bestellung innerhalb von 48 Stunden nach der Lieferung eine persönliche Qualitätsprüfung durch. Entspricht das gelieferte Lied nicht unseren Qualitätsstandards, erhalten Sie kostenlos zwei handgefertigte Alternativen einschließlich Liedtexten. Diese Qualitätsgarantie gilt ausschließlich auf der Grundlage objektiver Qualitätskriterien und nicht auf der Grundlage persönlichen Geschmacks oder persönlicher Präferenzen.",
+    "article7Title": "7. Qualitätsgarantie",
+    "article7Body": "Stellt Songfactory nach der Qualitätsprüfung fest, dass das gelieferte Produkt keine angemessenen Qualitätsstandards in Bezug auf Aussprache, musikalische Qualität oder technische Ausführung erfüllt, wird Songfactory von sich aus Kontakt mit dem Kunden aufnehmen und kostenlos zwei neue Lieder einschließlich Liedtexten liefern. Der Kunde muss dafür keine Maßnahmen ergreifen.",
+    "article8Title": "8. Lieferung und Lieferzeit",
+    "article8Body": "Lieferzeiten sind Richtwerte. Verzögerungen geben kein Recht auf Stornierung, Schadenersatz oder Rückerstattung.",
+    "article9Title": "9. Stornierung und Erstattung",
+    "article9Body": "Nach Beginn des Kreativprozesses ist eine Stornierung nicht mehr möglich. Nach der Lieferung sind Rückerstattungen ausgeschlossen.",
+    "article10Title": "10. Kein professioneller Rat",
+    "article10Body": "Die generierten Inhalte sind ausschließlich für Unterhaltungs- und kreative Zwecke bestimmt.",
+    "article11Title": "11. Haftung",
+    "article11Body": "Songfactory haftet nicht für direkte oder indirekte Schäden. Die Gesamthaftung ist auf den gezahlten Betrag beschränkt.",
+    "article12Title": "12. Technische Lieferung",
+    "article12Body": "Songfactory ist nicht verantwortlich für Kompatibilität, Download-Probleme oder externe Dienste.",
+    "article13Title": "13. Nutzung für Werbung",
+    "article13Body": "Songfactory darf anonymisierte Teile für Portfolio- und Marketingzwecke verwenden, sofern der Kunde nicht vorab widerspricht.",
+    "article14Title": "14. Höhere Gewalt",
+    "article14Body": "Songfactory haftet nicht für Ausfälle in KI-Systemen, technische Probleme oder Ausfälle externer Lieferanten.",
+    "article15Title": "15. Missbrauch",
+    "article15Body": "Bei Missbrauch oder Betrug behält Songfactory sich das Recht vor, Bestellungen ohne Rückerstattung zu stornieren.",
+    "article16Title": "16. Änderungen",
+    "article16Body": "Songfactory behält sich das Recht vor, diese Bedingungen jederzeit zu ändern. Die aktuellste Version ist immer unter songfactory.eu/algemene-voorwaarden verfügbar."
+  },
+  "ctaSection": {
+    "label": "Bereit loszulegen?",
+    "title": "Erstellen Sie ein persönliches Lied, das man nie vergisst.",
+    "subtitle": "Für €14,95 schenken Sie jemandem ein Geschenk, das man nie vergisst. In 10 Minuten in deren Postfach.",
+    "cta": "Ihr Lied erstellen"
+  },
+  "footer": {
+    "privacy": "Datenschutzerklärung",
+    "terms": "Allgemeine Geschäftsbedingungen",
+    "rights": "Alle Rechte vorbehalten",
+    "giftcard": "Geschenkgutschein kaufen"
+  },
+  "order": {
+    "stepOf": "Schritt {step} von 5",
+    "steps": {
+      "occasion": "Anlass",
+      "story": "Geschichte",
+      "style": "Musikstil",
+      "review": "Prüfen",
+      "payment": "Zahlung"
+    },
+    "occasions": {
+      "birthday": "Geburtstag",
+      "love": "Liebe",
+      "anniversary": "Jubiläum",
+      "thanks": "Dankeschön",
+      "friendship": "Freundschaft",
+      "mothersday": "Muttertag",
+      "other": "Anderes"
+    },
+    "styles": {
+      "pop": "Pop",
+      "ballad": "Ballade",
+      "rap": "Rap",
+      "acoustic": "Akustisch",
+      "edm": "EDM",
+      "rock": "Rock",
+      "punk": "Punk",
+      "jazz": "Jazz",
+      "klassiek": "Klassik"
+    },
+    "moods": {
+      "romantic": "Romantisch",
+      "happy": "Fröhlich / Festlich",
+      "emotional": "Emotional / Traurig",
+      "nostalgic": "Nostalgisch",
+      "motivating": "Motivierend / Inspirierend",
+      "humorous": "Humoristisch / Lustig",
+      "intimate": "Intim / Ruhig",
+      "powerful": "Kraftvoll / Stark",
+      "dreamy": "Verträumt / Magisch",
+      "summer": "Sommerlich / Chill",
+      "warm": "Warm / Atmosphärisch"
+    },
+    "tempos": {
+      "slow": "Langsam",
+      "medium": "Mittel",
+      "fast": "Schnell"
+    },
+    "voices": {
+      "male": "Männlich",
+      "female": "Weiblich",
+      "duet": "Duett (Mann & Frau)"
+    },
+    "songLanguages": {
+      "nl": "Niederländisch",
+      "fr": "Französisch",
+      "en": "Englisch",
+      "de": "Deutsch"
+    },
+    "summary": {
+      "occasion": "Anlass",
+      "recipientName": "Name des Empfängers",
+      "customerName": "Ihr Name",
+      "email": "E-Mail-Adresse",
+      "style": "Musikstil",
+      "mood": "Stimmung",
+      "voicePreference": "Stimme",
+      "tempo": "Tempo",
+      "language": "Sprache"
+    },
+    "step1": {
+      "label": "Schritt 1",
+      "title": "Für welchen Anlass?",
+      "subtitle": "Wählen Sie den Moment, für den das Lied gemacht wird."
+    },
+    "step2": {
+      "label": "Schritt 2",
+      "title": "Erzählen Sie die Geschichte",
+      "subtitle": "Je mehr Details, desto persönlicher das Lied.",
+      "yourName": "Ihr Name",
+      "yourNamePlaceholder": "Z.B. Emma",
+      "yourEmail": "Ihre E-Mail-Adresse",
+      "yourEmailPlaceholder": "ihre@email.de",
+      "recipientName": "Name des Empfängers",
+      "recipientNamePlaceholder": "Für wen ist das Lied?",
+      "story": "Ihre Geschichte",
+      "storyPlaceholder": "Erzählen Sie von Erinnerungen, besonderen Momenten, Insider-Witzen oder was Sie im Lied haben möchten..."
+    },
+    "step3": {
+      "label": "Schritt 3",
+      "title": "Musikstil wählen",
+      "subtitle": "Geben Sie an, welchen Stil und welche Stimmung das Lied haben soll.",
+      "styleLabel": "Stil",
+      "moodLabel": "Stimmung",
+      "voiceLabel": "Stimme",
+      "tempoLabel": "Tempo",
+      "songLanguageLabel": "Sprache des Liedes"
+    },
+    "step4": {
+      "label": "Schritt 4",
+      "title": "Ihr Lied überprüfen",
+      "subtitle": "Stimmt alles? Dann gehen wir zur Zahlung.",
+      "storyLabel": "Geschichte",
+      "toPayment": "Zur Zahlung"
+    },
+    "step5": {
+      "label": "Schritt 5",
+      "title": "Zahlung",
+      "subtitle": "Überprüfen Sie Ihre Bestellung und zahlen Sie einmalig.",
+      "productName": "Persönliches Lied auf Maß",
+      "disclaimer": "Einmalige Zahlung, kein Abo",
+      "orderTitle": "Ihre Bestellung",
+      "storyLabel": "Geschichte",
+      "payButton": "€14,95 bezahlen und mein Lied bestellen",
+      "payLoading": "Verbindung wird hergestellt...",
+      "backToOverview": "Zurück zur Übersicht",
+      "item1": "2 Versionen Ihres Liedes",
+      "item2": "Vollständige Liedtexte",
+      "item3": "MP3 per E-Mail",
+      "item4": "Innerhalb von 10 Minuten geliefert"
+    },
+    "giftcard": {
+      "label": "Haben Sie einen Geschenkgutschein?",
+      "optional": "(optional)",
+      "confirm": "✓ Code eingegeben — die Zahlung wird übersprungen, wenn der Code gültig ist",
+      "redeem": "Geschenkgutschein einlösen",
+      "redeemLoading": "Geschenkgutschein wird eingelöst...",
+      "invalidCode": "Ungültiger Geschenkgutschein.",
+      "redeemError": "Geschenkgutschein konnte nicht eingelöst werden. Bitte erneut versuchen."
+    },
+    "moederdag": {
+      "banner": "🌸 Code MOEDERDAG2026 für 25% Rabatt beim Bezahlen verwenden",
+      "copy": "Kopieren",
+      "copied": "✓ Kopiert"
+    },
+    "buttons": {
+      "next": "Weiter",
+      "back": "Zurück"
+    },
+    "errors": {
+      "payment": "Beim Bezahlen ist etwas schiefgelaufen. Bitte versuchen Sie es erneut.",
+      "connection": "Verbindungsfehler. Überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut."
+    }
+  },
+  "showcase": {
+    "label": "Hören Sie, wie das klingt",
+    "subtitle": "Liebe · Ballade · Echte Geschichte"
+  },
+  "reviews": {
+    "label": "Was Kunden sagen",
+    "title": "So fühlt es sich an, wenn man es hört."
+  },
+  "voorbeeldTekst": {
+    "label": "Beispiel-Liedtext",
+    "title": "So klingt ein Lied für Emma",
+    "subtitle": "Stil: Pop · Anlass: Geburtstag",
+    "verse1": "Strophe 1",
+    "chorus": "Refrain",
+    "verse2": "Strophe 2",
+    "cta": "Erstellen Sie Ihr persönliches Lied"
+  },
+  "audioPreview": {
+    "label": "Beispiele",
+    "title": "Hören Sie ein Beispiel",
+    "subtitle": "So klingt ein SongFactory-Lied",
+    "play": "Abspielen",
+    "pause": "Pausieren"
+  },
+  "giftcard": {
+    "badge": "Geschenkgutschein",
+    "title": "Ein Lied als Geschenk geben",
+    "subtitle": "Ein einzigartiges, personalisiertes Lied als unvergessliches Geschenk. Der Empfänger wählt den Stil und erzählt die Geschichte — wir erstellen das Lied.",
+    "orderButton": "Jetzt bestellen",
+    "featuresTitle": "Was ist im Geschenkgutschein enthalten?",
+    "feature1": "2 vollständig personalisierte Lieder nach Maß",
+    "feature2": "Professionelle Texte basierend auf der Geschichte des Empfängers",
+    "feature3": "Wahl aus 9 Musikstilen, 10 Stimmungen und 3 Stimmoptionen",
+    "feature4": "Als MP3 per E-Mail geliefert — innerhalb von 10 Minuten",
+    "feature5": "Einzigartiger Einlösecode, gültig für eine Bestellung",
+    "howItWorksLabel": "Wie funktioniert es?",
+    "howItWorksBody": "Nach der Zahlung erhalten Sie eine E-Mail mit dem einzigartigen Code. Leiten Sie diesen Code an den Empfänger weiter. Dieser gibt ihn bei Schritt 1 des Bestellformulars ein und die Zahlung wird automatisch übersprungen.",
+    "priceLabel": "Preis",
+    "priceNote": "Einmalig · Kein Abonnement",
+    "emailLabel": "Ihre E-Mail-Adresse",
+    "emailHint": "(hier erhalten Sie den Code)",
+    "emailPlaceholder": "ihre@email.de",
+    "errorEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+    "errorGeneral": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
+    "errorConnection": "Keine Verbindung. Bitte versuchen Sie es erneut.",
+    "buttonLoading": "Weiterleitung zur Zahlung...",
+    "buttonBuy": "Geschenkgutschein kaufen",
+    "paymentVia": "Bezahlen mit:"
+  },
+  "giftcardSucces": {
+    "title": "Zahlung erfolgreich!",
+    "body": "Ihr Geschenkgutschein wird gerade erstellt. In wenigen Minuten erhalten Sie eine E-Mail mit dem einzigartigen Code und Anweisungen.",
+    "info": "Leiten Sie den Code an den Empfänger weiter — er kann ihn bei Schritt 1 auf songfactory.eu/bestellen einlösen",
+    "backHome": "Zurück zur Startseite"
+  },
+  "giftcardPromo": {
+    "title": "Sie wissen nicht, was Sie schenken sollen?",
+    "subtitle": "Verschenken Sie einen Gutschein — der Empfänger erstellt sein persönliches Lied selbst.",
+    "cta": "Geschenkgutschein kaufen"
+  },
+  "success": {
+    "title": "Ihr Lied ist unterwegs! 🎉",
+    "subtitle": "Wir haben begonnen, Ihr persönliches Lied zu erstellen. Sie erhalten es innerhalb von 10 Minuten als MP3.",
+    "tip": "Tipp: Keine E-Mail erhalten? Schauen Sie auch in Ihren Spam-Ordner.",
+    "whatNow": "Was jetzt?",
+    "item1": "Sie erhalten eine Bestätigung per E-Mail",
+    "item2": "Innerhalb von 10 Minuten erhalten Sie Ihr persönliches MP3",
+    "item3": "Fragen? Schreiben Sie an info@songfactory.eu",
+    "qualityTitle": "Was passiert jetzt?",
+    "quality1": "Ihr persönliches Lied wird innerhalb von 10 Minuten per E-Mail zugestellt",
+    "quality2": "Innerhalb von 48 Stunden überprüfen wir die Qualität persönlich",
+    "quality3": "Nicht perfekt? Sie erhalten 2 kostenlose handgemachte Lieder + Texte",
+    "backHome": "Zurück zur Startseite"
+  },
+  "cookie": {
+    "text": "Wir verwenden Cookies für die ordnungsgemäße Funktionsweise der Website und zur Verbesserung Ihrer Erfahrung. Lesen Sie unsere",
+    "privacy": "Datenschutzerklärung",
+    "necessary": "Nur notwendige",
+    "accept": "Akzeptieren"
+  },
+  "ctaAssurance": {
+    "text": "✓ In 10 Minuten in Ihrem Postfach · €14,95 · Kein Abonnement"
+  }
+}

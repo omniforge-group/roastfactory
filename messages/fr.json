@@ -1,0 +1,389 @@
+{
+  "nav": {
+    "howItWorks": "Comment ça marche",
+    "inspiration": "Inspiration",
+    "examples": "Exemples",
+    "faq": "FAQ",
+    "cta": "Créer votre chanson",
+    "tagline": "Chansons personnalisées sur mesure",
+    "giftcard": "Bon cadeau"
+  },
+  "hero": {
+    "badge1": "Un cadeau unique qui touche vraiment",
+    "badge2": "Seulement €14,95 · Dans votre boîte mail en 10 minutes",
+    "title": "Offrez à quelqu'un une chanson qu'il n'oubliera jamais.",
+    "subtitle": "Pour un anniversaire, une histoire d'amour ou un moment spécial. Vous racontez l'histoire, SongFactory en fait une chanson unique.",
+    "priceNote": "€14,95 · MP3 par e-mail · En 10 minutes",
+    "cta": "Créer votre chanson",
+    "ctaSecondary": "Voir l'inspiration",
+    "benefit1": "Entièrement personnalisé selon votre histoire",
+    "benefit2": "Le cadeau qu'ils écouteront encore des années plus tard",
+    "benefit3": "Commandé en quelques minutes, sans tracas",
+    "cardTagline": "Votre histoire en musique",
+    "cardForLabel": "Parfait pour",
+    "cardForValue": "Anniversaire, amour, jubilé ou surprise",
+    "cardFeelLabel": "Émotion",
+    "cardFeelValue": "Personnel, émotionnel et original",
+    "cardResultLabel": "Résultat",
+    "cardResultValue": "Une chanson que l'on n'oublie pas"
+  },
+  "strip": {
+    "item1Title": "Entièrement personnalisé",
+    "item1Desc": "Vos souvenirs, votre histoire et votre ambiance forment la base de la chanson.",
+    "item2Title": "Un cadeau avec émotion",
+    "item2Desc": "Quelque chose qui touche comme aucune fleur ne pourrait le faire.",
+    "item3Title": "Simple et rapide",
+    "item3Desc": "Un processus clair sans tracas, pour une commande sans effort."
+  },
+  "occasions": {
+    "label": "Inspiration",
+    "title": "Une chanson sur mesure pour chaque moment spécial.",
+    "subtitle": "Chaque moment spécial mérite une chanson unique. Choisissez l'occasion qui vous convient.",
+    "cta": "Créer cette chanson",
+    "card1Title": "Pour votre partenaire",
+    "card1Desc": "Une chanson personnelle pour l'amour, la gratitude ou une surprise.",
+    "card2Title": "Anniversaire",
+    "card2Desc": "Transformez un anniversaire en cadeau dont on se souviendra toujours.",
+    "card3Title": "Pour vos parents",
+    "card3Desc": "Gratitude, souvenirs et émotion dans un titre unique.",
+    "card4Title": "Jubilé",
+    "card4Desc": "Célébrez une étape importante avec une chanson sur mesure.",
+    "card5Title": "Au revoir ou remerciement",
+    "card5Desc": "Transformez des mots en quelque chose qui touche vraiment.",
+    "card6Title": "Amusant et original",
+    "card6Desc": "Une chanson légère et surprenante avec des blagues internes et des souvenirs."
+  },
+  "howItWorks": {
+    "label": "Comment ça marche",
+    "title": "Une chanson personnelle unique en 3 étapes simples.",
+    "subtitle": "Pas de processus compliqué. Juste clair, personnel et axé sur une belle expérience.",
+    "step1Title": "Racontez votre histoire",
+    "step1Desc": "Indiquez pour qui est la chanson, quels sont les souvenirs et quelle ambiance convient.",
+    "step2Title": "Choisissez le style",
+    "step2Desc": "Romantique, émotionnel, joyeux ou amusant — vous décidez de la direction.",
+    "step3Title": "Recevez votre chanson",
+    "step3Desc": "Nous en faisons une chanson qui donne l'impression que vous l'avez écrite vous-même."
+  },
+  "gift": {
+    "label": "Ce que vous offrez",
+    "title": "Pas un cadeau de magasin. Un qui touche vraiment.",
+    "subtitle": "Vous offrez à quelqu'un une chanson qui ne parle que de lui. Son nom, son histoire, ses souvenirs. Quelque chose qu'il pourra écouter encore et encore.",
+    "point1": "Créé à partir de votre histoire personnelle",
+    "point2": "Unique — aucune chanson n'est identique",
+    "point3": "Livré en 10 minutes en MP3"
+  },
+  "pricing": {
+    "label": "Prix",
+    "included": "Tout inclus",
+    "item1": "2 versions de votre chanson",
+    "item2": "Paroles complètes",
+    "item3": "MP3 par e-mail",
+    "item4": "Livré en 10 minutes",
+    "item5": "Entièrement personnalisé",
+    "cta": "Créer votre chanson",
+    "disclaimer": "Paiement unique, sans abonnement"
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Questions fréquentes",
+    "q1": "Combien coûte une chanson personnelle ?",
+    "a1": "Une chanson entièrement personnalisée coûte €14,95. Vous payez une fois et recevez votre chanson en 10 minutes.",
+    "q2": "Dans combien de temps vais-je recevoir ma chanson ?",
+    "a2": "Après votre commande, vous recevrez un MP3 par e-mail dans les 10 minutes. Prêt à offrir ou à conserver.",
+    "q3": "À quel point la chanson est-elle personnelle ?",
+    "a3": "La chanson est entièrement construite à partir de votre histoire, vos noms, vos souvenirs et l'ambiance que vous indiquez.",
+    "q4": "Pour quelles occasions cela fonctionne-t-il ?",
+    "a4": "Anniversaires, amour, jubilés, remerciements, au revoir ou juste comme une surprise originale.",
+    "q5": "Et si je ne suis pas satisfait ?",
+    "a5": "Nous faisons tout notre possible pour livrer un beau résultat. Consultez nos conditions générales pour plus d'informations.",
+    "q6": "Quels styles musicaux puis-je choisir ?",
+    "a6": "Pop, ballade, acoustique, jazz et amusant — vous choisissez la direction.",
+    "q7": "Puis-je offrir une chanson à quelqu'un d'autre ?",
+    "a7": "Oui. Vous remplissez l'histoire, nous créons la chanson, vous offrez le cadeau.",
+    "q8": "Que se passe-t-il avec mes données ?",
+    "a8": "Utilisées uniquement pour créer votre chanson, non stockées ni partagées ensuite."
+  },
+  "qualityPromise": {
+    "label": "Garantie qualité",
+    "title": "Notre promesse qualité",
+    "description": "Chaque commande est personnellement vérifiée par nos soins dans les 48 heures. Si la chanson ne répond pas à nos critères de qualité, vous recevrez automatiquement deux chansons artisanales avec paroles — gratuitement et sans rien avoir à faire.",
+    "icon1Title": "Contrôle qualité personnel",
+    "icon1Desc": "Chaque chanson est écoutée et évaluée par notre équipe",
+    "icon2Title": "Dans les 48 heures",
+    "icon2Desc": "Vous saurez rapidement si tout est parfait",
+    "icon3Title": "Deux nouvelles chansons + paroles",
+    "icon3Desc": "Pas satisfait ? Vous recevez une alternative artisanale"
+  },
+  "terms": {
+    "article1Title": "1. Contenu généré par IA",
+    "article1Body": "Les paroles, la musique et tout contenu supplémentaire sont générés entièrement ou partiellement à l'aide de l'intelligence artificielle (IA), sur la base des informations que vous fournissez. Songfactory fournit une obligation de moyens et non une obligation de résultat.",
+    "article2Title": "2. Nature personnelle et créative",
+    "article2Body": "Chaque chanson est de nature subjective et créative. Les différences de style, de ton, de voix et d'interprétation sont inhérentes au processus et ne constituent pas un motif valable de rejet, d'annulation ou de remboursement.",
+    "article3Title": "3. Droits d'utilisation (licence)",
+    "article3Body": "Après la livraison, vous recevez une licence personnelle, non exclusive et non transférable à des fins privées. L'utilisation commerciale n'est pas autorisée sans consentement écrit.",
+    "article4Title": "4. Utilisation commerciale",
+    "article4Body": "Si vous souhaitez utiliser la chanson à des fins commerciales, vous devez nous contacter au préalable pour un accord de licence supplémentaire.",
+    "article5Title": "5. Informations fournies",
+    "article5Body": "Vous êtes entièrement responsable du contenu, de l'exactitude et de la légalité des informations fournies.",
+    "article6Title": "6. Contrôle qualité",
+    "article6Body": "Songfactory effectue un contrôle qualité personnel dans les 48 heures suivant la livraison pour chaque commande. Si la chanson livrée ne répond pas à nos critères de qualité, vous recevrez gratuitement deux alternatives artisanales avec paroles. Cette garantie qualité s'applique uniquement sur la base de critères de qualité objectifs et non sur la base du goût ou des préférences personnels.",
+    "article7Title": "7. Garantie qualité",
+    "article7Body": "Si Songfactory détermine après contrôle qualité que le produit livré ne répond pas à des normes de qualité raisonnables en termes de prononciation, de qualité musicale ou d'exécution technique, Songfactory prendra contact de sa propre initiative avec le client et livrera gratuitement deux nouvelles chansons avec paroles. Le client n'a pas besoin d'entreprendre d'action pour cela.",
+    "article8Title": "8. Livraison et délai de livraison",
+    "article8Body": "Les délais de livraison sont indicatifs. Les retards ne donnent pas droit à l'annulation, à une indemnisation ou à un remboursement.",
+    "article9Title": "9. Annulation et remboursement",
+    "article9Body": "Après le début du processus créatif, l'annulation n'est plus possible. Après la livraison, les remboursements sont exclus.",
+    "article10Title": "10. Pas de conseil professionnel",
+    "article10Body": "Le contenu généré est destiné exclusivement à des fins de divertissement et créatives.",
+    "article11Title": "11. Responsabilité",
+    "article11Body": "Songfactory n'est pas responsable des dommages directs ou indirects. La responsabilité totale est limitée au montant payé.",
+    "article12Title": "12. Livraison technique",
+    "article12Body": "Songfactory n'est pas responsable de la compatibilité, des problèmes de téléchargement ou des services externes.",
+    "article13Title": "13. Utilisation promotionnelle",
+    "article13Body": "Songfactory peut utiliser des parties anonymisées à des fins de portfolio et de marketing, sauf si le client s'y oppose au préalable.",
+    "article14Title": "14. Force majeure",
+    "article14Body": "Songfactory n'est pas responsable des pannes des systèmes d'IA, des problèmes techniques ou des défaillances des fournisseurs externes.",
+    "article15Title": "15. Abus",
+    "article15Body": "En cas d'abus ou de fraude, Songfactory se réserve le droit d'annuler des commandes sans remboursement.",
+    "article16Title": "16. Modifications",
+    "article16Body": "Songfactory se réserve le droit de modifier ces conditions à tout moment. La version la plus récente est toujours disponible sur songfactory.eu/algemene-voorwaarden."
+  },
+  "ctaSection": {
+    "label": "Prêt à commencer ?",
+    "title": "Créez une chanson personnelle que l'on n'oubliera jamais.",
+    "subtitle": "Pour €14,95, vous offrez un cadeau que l'on n'oubliera jamais. Dans leur boîte mail en 10 minutes.",
+    "cta": "Créer votre chanson"
+  },
+  "footer": {
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions générales",
+    "rights": "Tous droits réservés",
+    "giftcard": "Acheter un bon cadeau"
+  },
+  "order": {
+    "stepOf": "Étape {step} sur 5",
+    "steps": {
+      "occasion": "Occasion",
+      "story": "Histoire",
+      "style": "Style musical",
+      "review": "Vérifier",
+      "payment": "Paiement"
+    },
+    "occasions": {
+      "birthday": "Anniversaire",
+      "love": "Amour",
+      "anniversary": "Jubilé",
+      "thanks": "Remerciement",
+      "friendship": "Amitié",
+      "mothersday": "Fête des Mères",
+      "other": "Autre"
+    },
+    "styles": {
+      "pop": "Pop",
+      "ballad": "Ballade",
+      "rap": "Rap",
+      "acoustic": "Acoustique",
+      "edm": "EDM",
+      "rock": "Rock",
+      "punk": "Punk",
+      "jazz": "Jazz",
+      "klassiek": "Classique"
+    },
+    "moods": {
+      "romantic": "Romantique",
+      "happy": "Joyeux / Festif",
+      "emotional": "Émotionnel / Triste",
+      "nostalgic": "Nostalgique",
+      "motivating": "Motivant / Inspirant",
+      "humorous": "Humoristique / Drôle",
+      "intimate": "Intime / Calme",
+      "powerful": "Puissant / Fort",
+      "dreamy": "Rêveur / Magique",
+      "summer": "Estival / Chill",
+      "warm": "Chaleureux / Atmosphérique"
+    },
+    "tempos": {
+      "slow": "Lent",
+      "medium": "Moyen",
+      "fast": "Rapide"
+    },
+    "voices": {
+      "male": "Masculin",
+      "female": "Féminin",
+      "duet": "Duo (homme & femme)"
+    },
+    "songLanguages": {
+      "nl": "Néerlandais",
+      "fr": "Français",
+      "en": "Anglais",
+      "de": "Allemand"
+    },
+    "summary": {
+      "occasion": "Occasion",
+      "recipientName": "Nom du destinataire",
+      "customerName": "Votre nom",
+      "email": "Adresse e-mail",
+      "style": "Style musical",
+      "mood": "Ambiance",
+      "voicePreference": "Voix",
+      "tempo": "Tempo",
+      "language": "Langue"
+    },
+    "step1": {
+      "label": "Étape 1",
+      "title": "Pour quelle occasion ?",
+      "subtitle": "Choisissez le moment pour lequel la chanson sera créée."
+    },
+    "step2": {
+      "label": "Étape 2",
+      "title": "Racontez l'histoire",
+      "subtitle": "Plus il y a de détails, plus la chanson sera personnelle.",
+      "yourName": "Votre nom",
+      "yourNamePlaceholder": "Ex. Emma",
+      "yourEmail": "Votre adresse e-mail",
+      "yourEmailPlaceholder": "votre@email.fr",
+      "recipientName": "Nom du destinataire",
+      "recipientNamePlaceholder": "Pour qui est la chanson ?",
+      "story": "Votre histoire",
+      "storyPlaceholder": "Parlez de souvenirs, de moments spéciaux, de blagues internes ou de ce que vous voulez dans la chanson..."
+    },
+    "step3": {
+      "label": "Étape 3",
+      "title": "Choisissez le style musical",
+      "subtitle": "Indiquez le style et l'ambiance que la chanson doit avoir.",
+      "styleLabel": "Style",
+      "moodLabel": "Ambiance",
+      "voiceLabel": "Voix",
+      "tempoLabel": "Tempo",
+      "songLanguageLabel": "Langue de la chanson"
+    },
+    "step4": {
+      "label": "Étape 4",
+      "title": "Vérifiez votre chanson",
+      "subtitle": "Tout est correct ? Passons au paiement.",
+      "storyLabel": "Histoire",
+      "toPayment": "Aller au paiement"
+    },
+    "step5": {
+      "label": "Étape 5",
+      "title": "Paiement",
+      "subtitle": "Vérifiez votre commande et payez en une fois.",
+      "productName": "Chanson personnalisée sur mesure",
+      "disclaimer": "Paiement unique, sans abonnement",
+      "orderTitle": "Votre commande",
+      "storyLabel": "Histoire",
+      "payButton": "Payer €14,95 et commander ma chanson",
+      "payLoading": "Connexion en cours...",
+      "backToOverview": "Retour à l'aperçu",
+      "item1": "2 versions de votre chanson",
+      "item2": "Paroles complètes",
+      "item3": "MP3 par e-mail",
+      "item4": "Livré en 10 minutes"
+    },
+    "giftcard": {
+      "label": "Vous avez un bon cadeau ?",
+      "optional": "(facultatif)",
+      "confirm": "✓ Code saisi — le paiement sera ignoré si le code est valide",
+      "redeem": "Utiliser le bon cadeau",
+      "redeemLoading": "Utilisation du bon cadeau...",
+      "invalidCode": "Bon cadeau invalide.",
+      "redeemError": "Impossible d'utiliser le bon cadeau. Veuillez réessayer."
+    },
+    "moederdag": {
+      "banner": "🌸 Utilisez le code MOEDERDAG2026 pour 25% de réduction lors du paiement",
+      "copy": "Copier",
+      "copied": "✓ Copié"
+    },
+    "buttons": {
+      "next": "Suivant",
+      "back": "Retour"
+    },
+    "errors": {
+      "payment": "Une erreur s'est produite lors du paiement. Veuillez réessayer.",
+      "connection": "Erreur de connexion. Vérifiez votre connexion internet et réessayez."
+    }
+  },
+  "showcase": {
+    "label": "Écoutez comment ça sonne",
+    "subtitle": "Amour · Ballade · Histoire vraie"
+  },
+  "reviews": {
+    "label": "Ce que disent nos clients",
+    "title": "Voilà ce qu'on ressent en l'écoutant."
+  },
+  "voorbeeldTekst": {
+    "label": "Exemple de paroles",
+    "title": "Voilà à quoi ressemble une chanson pour Emma",
+    "subtitle": "Style : Pop · Occasion : Anniversaire",
+    "verse1": "Couplet 1",
+    "chorus": "Refrain",
+    "verse2": "Couplet 2",
+    "cta": "Créez votre chanson personnelle"
+  },
+  "audioPreview": {
+    "label": "Exemples",
+    "title": "Écoutez un exemple",
+    "subtitle": "Voilà comment sonne une chanson SongFactory",
+    "play": "Lire",
+    "pause": "Pause"
+  },
+  "giftcard": {
+    "badge": "Bon cadeau",
+    "title": "Offrez une chanson en cadeau",
+    "subtitle": "Une chanson unique et personnalisée comme cadeau inoubliable. Le destinataire choisit le style et raconte l'histoire — nous créons la chanson.",
+    "orderButton": "Commander maintenant",
+    "featuresTitle": "Qu'est-ce qui est inclus dans le bon cadeau ?",
+    "feature1": "2 chansons entièrement personnalisées sur mesure",
+    "feature2": "Paroles professionnelles basées sur l'histoire du destinataire",
+    "feature3": "Choix parmi 9 styles musicaux, 10 ambiances et 3 options de voix",
+    "feature4": "Livré en MP3 par e-mail — en 10 minutes",
+    "feature5": "Code d'échange unique, valable pour une commande",
+    "howItWorksLabel": "Comment ça marche ?",
+    "howItWorksBody": "Après le paiement, vous recevez un e-mail avec le code unique. Transmettez ce code au destinataire. Il le saisit à l'étape 1 du formulaire de commande et le paiement est automatiquement ignoré.",
+    "priceLabel": "Prix",
+    "priceNote": "Unique · Sans abonnement",
+    "emailLabel": "Votre adresse e-mail",
+    "emailHint": "(vous recevrez le code ici)",
+    "emailPlaceholder": "votre@email.fr",
+    "errorEmail": "Veuillez saisir une adresse e-mail valide.",
+    "errorGeneral": "Une erreur s'est produite. Veuillez réessayer.",
+    "errorConnection": "Pas de connexion. Veuillez réessayer.",
+    "buttonLoading": "Redirection vers le paiement...",
+    "buttonBuy": "Acheter le bon cadeau",
+    "paymentVia": "Payer avec :"
+  },
+  "giftcardSucces": {
+    "title": "Paiement réussi !",
+    "body": "Votre bon cadeau est en cours de création. Dans quelques minutes, vous recevrez un e-mail avec le code unique et les instructions.",
+    "info": "Transmettez le code au destinataire — il peut l'échanger à l'étape 1 sur songfactory.eu/bestellen",
+    "backHome": "Retour à l'accueil"
+  },
+  "giftcardPromo": {
+    "title": "Vous ne savez pas quoi offrir ?",
+    "subtitle": "Offrez un bon cadeau — le destinataire crée lui-même sa chanson personnelle.",
+    "cta": "Acheter un bon cadeau"
+  },
+  "success": {
+    "title": "Votre chanson est en route ! 🎉",
+    "subtitle": "Nous avons commencé à créer votre chanson personnelle. Vous la recevrez en MP3 dans les 10 minutes.",
+    "tip": "Conseil : Pas d'e-mail ? Vérifiez aussi vos spams.",
+    "whatNow": "Et maintenant ?",
+    "item1": "Vous recevrez une confirmation par e-mail",
+    "item2": "Dans les 10 minutes, vous recevrez votre MP3 personnel",
+    "item3": "Des questions ? Envoyez un e-mail à info@songfactory.eu",
+    "qualityTitle": "Que se passe-t-il maintenant ?",
+    "quality1": "Votre chanson personnelle arrivera par e-mail dans les 10 minutes",
+    "quality2": "Dans les 48 heures, nous vérifions personnellement la qualité",
+    "quality3": "Pas parfait ? Vous recevrez 2 chansons faites à la main + paroles gratuitement",
+    "backHome": "Retour à l'accueil"
+  },
+  "cookie": {
+    "text": "Nous utilisons des cookies pour le bon fonctionnement du site et pour améliorer votre expérience. Lisez notre",
+    "privacy": "Politique de confidentialité",
+    "necessary": "Nécessaires uniquement",
+    "accept": "Accepter"
+  },
+  "ctaAssurance": {
+    "text": "✓ Dans votre boîte mail en 10 minutes · €14,95 · Sans abonnement"
+  }
+}

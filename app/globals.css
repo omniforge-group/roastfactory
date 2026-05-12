@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #0A0A0A;
+  color: #ffffff;
+  font-family: var(--font-inter), Inter, Arial, sans-serif;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0A0A0A; }
+::-webkit-scrollbar-thumb { background: #FF2D2D; border-radius: 3px; }
+
+/* FAQ details open/close */
+details summary::-webkit-details-marker { display: none; }
+
+/* Texture overlay utility */
+.texture-overlay {
+  position: relative;
+}
+.texture-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/images/achtergrondtextuur.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+}
+.texture-overlay > * {
+  position: relative;
+  z-index: 1;
+}

@@ -1,0 +1,389 @@
+{
+  "nav": {
+    "howItWorks": "How it works",
+    "inspiration": "Inspiration",
+    "examples": "Examples",
+    "faq": "FAQ",
+    "cta": "Start your song",
+    "tagline": "Personalised songs on demand",
+    "giftcard": "Gift Card"
+  },
+  "hero": {
+    "badge1": "A unique gift that truly touches",
+    "badge2": "Only €14.95 · In your inbox within 10 minutes",
+    "title": "Give someone a song they will never forget.",
+    "subtitle": "For a birthday, anniversary, or a special moment. You tell the story, SongFactory turns it into a unique song.",
+    "priceNote": "€14.95 · MP3 by email · Within 10 minutes",
+    "cta": "Start your song",
+    "ctaSecondary": "View inspiration",
+    "benefit1": "Fully personalised based on your story",
+    "benefit2": "The gift they'll still be playing years from now",
+    "benefit3": "Ordered in minutes, no hassle",
+    "cardTagline": "Your story in music",
+    "cardForLabel": "Perfect for",
+    "cardForValue": "Birthday, love, anniversary or surprise",
+    "cardFeelLabel": "Feel",
+    "cardFeelValue": "Personal, emotional and original",
+    "cardResultLabel": "Result",
+    "cardResultValue": "A song someone will never forget"
+  },
+  "strip": {
+    "item1Title": "Fully personalised",
+    "item1Desc": "Your input, memories and atmosphere form the basis of the song.",
+    "item2Title": "A gift with emotion",
+    "item2Desc": "Something that touches someone in a way flowers never could.",
+    "item3Title": "Simple and fast",
+    "item3Desc": "A clear flow without hassle, making ordering effortless."
+  },
+  "occasions": {
+    "label": "Inspiration",
+    "title": "A custom song for every special moment.",
+    "subtitle": "Every special moment deserves a unique song. Choose the occasion that suits you.",
+    "cta": "Create this song",
+    "card1Title": "For your partner",
+    "card1Desc": "A personal song for love, appreciation or a surprise.",
+    "card2Title": "Birthday",
+    "card2Desc": "Turn a birthday into a gift someone will truly remember.",
+    "card3Title": "For your parents",
+    "card3Desc": "Gratitude, memories and emotion in a unique track.",
+    "card4Title": "Anniversary",
+    "card4Desc": "Celebrate a special milestone with a custom song.",
+    "card5Title": "Farewell or thank-you",
+    "card5Desc": "Turn words into something that truly hits home.",
+    "card6Title": "Fun and original",
+    "card6Desc": "A lighthearted, surprising song with inside jokes and memories."
+  },
+  "howItWorks": {
+    "label": "How it works",
+    "title": "A unique personal song in 3 simple steps.",
+    "subtitle": "No complicated process. Just clear, personal and focused on a great experience.",
+    "step1Title": "Tell your story",
+    "step1Desc": "Fill in who the song is for, what the memories are and what atmosphere fits.",
+    "step2Title": "Choose style and feel",
+    "step2Desc": "Romantic, emotional, cheerful or funny — you decide the direction.",
+    "step3Title": "Receive your song",
+    "step3Desc": "We turn it into a song that feels like you wrote it yourself."
+  },
+  "gift": {
+    "label": "What you give",
+    "title": "Not a gift from a shop. One that truly touches.",
+    "subtitle": "You give someone a song that is only about them. Their name, their story, their memories. Something they can listen to over and over again.",
+    "point1": "Made based on your personal story",
+    "point2": "Unique — no two songs are the same",
+    "point3": "Delivered within 10 minutes as an MP3"
+  },
+  "pricing": {
+    "label": "Price",
+    "included": "Everything included",
+    "item1": "2 versions of your song",
+    "item2": "Full lyrics",
+    "item3": "MP3 by email",
+    "item4": "Delivered within 10 minutes",
+    "item5": "Fully personalised",
+    "cta": "Start your song",
+    "disclaimer": "One-time payment, no subscription"
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Frequently asked questions",
+    "q1": "What does a personal song cost?",
+    "a1": "A fully personalised song costs €14.95. You pay once and receive your song within 10 minutes.",
+    "q2": "How quickly will I receive my song?",
+    "a2": "After your order you'll receive an MP3 by email within 10 minutes. Ready to give as a gift or keep.",
+    "q3": "How personal is the song?",
+    "a3": "The song is built entirely from your story, names, memories and the atmosphere you specify.",
+    "q4": "For which occasions does this work?",
+    "a4": "Birthdays, love, anniversaries, thank-yous, farewells or just as an original surprise.",
+    "q5": "What if I'm not satisfied?",
+    "a5": "We do everything we can to deliver a great result. See our terms and conditions for more information.",
+    "q6": "Which music styles can I choose from?",
+    "a6": "Pop, ballad, acoustic, jazz and fun — you choose the direction.",
+    "q7": "Can I give a song as a gift to someone else?",
+    "a7": "Yes. You fill in the story, we create the song, you give the gift.",
+    "q8": "What happens to my data?",
+    "a8": "Used only to create your song, not stored or shared afterwards."
+  },
+  "qualityPromise": {
+    "label": "Quality guarantee",
+    "title": "Our quality promise",
+    "description": "Every order is personally reviewed by us within 48 hours. If the song doesn't meet our quality standards, you'll automatically receive two handcrafted songs including lyrics — free of charge and without you having to do anything.",
+    "icon1Title": "Personal quality review",
+    "icon1Desc": "Every song is listened to and assessed by our team",
+    "icon2Title": "Within 48 hours",
+    "icon2Desc": "You'll know quickly whether everything is perfect",
+    "icon3Title": "Two new songs + lyrics",
+    "icon3Desc": "Not satisfied? You'll receive a handcrafted alternative"
+  },
+  "terms": {
+    "article1Title": "1. AI-generated content",
+    "article1Body": "Lyrics, music and any additional content are generated entirely or partially using artificial intelligence (AI), based on the information you provide. Songfactory provides a best-effort obligation, not a result obligation.",
+    "article2Title": "2. Personal and creative nature",
+    "article2Body": "Every song is subjective and creative in nature. Differences in style, tone, voice and interpretation are inherent to the process and do not constitute a valid reason for rejection, cancellation or refund.",
+    "article3Title": "3. Usage rights (licence)",
+    "article3Body": "Upon delivery you receive a personal, non-exclusive and non-transferable licence for private purposes. Commercial use is not permitted without written consent.",
+    "article4Title": "4. Commercial use",
+    "article4Body": "If you wish to use the song commercially, you must contact us in advance for an additional licence agreement.",
+    "article5Title": "5. Provided information",
+    "article5Body": "You are fully responsible for the content, accuracy and lawfulness of the information provided.",
+    "article6Title": "6. Quality control",
+    "article6Body": "Songfactory carries out a personal quality check within 48 hours of delivery for every order. If the delivered song does not meet our quality standards, you will receive two handcrafted alternatives including lyrics free of charge. This quality guarantee applies solely on the basis of objective quality criteria and not on the basis of personal taste or preference.",
+    "article7Title": "7. Quality guarantee",
+    "article7Body": "If Songfactory determines after quality control that the delivered product does not meet reasonable quality standards in terms of pronunciation, musical quality or technical execution, Songfactory will proactively contact the customer and deliver two new songs including lyrics free of charge. The customer does not need to take any action for this.",
+    "article8Title": "8. Delivery and delivery time",
+    "article8Body": "Delivery times are indicative. Delays do not give the right to cancellation, compensation or refund.",
+    "article9Title": "9. Cancellation and refund",
+    "article9Body": "After the creative process has started, cancellation is no longer possible. After delivery, refunds are excluded.",
+    "article10Title": "10. No professional advice",
+    "article10Body": "The generated content is intended exclusively for entertainment and creative purposes.",
+    "article11Title": "11. Liability",
+    "article11Body": "Songfactory is not liable for direct or indirect damages. Total liability is limited to the amount paid.",
+    "article12Title": "12. Technical delivery",
+    "article12Body": "Songfactory is not responsible for compatibility, download issues or external services.",
+    "article13Title": "13. Use for promotion",
+    "article13Body": "Songfactory may use anonymised parts for portfolio and marketing purposes, unless the customer objects in advance.",
+    "article14Title": "14. Force majeure",
+    "article14Body": "Songfactory is not liable for failures in AI systems, technical problems or outages from external suppliers.",
+    "article15Title": "15. Misuse",
+    "article15Body": "In cases of misuse or fraud, Songfactory reserves the right to cancel orders without refund.",
+    "article16Title": "16. Amendments",
+    "article16Body": "Songfactory reserves the right to amend these terms at any time. The most current version is always available at songfactory.eu/algemene-voorwaarden."
+  },
+  "ctaSection": {
+    "label": "Ready to start?",
+    "title": "Create a personal song someone will never forget.",
+    "subtitle": "For €14.95 you give someone a gift they will never forget. In their inbox within 10 minutes.",
+    "cta": "Start your song"
+  },
+  "footer": {
+    "privacy": "Privacy policy",
+    "terms": "Terms and conditions",
+    "rights": "All rights reserved",
+    "giftcard": "Buy a gift card"
+  },
+  "order": {
+    "stepOf": "Step {step} of 5",
+    "steps": {
+      "occasion": "Occasion",
+      "story": "Story",
+      "style": "Music style",
+      "review": "Review",
+      "payment": "Payment"
+    },
+    "occasions": {
+      "birthday": "Birthday",
+      "love": "Love",
+      "anniversary": "Anniversary",
+      "thanks": "Thank-you",
+      "friendship": "Friendship",
+      "mothersday": "Mother's Day",
+      "other": "Other"
+    },
+    "styles": {
+      "pop": "Pop",
+      "ballad": "Ballad",
+      "rap": "Rap",
+      "acoustic": "Acoustic",
+      "edm": "EDM",
+      "rock": "Rock",
+      "punk": "Punk",
+      "jazz": "Jazz",
+      "klassiek": "Classical"
+    },
+    "moods": {
+      "romantic": "Romantic",
+      "happy": "Happy / Festive",
+      "emotional": "Emotional / Sad",
+      "nostalgic": "Nostalgic",
+      "motivating": "Motivating / Inspiring",
+      "humorous": "Humorous / Funny",
+      "intimate": "Intimate / Calm",
+      "powerful": "Powerful / Bold",
+      "dreamy": "Dreamy / Magical",
+      "summer": "Summery / Chill",
+      "warm": "Warm / Atmospheric"
+    },
+    "tempos": {
+      "slow": "Slow",
+      "medium": "Medium",
+      "fast": "Fast"
+    },
+    "voices": {
+      "male": "Male",
+      "female": "Female",
+      "duet": "Duet (male & female)"
+    },
+    "songLanguages": {
+      "nl": "Dutch",
+      "fr": "French",
+      "en": "English",
+      "de": "German"
+    },
+    "summary": {
+      "occasion": "Occasion",
+      "recipientName": "Recipient name",
+      "customerName": "Your name",
+      "email": "Email address",
+      "style": "Music style",
+      "mood": "Mood",
+      "voicePreference": "Voice",
+      "tempo": "Tempo",
+      "language": "Language"
+    },
+    "step1": {
+      "label": "Step 1",
+      "title": "What is the occasion?",
+      "subtitle": "Choose the moment for which the song will be made."
+    },
+    "step2": {
+      "label": "Step 2",
+      "title": "Tell the story",
+      "subtitle": "The more details, the more personal the song.",
+      "yourName": "Your name",
+      "yourNamePlaceholder": "E.g. Emma",
+      "yourEmail": "Your email address",
+      "yourEmailPlaceholder": "your@email.com",
+      "recipientName": "Recipient name",
+      "recipientNamePlaceholder": "Who is the song for?",
+      "story": "Your story",
+      "storyPlaceholder": "Tell us about memories, special moments, inside jokes or anything you want in the song..."
+    },
+    "step3": {
+      "label": "Step 3",
+      "title": "Choose music style",
+      "subtitle": "Indicate what style and mood the song should have.",
+      "styleLabel": "Style",
+      "moodLabel": "Mood",
+      "voiceLabel": "Voice",
+      "tempoLabel": "Tempo",
+      "songLanguageLabel": "Language of the song"
+    },
+    "step4": {
+      "label": "Step 4",
+      "title": "Review your song",
+      "subtitle": "Does everything look right? Then we'll go to payment.",
+      "storyLabel": "Story",
+      "toPayment": "Go to payment"
+    },
+    "step5": {
+      "label": "Step 5",
+      "title": "Payment",
+      "subtitle": "Review your order and pay once.",
+      "productName": "Personal custom song",
+      "disclaimer": "One-time payment, no subscription",
+      "orderTitle": "Your order",
+      "storyLabel": "Story",
+      "payButton": "Pay €14.95 and order my song",
+      "payLoading": "Connecting...",
+      "backToOverview": "Back to overview",
+      "item1": "2 versions of your song",
+      "item2": "Full lyrics",
+      "item3": "MP3 by email",
+      "item4": "Delivered within 10 minutes"
+    },
+    "giftcard": {
+      "label": "Have a gift card?",
+      "optional": "(optional)",
+      "confirm": "✓ Code entered — payment will be skipped if the code is valid",
+      "redeem": "Redeem gift card",
+      "redeemLoading": "Redeeming gift card...",
+      "invalidCode": "Invalid gift card.",
+      "redeemError": "Could not redeem the gift card. Please try again."
+    },
+    "moederdag": {
+      "banner": "🌸 Use code MOEDERDAG2026 for 25% off at checkout",
+      "copy": "Copy",
+      "copied": "✓ Copied"
+    },
+    "buttons": {
+      "next": "Next",
+      "back": "Back"
+    },
+    "errors": {
+      "payment": "Something went wrong with payment. Please try again.",
+      "connection": "Connection error. Check your internet and try again."
+    }
+  },
+  "showcase": {
+    "label": "Listen to how this sounds",
+    "subtitle": "Love · Ballad · Real story"
+  },
+  "reviews": {
+    "label": "What customers say",
+    "title": "This is what it feels like when you hear it."
+  },
+  "voorbeeldTekst": {
+    "label": "Example song lyrics",
+    "title": "This is what a song for Emma sounds like",
+    "subtitle": "Style: Pop · Occasion: Birthday",
+    "verse1": "Verse 1",
+    "chorus": "Chorus",
+    "verse2": "Verse 2",
+    "cta": "Create your personal song"
+  },
+  "audioPreview": {
+    "label": "Examples",
+    "title": "Listen to an example",
+    "subtitle": "This is what a SongFactory song sounds like",
+    "play": "Play",
+    "pause": "Pause"
+  },
+  "giftcard": {
+    "badge": "Gift Card",
+    "title": "Give a song as a gift",
+    "subtitle": "A unique, personalised song as an unforgettable gift. The recipient chooses the style and tells the story — we create the song.",
+    "orderButton": "Order now",
+    "featuresTitle": "What's included in the gift card?",
+    "feature1": "2 fully personalised custom songs",
+    "feature2": "Professional lyrics based on the recipient's story",
+    "feature3": "Choice of 9 music styles, 10 moods and 3 voice options",
+    "feature4": "Delivered as MP3 by email — within 10 minutes",
+    "feature5": "Unique redemption code, valid for one order",
+    "howItWorksLabel": "How does it work?",
+    "howItWorksBody": "After payment you receive an email with the unique code. Forward that code to the recipient. They enter it at step 1 of the order form and the payment is automatically skipped.",
+    "priceLabel": "Price",
+    "priceNote": "One-time · No subscription",
+    "emailLabel": "Your email address",
+    "emailHint": "(we'll send the code here)",
+    "emailPlaceholder": "your@email.com",
+    "errorEmail": "Please enter a valid email address.",
+    "errorGeneral": "Something went wrong. Please try again.",
+    "errorConnection": "No connection. Please try again.",
+    "buttonLoading": "Redirecting to payment...",
+    "buttonBuy": "Buy gift card",
+    "paymentVia": "Pay with:"
+  },
+  "giftcardSucces": {
+    "title": "Payment successful!",
+    "body": "Your gift card is being created. Within a few minutes you'll receive an email with the unique code and instructions.",
+    "info": "Forward the code to the recipient — they can redeem it at step 1 on songfactory.eu/bestellen",
+    "backHome": "Back to homepage"
+  },
+  "giftcardPromo": {
+    "title": "Not sure what to give?",
+    "subtitle": "Give a gift card — the recipient creates their own personal song.",
+    "cta": "Buy a gift card"
+  },
+  "success": {
+    "title": "Your song is on its way! 🎉",
+    "subtitle": "We've started creating your personal song. You'll receive it as an MP3 within 10 minutes.",
+    "tip": "Tip: No email? Check your spam or junk folder too.",
+    "whatNow": "What's next?",
+    "item1": "You'll receive a confirmation by email",
+    "item2": "Within 10 minutes you'll receive your personal MP3",
+    "item3": "Questions? Email info@songfactory.eu",
+    "qualityTitle": "What happens now?",
+    "quality1": "Your personal song will arrive by email within 10 minutes",
+    "quality2": "Within 48 hours we personally review the quality",
+    "quality3": "Not perfect? You'll receive 2 free handcrafted songs + lyrics",
+    "backHome": "Back to homepage"
+  },
+  "cookie": {
+    "text": "We use cookies for the proper functioning of the website and to improve your experience. Read more in our",
+    "privacy": "Privacy policy",
+    "necessary": "Necessary only",
+    "accept": "Accept"
+  },
+  "ctaAssurance": {
+    "text": "✓ In your inbox within 10 minutes · €14.95 · No subscription"
+  }
+}

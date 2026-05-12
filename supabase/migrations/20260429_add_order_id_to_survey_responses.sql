@@ -1,0 +1,2 @@
+ALTER TABLE survey_responses
+  ADD COLUMN IF NOT EXISTS order_id UUID REFERENCES orders(id) ON DELETE SET NULL;

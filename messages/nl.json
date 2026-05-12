@@ -1,0 +1,389 @@
+{
+  "nav": {
+    "howItWorks": "Hoe het werkt",
+    "inspiration": "Roast-ideeën",
+    "examples": "Voorbeelden",
+    "faq": "FAQ",
+    "cta": "Start jouw roast",
+    "tagline": "Gepersonaliseerde roasts op maat",
+    "giftcard": "Cadeaubon"
+  },
+  "hero": {
+    "badge1": "Een roast die ze nooit vergeten",
+    "badge2": "Slechts €14,95 · Binnen 24 uur in je inbox",
+    "title": "Roast iemand op een manier die ze nooit vergeten.",
+    "subtitle": "Voor verjaardag, afscheid, jubileum of gewoon omdat het kan. Jij levert de munitie, RoastFactory maakt er een geniale roast van.",
+    "priceNote": "€14,95 · MP3 per e-mail · Binnen 24 uur",
+    "cta": "Start jouw roast",
+    "ctaSecondary": "Bekijk voorbeelden",
+    "benefit1": "Volledig persoonlijk op basis van jouw verhaal",
+    "benefit2": "De roast die hij of zij nooit vergeet",
+    "benefit3": "Snel besteld, duidelijk en zonder gedoe",
+    "cardTagline": "Jouw munitie, onze roast",
+    "cardForLabel": "Perfect voor",
+    "cardForValue": "Verjaardag, afscheid, jubileum of feest",
+    "cardFeelLabel": "Gevoel",
+    "cardFeelValue": "Grappig, scherp en heerlijk awkward",
+    "cardResultLabel": "Resultaat",
+    "cardResultValue": "Een roast die lang nakomt"
+  },
+  "strip": {
+    "item1Title": "Volledig persoonlijk",
+    "item1Desc": "Jouw input, herinneringen en inside jokes vormen de basis van de roast.",
+    "item2Title": "Een cadeau met lef",
+    "item2Desc": "Iets wat iemand raakt op een manier die bloemen nooit kunnen.",
+    "item3Title": "Simpel en snel geregeld",
+    "item3Desc": "Een duidelijke flow zonder gedoe, zodat bestellen moeiteloos voelt."
+  },
+  "occasions": {
+    "label": "Roast-ideeën",
+    "title": "Voor elk grappig moment een roast op maat.",
+    "subtitle": "Elk bijzonder moment verdient een gepersonaliseerde roast. Kies de gelegenheid die bij jou past.",
+    "cta": "Maak deze roast",
+    "card1Title": "Verjaardag",
+    "card1Desc": "Maak van een verjaardag een moment dat iedereen bijblijft.",
+    "card2Title": "Afscheid of pensioen",
+    "card2Desc": "Stuur ze weg met een gedenkwaardige roast vol inside jokes.",
+    "card3Title": "Jubileum",
+    "card3Desc": "Vier een mijlpaal met humor en een vleugje schaamte.",
+    "card4Title": "Personeelsfeest",
+    "card4Desc": "De collega die het verdient om even in de spotlight te staan.",
+    "card5Title": "Vrijgezellenfeest",
+    "card5Desc": "De perfecte roast voor de bruidegom of bruid.",
+    "card6Title": "Gewoon omdat het kan",
+    "card6Desc": "Iedereen verdient het om een keer stevig geroosted te worden."
+  },
+  "howItWorks": {
+    "label": "Hoe het werkt",
+    "title": "In 3 stappen naar de perfecte roast.",
+    "subtitle": "Geen ingewikkelde flow. Gewoon grappig, persoonlijk en raak.",
+    "step1Title": "Vertel ons over je doelwit",
+    "step1Desc": "Vul in wie er geroosted wordt, wat de inside jokes zijn en welke grappige momenten er zijn.",
+    "step2Title": "Kies de stijl",
+    "step2Desc": "Mild of scherp, zakelijk of hilarisch — jij bepaalt de intensiteit van de roast.",
+    "step3Title": "Ontvang jouw roast",
+    "step3Desc": "Wij maken een roast die klinkt alsof je hem zelf hebt geschreven — maar dan beter."
+  },
+  "gift": {
+    "label": "Wat je geeft",
+    "title": "Geen cadeau uit een winkel. Eén dat iemand nooit vergeet.",
+    "subtitle": "Je geeft iemand een roast die alleen over hén gaat. Hun naam, hun verhaal, hun pijnpunten. Iets wat ze keer op keer opnieuw kunnen beluisteren — of juist niet.",
+    "point1": "Gemaakt op basis van jouw persoonlijke verhaal",
+    "point2": "Uniek — geen twee roasts zijn hetzelfde",
+    "point3": "Binnen 24 uur als MP3 in je inbox"
+  },
+  "pricing": {
+    "label": "Prijs",
+    "included": "Alles inbegrepen",
+    "item1": "2 versies van jouw roast",
+    "item2": "Volledige roasttekst",
+    "item3": "MP3 per e-mail",
+    "item4": "Binnen 24 uur geleverd",
+    "item5": "Volledig persoonlijk",
+    "cta": "Start jouw roast",
+    "disclaimer": "Eenmalige betaling, geen abonnement"
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Veelgestelde vragen",
+    "q1": "Wat kost een persoonlijke roast?",
+    "a1": "Een volledig gepersonaliseerde roast kost €14,95. Je betaalt eenmalig en ontvangt je roast binnen 24 uur.",
+    "q2": "Hoe snel ontvang ik mijn roast?",
+    "a2": "Na je bestelling ontvang je binnen 24 uur een MP3 per e-mail. Klaar om te laten horen.",
+    "q3": "Hoe persoonlijk is de roast?",
+    "a3": "De roast wordt volledig opgebouwd vanuit jouw verhaal, namen, inside jokes en de toon die jij aangeeft.",
+    "q4": "Voor welke momenten werkt dit?",
+    "a4": "Verjaardagen, afscheid, jubilea, personeelsfeesten, vrijgezellenfeesten of gewoon voor de lol.",
+    "q5": "Wat als ik niet tevreden ben?",
+    "a5": "Elke roast wordt persoonlijk gecontroleerd door ons team. Voldoet het resultaat niet? Dan ontvang je automatisch 2 nieuwe versies — gratis en zonder dat je iets hoeft te doen.",
+    "q6": "Hoe scherp mag de roast zijn?",
+    "a6": "Mild, scherp of hilarisch — jij kiest de intensiteit zelf bij het bestellen.",
+    "q7": "Kan ik een roast cadeau geven aan iemand anders?",
+    "a7": "Ja. Jij levert de info over het doelwit, wij maken de roast, jij geeft hem cadeau.",
+    "q8": "Wat gebeurt er met mijn gegevens?",
+    "a8": "Alleen gebruikt om jouw roast te maken, daarna niet opgeslagen of gedeeld."
+  },
+  "qualityPromise": {
+    "label": "Kwaliteitsgarantie",
+    "title": "Onze kwaliteitsbelofte",
+    "description": "Elke bestelling wordt persoonlijk door ons gecontroleerd. Voldoet de roast niet aan onze kwaliteitseisen? Dan ontvang je automatisch twee nieuwe versies — gratis en zonder dat je er iets voor hoeft te doen.",
+    "icon1Title": "Persoonlijke kwaliteitscontrole",
+    "icon1Desc": "Elke roast wordt beluisterd en beoordeeld door ons team",
+    "icon2Title": "Binnen 24 uur",
+    "icon2Desc": "Je roast staat binnen 24 uur in je inbox, klaar om te gebruiken",
+    "icon3Title": "Twee nieuwe versies",
+    "icon3Desc": "Niet goed? Dan ontvang je automatisch twee nieuwe versies — gratis"
+  },
+  "terms": {
+    "article1Title": "1. AI-gegenereerde content",
+    "article1Body": "De liedteksten, muziek en eventuele aanvullende content worden geheel of gedeeltelijk gegenereerd met behulp van kunstmatige intelligentie (AI), op basis van de door jou aangeleverde informatie. RoastFactory levert een inspanningsverplichting en geen resultaatsverplichting.",
+    "article2Title": "2. Persoonlijk en creatief karakter",
+    "article2Body": "Elk lied is subjectief en creatief van aard. Verschillen in stijl, toon, stem en interpretatie zijn inherent aan het proces en vormen geen geldige reden voor afkeuring, annulering of terugbetaling.",
+    "article3Title": "3. Gebruiksrechten (licentie)",
+    "article3Body": "Na levering ontvang je een persoonlijke, niet-exclusieve en niet-overdraagbare licentie voor privédoeleinden. Commercieel gebruik is niet toegestaan zonder schriftelijke toestemming.",
+    "article4Title": "4. Commercieel gebruik",
+    "article4Body": "Indien je het lied commercieel wilt gebruiken, dien je vooraf contact op te nemen voor een aanvullende licentieovereenkomst.",
+    "article5Title": "5. Aangeleverde gegevens",
+    "article5Body": "Je bent volledig verantwoordelijk voor de inhoud, juistheid en rechtmatigheid van de aangeleverde informatie.",
+    "article6Title": "6. Kwaliteitscontrole",
+    "article6Body": "RoastFactory voert na elke bestelling een persoonlijke kwaliteitscontrole uit binnen 48 uur na levering. Voldoet het geleverde lied niet aan onze kwaliteitseisen, dan ontvang je kosteloos twee handgemaakte alternatieven inclusief liedteksten. Deze kwaliteitsgarantie geldt uitsluitend op basis van objectieve kwaliteitscriteria en niet op basis van persoonlijke smaak of voorkeur.",
+    "article7Title": "7. Kwaliteitsgarantie",
+    "article7Body": "Indien RoastFactory na kwaliteitscontrole vaststelt dat het geleverde product niet voldoet aan redelijke kwaliteitsnormen op het gebied van uitspraak, muzikale kwaliteit of technische uitvoering, zal RoastFactory uit eigen beweging contact opnemen met de klant en kosteloos twee nieuwe liedjes inclusief liedteksten leveren. De klant hoeft hiervoor geen actie te ondernemen.",
+    "article8Title": "8. Levering en levertijd",
+    "article8Body": "Levertijden zijn indicatief. Vertragingen geven geen recht op annulering, schadevergoeding of terugbetaling.",
+    "article9Title": "9. Annulering en restitutie",
+    "article9Body": "Na start van het creatieproces is annulering niet meer mogelijk. Na levering is restitutie uitgesloten.",
+    "article10Title": "10. Geen professioneel advies",
+    "article10Body": "De gegenereerde content is uitsluitend bedoeld voor entertainment en creatieve doeleinden.",
+    "article11Title": "11. Aansprakelijkheid",
+    "article11Body": "RoastFactory is niet aansprakelijk voor directe of indirecte schade. Totale aansprakelijkheid is beperkt tot het betaalde bedrag.",
+    "article12Title": "12. Technische levering",
+    "article12Body": "RoastFactory is niet verantwoordelijk voor compatibiliteit, downloadproblemen of externe diensten.",
+    "article13Title": "13. Gebruik voor promotie",
+    "article13Body": "RoastFactory mag geanonimiseerde delen gebruiken voor portfolio en marketing, tenzij de klant vooraf bezwaar maakt.",
+    "article14Title": "14. Overmacht",
+    "article14Body": "RoastFactory is niet aansprakelijk bij storingen in AI-systemen, technische problemen of uitval van externe leveranciers.",
+    "article15Title": "15. Misbruik",
+    "article15Body": "Bij misbruik of fraude behoudt RoastFactory zich het recht voor bestellingen te annuleren zonder restitutie.",
+    "article16Title": "16. Wijzigingen",
+    "article16Body": "RoastFactory behoudt zich het recht voor deze voorwaarden op elk moment te wijzigen. De meest actuele versie is altijd te vinden op roastfactory.eu/algemene-voorwaarden."
+  },
+  "ctaSection": {
+    "label": "Klaar om te starten?",
+    "title": "Maak een roast die iemand nooit vergeet.",
+    "subtitle": "Voor €14,95 geef je iemand een cadeau dat ze nooit vergeten. Binnen 24 uur in hun inbox.",
+    "cta": "Start jouw roast"
+  },
+  "footer": {
+    "privacy": "Privacyverklaring",
+    "terms": "Algemene Voorwaarden",
+    "rights": "Alle rechten voorbehouden",
+    "giftcard": "Cadeaubon kopen"
+  },
+  "order": {
+    "stepOf": "Stap {step} van 5",
+    "steps": {
+      "occasion": "Gelegenheid",
+      "story": "Verhaal",
+      "style": "Muziekstijl",
+      "review": "Controleer",
+      "payment": "Betaling"
+    },
+    "occasions": {
+      "birthday": "Verjaardag",
+      "love": "Liefde",
+      "anniversary": "Jubileum",
+      "thanks": "Bedankje",
+      "friendship": "Vriendschap",
+      "mothersday": "Moederdag",
+      "other": "Anders"
+    },
+    "styles": {
+      "pop": "Pop",
+      "ballad": "Ballad",
+      "rap": "Rap",
+      "acoustic": "Akoestisch",
+      "edm": "EDM",
+      "rock": "Rock",
+      "punk": "Punk",
+      "jazz": "Jazz",
+      "klassiek": "Klassiek"
+    },
+    "moods": {
+      "romantic": "Romantisch",
+      "happy": "Vrolijk / Feestelijk",
+      "emotional": "Emotioneel / Verdrietig",
+      "nostalgic": "Nostalgisch",
+      "motivating": "Motiverend / Inspirerend",
+      "humorous": "Humoristisch / Grappig",
+      "intimate": "Intiem / Rustig",
+      "powerful": "Krachtig / Stoer",
+      "dreamy": "Dromerig / Magisch",
+      "summer": "Zomers / Chill",
+      "warm": "Warm / Sfeervol"
+    },
+    "tempos": {
+      "slow": "Langzaam",
+      "medium": "Gemiddeld",
+      "fast": "Snel"
+    },
+    "voices": {
+      "male": "Mannelijk",
+      "female": "Vrouwelijk",
+      "duet": "Duet (man & vrouw)"
+    },
+    "songLanguages": {
+      "nl": "Nederlands",
+      "fr": "Frans",
+      "en": "Engels",
+      "de": "Duits"
+    },
+    "summary": {
+      "occasion": "Gelegenheid",
+      "recipientName": "Naam ontvanger",
+      "customerName": "Jouw naam",
+      "email": "E-mailadres",
+      "style": "Muziekstijl",
+      "mood": "Sfeer",
+      "voicePreference": "Stem",
+      "tempo": "Tempo",
+      "language": "Taal"
+    },
+    "step1": {
+      "label": "Stap 1",
+      "title": "Voor welke gelegenheid?",
+      "subtitle": "Kies het moment waarvoor het lied wordt gemaakt."
+    },
+    "step2": {
+      "label": "Stap 2",
+      "title": "Vertel het verhaal",
+      "subtitle": "Hoe meer details, hoe persoonlijker het lied.",
+      "yourName": "Jouw naam",
+      "yourNamePlaceholder": "Bijv. Emma",
+      "yourEmail": "Jouw e-mailadres",
+      "yourEmailPlaceholder": "jouw@email.nl",
+      "recipientName": "Naam ontvanger",
+      "recipientNamePlaceholder": "Voor wie is het lied?",
+      "story": "Jullie verhaal",
+      "storyPlaceholder": "Vertel over herinneringen, bijzondere momenten, inside jokes of wat je kwijt wilt in het lied..."
+    },
+    "step3": {
+      "label": "Stap 3",
+      "title": "Kies muziekstijl",
+      "subtitle": "Geef aan welke stijl en sfeer het lied moet hebben.",
+      "styleLabel": "Stijl",
+      "moodLabel": "Sfeer",
+      "voiceLabel": "Stem",
+      "tempoLabel": "Tempo",
+      "songLanguageLabel": "Taal van het lied"
+    },
+    "step4": {
+      "label": "Stap 4",
+      "title": "Controleer jouw song",
+      "subtitle": "Klopt alles? Dan gaan we naar betaling.",
+      "storyLabel": "Verhaal",
+      "toPayment": "Ga naar betaling"
+    },
+    "step5": {
+      "label": "Stap 5",
+      "title": "Betaling",
+      "subtitle": "Controleer jouw bestelling en reken eenmalig af.",
+      "productName": "Persoonlijke song op maat",
+      "disclaimer": "Eenmalige betaling, geen abonnement",
+      "orderTitle": "Jouw bestelling",
+      "storyLabel": "Verhaal",
+      "payButton": "Betaal €14,95 en bestel mijn song",
+      "payLoading": "Bezig met verbinden...",
+      "backToOverview": "Terug naar overzicht",
+      "item1": "2 versies van jouw lied",
+      "item2": "Volledige liedtekst (lyrics)",
+      "item3": "MP3 per e-mail",
+      "item4": "Binnen 24 uur geleverd"
+    },
+    "giftcard": {
+      "label": "Heb je een cadeaubon?",
+      "optional": "(optioneel)",
+      "confirm": "✓ Code ingevuld — de betaalstap wordt overgeslagen als de code geldig is",
+      "redeem": "Cadeaubon inwisselen",
+      "redeemLoading": "Cadeaubon inwisselen...",
+      "invalidCode": "Ongeldige cadeaubon.",
+      "redeemError": "Kon de cadeaubon niet inwisselen. Probeer opnieuw."
+    },
+    "moederdag": {
+      "banner": "🌸 Gebruik code MOEDERDAG2026 voor 25% korting bij het afrekenen",
+      "copy": "Kopieer",
+      "copied": "✓ Gekopieerd"
+    },
+    "buttons": {
+      "next": "Volgende",
+      "back": "Terug"
+    },
+    "errors": {
+      "payment": "Er ging iets mis met betalen. Probeer het opnieuw.",
+      "connection": "Verbindingsfout. Controleer je internet en probeer het opnieuw."
+    }
+  },
+  "showcase": {
+    "label": "Luister hoe dit klinkt",
+    "subtitle": "Verjaardag · Grappig · Echt verhaal"
+  },
+  "reviews": {
+    "label": "Wat klanten zeggen",
+    "title": "Zo voelt het als je het hoort."
+  },
+  "voorbeeldTekst": {
+    "label": "Voorbeeld roasttekst",
+    "title": "Zo klinkt een roast voor Mark",
+    "subtitle": "Stijl: Scherp · Gelegenheid: Verjaardag",
+    "verse1": "Intro",
+    "chorus": "De roast",
+    "verse2": "Outro",
+    "cta": "Maak jouw persoonlijke roast"
+  },
+  "audioPreview": {
+    "label": "Voorbeelden",
+    "title": "Beluister een voorbeeld",
+    "subtitle": "Zo klinkt een RoastFactory roast",
+    "play": "Afspelen",
+    "pause": "Pauzeren"
+  },
+  "giftcard": {
+    "badge": "Cadeaubon",
+    "title": "Geef een lied cadeau",
+    "subtitle": "Een uniek, gepersonaliseerd lied als onvergetelijk cadeau. De ontvanger kiest zelf de stijl en vertelt het verhaal — wij maken het lied.",
+    "orderButton": "Bestel nu",
+    "featuresTitle": "Wat zit er in de cadeaubon?",
+    "feature1": "2 volledig gepersonaliseerde songs op maat",
+    "feature2": "Professionele lyrics gebaseerd op het verhaal van de ontvanger",
+    "feature3": "Keuze uit 9 muziekstijlen, 10 sferen en 3 stemopties",
+    "feature4": "Geleverd als MP3 via e-mail — binnen 24 uur",
+    "feature5": "Unieke inwisselcode, geldig voor één bestelling",
+    "howItWorksLabel": "Hoe werkt het?",
+    "howItWorksBody": "Na betaling ontvang jij een e-mail met de unieke code. Stuur die code door naar de ontvanger. Die vult hem in bij stap 1 van het bestelformulier en de betaling wordt automatisch overgeslagen.",
+    "priceLabel": "Prijs",
+    "priceNote": "Eenmalig · Geen abonnement",
+    "emailLabel": "Jouw e-mailadres",
+    "emailHint": "(hierop ontvang je de code)",
+    "emailPlaceholder": "jouw@email.nl",
+    "errorEmail": "Vul een geldig e-mailadres in.",
+    "errorGeneral": "Er is iets misgegaan. Probeer het opnieuw.",
+    "errorConnection": "Geen verbinding. Probeer het opnieuw.",
+    "buttonLoading": "Doorsturen naar betaling...",
+    "buttonBuy": "Cadeaubon kopen",
+    "paymentVia": "Betalen via:"
+  },
+  "giftcardSucces": {
+    "title": "Betaling geslaagd!",
+    "body": "Je cadeaubon wordt nu aangemaakt. Binnen enkele minuten ontvang je een e-mail met de unieke code en instructies.",
+    "info": "Stuur de code door naar de ontvanger — die kan hem inwisselen bij stap 1 op roastfactory.eu/bestellen",
+    "backHome": "Terug naar de homepage"
+  },
+  "giftcardPromo": {
+    "title": "Weet je niet wat je moet geven?",
+    "subtitle": "Geef een cadeaubon — de ontvanger maakt zelf een persoonlijk lied op maat.",
+    "cta": "Cadeaubon kopen"
+  },
+  "success": {
+    "title": "Jouw roast is onderweg! 🎉",
+    "subtitle": "We zijn gestart met jouw persoonlijke roast. Je ontvangt hem binnen 24 uur als MP3 in je mailbox.",
+    "tip": "Tip: Ontvang je geen mail? Controleer dan ook je spam of ongewenste mail folder.",
+    "whatNow": "Wat nu?",
+    "item1": "Je ontvangt een bevestiging per e-mail",
+    "item2": "Binnen 24 uur ontvang je je persoonlijke MP3",
+    "item3": "Vragen? Mail naar info@roastfactory.eu",
+    "qualityTitle": "Wat gebeurt er nu?",
+    "quality1": "Je ontvangt binnen 24 uur je persoonlijke roast per mail",
+    "quality2": "Binnen 48 uur controleren wij de kwaliteit persoonlijk",
+    "quality3": "Niet goed? Dan krijg je gratis twee nieuwe versies",
+    "backHome": "Terug naar home"
+  },
+  "cookie": {
+    "text": "Wij gebruiken cookies voor een goede werking van de website en om je ervaring te verbeteren. Lees meer in onze",
+    "privacy": "Privacyverklaring",
+    "necessary": "Alleen noodzakelijk",
+    "accept": "Accepteren"
+  },
+  "ctaAssurance": {
+    "text": "✓ Binnen 24 uur in je inbox · €14,95 · Geen abonnement"
+  }
+}
