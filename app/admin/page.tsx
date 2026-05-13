@@ -1,291 +1,159 @@
-import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import crypto from "crypto";
+import Link from "next/link";
 
-type Order = {
-  id: string;
-  created_at: string;
-  customer_name: string | null;
-  customer_email: string | null;
-  recipient_name: string | null;
-  occasion: string | null;
-  style: string | null;
-  language: string | null;
-  mood: string | null;
-  voice_preference: string | null;
-  tempo: string | null;
-  payment_status: string | null;
-  generation_status: string | null;
-  generated_audio_url: string | null;
-  generated_lyrics: string | null;
-  delivered_at: string | null;
-  provider: string | null;
-  song_request: string | null;
-  lyrics_prompt: string | null;
-  style_prompt: string | null;
-  generated_prompt: string | null;
-  extra_notes: string | null;
-  story: string | null;
-};
+const COOKIE_NAME = "sf_admin_session";
+const SALT = "songfactory-admin-2026";
 
-async function updateOrder(formData: FormData) {
-  "use server";
-
-  const id = String(formData.get("id") || "");
-  const generationStatus = String(formData.get("generation_status") || "ready");
-  const generatedAudioUrl = String(formData.get("generated_audio_url") || "").trim();
-  const generatedLyrics = String(formData.get("generated_lyrics") || "").trim();
-  const provider = String(formData.get("provider") || "").trim();
-  const delivered = formData.get("mark_delivered") === "on";
-
-  if (!id) {
-    return;
-  }
-
-  const updatePayload = {
-    generation_status: generationStatus,
-    generated_audio_url: generatedAudioUrl || null,
-    generated_lyrics: generatedLyrics || null,
-    provider: provider || null,
-    delivered_at: delivered ? new Date().toISOString() : null,
-  };
-
-  const { error } = await supabaseAdmin
-    .from("orders")
-    .update(updatePayload)
-    .eq("id", id);
-
-  if (error) {
-    console.error("Admin update failed:", error);
-  }
-
-  revalidatePath("/admin");
+function sign(payload: string) {
+  return crypto.createHmac("sha256", SALT).update(payload).digest("hex");
 }
 
-async function AdminPage() {
+function isLoggedIn(): boolean {
+  const cookieStore = cookies();
+  const value = cookieStore.get(COOKIE_NAME)?.value;
+  if (!value) return false;
+  const dot = value.lastIndexOf(".");
+  if (dot < 0) return false;
+  const payload = value.slice(0, dot);
+  const sig = value.slice(dot + 1);
+  return sig === sign(payload);
+}
+
+const STATUS_LABELS: Record<string, { label: string; color: string; bg: string }> = {
+  pending:     { label: "Pending",     color: "#888888", bg: "#1A1A1A" },
+  paid:        { label: "Betaald",     color: "#60A5FA", bg: "#1E2A3A" },
+  in_progress: { label: "Bezig",       color: "#FF6B00", bg: "#2A1A0A" },
+  delivered:   { label: "Geleverd",    color: "#22C55E", bg: "#0A2A0A" },
+};
+
+const PACKAGE_LABELS: Record<string, string> = {
+  quick_roast: "Quick Roast",
+  savage_pack: "Savage Pack",
+  nuclear_pack: "Nuclear Pack",
+  battle_mode: "Battle Mode",
+};
+
+export default async function AdminPage() {
+  if (!isLoggedIn()) redirect("/admin/login");
+
   const { data: orders, error } = await supabaseAdmin
     .from("orders")
-    .select(
-      `
-        id,
-        created_at,
-        customer_name,
-        customer_email,
-        recipient_name,
-        occasion,
-        style,
-        language,
-        mood,
-        voice_preference,
-        tempo,
-        payment_status,
-        generation_status,
-        generated_audio_url,
-        generated_lyrics,
-        delivered_at,
-        provider,
-        song_request,
-        lyrics_prompt,
-        style_prompt,
-        generated_prompt,
-        extra_notes,
-        story
-      `
-    )
+    .select("id, created_at, status, package, price, customer_name, customer_email, roast_target, occasion, roast_level, delivered_at, audio_url")
     .order("created_at", { ascending: false });
 
-  const safeOrders: Order[] = orders ?? [];
+  const safeOrders = orders ?? [];
+
+  const BG = "#0A0A0A";
+  const GRAY = "#1A1A1A";
+  const GRAY2 = "#2A2A2A";
+  const WHITE = "#FFFFFF";
+  const RED = "#FF2D2D";
+  const ORANGE = "#FF6B00";
+  const GRAY_TEXT = "#888888";
 
   return (
-    <main className="min-h-screen bg-neutral-950 text-white">
-      <div className="mx-auto max-w-7xl px-6 py-10 lg:px-8">
-        <div className="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="text-sm uppercase tracking-[0.2em] text-white/45">RoastFactory</p>
-            <h1 className="mt-2 text-3xl font-semibold sm:text-4xl">Admin dashboard</h1>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-white/65">
-              Hier beheer je betaalde orders, prompts, lyrics en audiolinks. Gebruik dit als
-              jouw snelle MVP-backoffice.
-            </p>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/75">
-            <div>Totaal orders: <span className="font-semibold text-white">{safeOrders.length}</span></div>
-            <div>Betaald: <span className="font-semibold text-white">{safeOrders.filter((o) => o.payment_status === "paid").length}</span></div>
-          </div>
+    <main style={{ minHeight: "100vh", background: BG, color: WHITE, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+
+      {/* Header */}
+      <header style={{ borderBottom: `1px solid ${GRAY2}`, background: "#0D0D0D", padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <span style={{ fontWeight: 900, fontSize: 18, color: WHITE }}>🔥 RoastFactory</span>
+          <span style={{ color: GRAY2, fontSize: 18 }}>|</span>
+          <span style={{ color: GRAY_TEXT, fontSize: 14 }}>Admin</span>
+        </div>
+        <div style={{ display: "flex", gap: 24, fontSize: 13 }}>
+          <span style={{ color: GRAY_TEXT }}>
+            Totaal: <strong style={{ color: WHITE }}>{safeOrders.length}</strong>
+          </span>
+          <span style={{ color: GRAY_TEXT }}>
+            Betaald: <strong style={{ color: "#60A5FA" }}>{safeOrders.filter(o => o.status === "paid" || o.status === "in_progress" || o.status === "delivered").length}</strong>
+          </span>
+          <span style={{ color: GRAY_TEXT }}>
+            Geleverd: <strong style={{ color: "#22C55E" }}>{safeOrders.filter(o => o.status === "delivered").length}</strong>
+          </span>
+        </div>
+      </header>
+
+      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "32px 24px" }}>
+
+        <div style={{ marginBottom: 24 }}>
+          <h1 style={{ fontSize: 26, fontWeight: 900, margin: 0, letterSpacing: -0.5 }}>Bestellingen</h1>
+          <p style={{ color: GRAY_TEXT, fontSize: 14, margin: "6px 0 0" }}>Klik op een bestelling voor details en acties.</p>
         </div>
 
-        {error ? (
-          <div className="rounded-3xl border border-red-500/20 bg-red-500/10 p-5 text-red-200">
-            Fout bij ophalen van orders.
+        {error && (
+          <div style={{ background: "#2A0A0A", border: `1px solid ${RED}44`, borderRadius: 12, padding: "14px 20px", marginBottom: 20, color: "#FF8888", fontSize: 14 }}>
+            Fout bij ophalen van bestellingen.
           </div>
-        ) : null}
+        )}
 
-        <div className="space-y-6">
-          {safeOrders.map((order) => (
-            <section
-              key={order.id}
-              className="rounded-[28px] border border-white/10 bg-white/5 p-5 shadow-2xl shadow-black/20"
-            >
-              <div className="mb-5 flex flex-col gap-4 border-b border-white/10 pb-5 lg:flex-row lg:items-start lg:justify-between">
-                <div>
-                  <h2 className="text-xl font-semibold">
-                    {order.recipient_name || "Onbekende ontvanger"}
-                  </h2>
-                  <p className="mt-2 text-sm text-white/65">
-                    Order ID: <span className="font-mono text-white/90">{order.id}</span>
-                  </p>
-                  <p className="mt-1 text-sm text-white/65">
-                    Aangemaakt: {new Date(order.created_at).toLocaleString("nl-NL")}
-                  </p>
-                </div>
+        {/* Tabel */}
+        <div style={{ background: GRAY, borderRadius: 16, border: `1px solid ${GRAY2}`, overflow: "hidden" }}>
+          {/* Header row */}
+          <div style={{ display: "grid", gridTemplateColumns: "160px 1fr 140px 120px 110px 100px 80px", gap: 0, borderBottom: `1px solid ${GRAY2}`, padding: "10px 20px" }}>
+            {["Datum", "Klant", "Pakket", "Roast target", "Status", "Prijs", ""].map(h => (
+              <span key={h} style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: GRAY_TEXT }}>{h}</span>
+            ))}
+          </div>
 
-                <div className="grid gap-2 text-sm sm:grid-cols-2 lg:min-w-[320px]">
-                  <div className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3">
-                    <div className="text-white/45">Betaling</div>
-                    <div className="mt-1 font-semibold text-white">{order.payment_status || "-"}</div>
-                  </div>
-                  <div className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3">
-                    <div className="text-white/45">Generatie</div>
-                    <div className="mt-1 font-semibold text-white">{order.generation_status || "-"}</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-                <div className="space-y-5">
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <InfoCard label="Klant" value={order.customer_name} />
-                    <InfoCard label="E-mail" value={order.customer_email} />
-                    <InfoCard label="Ontvanger" value={order.recipient_name} />
-                    <InfoCard label="Gelegenheid" value={order.occasion} />
-                    <InfoCard label="Stijl" value={order.style} />
-                    <InfoCard label="Taal" value={order.language} />
-                    <InfoCard label="Mood" value={order.mood} />
-                    <InfoCard label="Stem" value={order.voice_preference} />
-                    <InfoCard label="Tempo" value={order.tempo} />
-                    <InfoCard label="Provider" value={order.provider} />
-                  </div>
-
-                  <TextBlock title="Verhaal / input" content={order.story} />
-                  <TextBlock title="Extra opmerkingen" content={order.extra_notes} />
-                  <TextBlock title="Song request" content={order.song_request} />
-                  <TextBlock title="Lyrics prompt" content={order.lyrics_prompt} />
-                  <TextBlock title="Style prompt" content={order.style_prompt} />
-                  <TextBlock title="Master prompt" content={order.generated_prompt} />
-                </div>
-
-                <div>
-                  <form action={updateOrder} className="space-y-4 rounded-3xl border border-white/10 bg-black/20 p-5">
-                    <input type="hidden" name="id" value={order.id} />
-
-                    <div>
-                      <label className="mb-2 block text-sm font-medium text-white/80">
-                        Generatie status
-                      </label>
-                      <select
-                        name="generation_status"
-                        defaultValue={order.generation_status || "ready"}
-                        className="w-full rounded-2xl border border-white/10 bg-neutral-900 px-4 py-3 text-white outline-none"
-                      >
-                        <option value="ready">ready</option>
-                        <option value="processing">processing</option>
-                        <option value="completed">completed</option>
-                        <option value="failed">failed</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="mb-2 block text-sm font-medium text-white/80">
-                        Audio URL
-                      </label>
-                      <textarea
-                        name="generated_audio_url"
-                        defaultValue={order.generated_audio_url || ""}
-                        rows={3}
-                        className="w-full rounded-2xl border border-white/10 bg-neutral-900 px-4 py-3 text-white outline-none"
-                        placeholder="Plak hier de link naar song 1 of een pagina met beide songs"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="mb-2 block text-sm font-medium text-white/80">
-                        Lyrics
-                      </label>
-                      <textarea
-                        name="generated_lyrics"
-                        defaultValue={order.generated_lyrics || ""}
-                        rows={8}
-                        className="w-full rounded-2xl border border-white/10 bg-neutral-900 px-4 py-3 text-white outline-none"
-                        placeholder="Plak hier de definitieve lyrics"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="mb-2 block text-sm font-medium text-white/80">
-                        Provider
-                      </label>
-                      <input
-                        name="provider"
-                        defaultValue={order.provider || ""}
-                        className="w-full rounded-2xl border border-white/10 bg-neutral-900 px-4 py-3 text-white outline-none"
-                        placeholder="Bijv. Suno"
-                      />
-                    </div>
-
-                    <label className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/80">
-                      <input
-                        type="checkbox"
-                        name="mark_delivered"
-                        defaultChecked={Boolean(order.delivered_at)}
-                        className="h-4 w-4"
-                      />
-                      Markeer als geleverd
-                    </label>
-
-                    <button
-                      type="submit"
-                      className="w-full rounded-2xl bg-white px-5 py-3 font-semibold text-neutral-950 transition hover:opacity-90"
-                    >
-                      Order opslaan
-                    </button>
-
-                    <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/70">
-                      <div>Geleverd op: {order.delivered_at ? new Date(order.delivered_at).toLocaleString("nl-NL") : "Nog niet"}</div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </section>
-          ))}
-
-          {!safeOrders.length && !error ? (
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-8 text-center text-white/65">
-              Er zijn nog geen orders.
+          {safeOrders.length === 0 && (
+            <div style={{ padding: "40px 20px", textAlign: "center", color: GRAY_TEXT, fontSize: 14 }}>
+              Nog geen bestellingen.
             </div>
-          ) : null}
+          )}
+
+          {safeOrders.map((order, i) => {
+            const status = STATUS_LABELS[order.status] ?? STATUS_LABELS.pending;
+            const date = new Date(order.created_at).toLocaleString("nl-NL", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" });
+            const price = order.price ? `€${Number(order.price).toFixed(2).replace(".", ",")}` : "—";
+
+            return (
+              <div
+                key={order.id}
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "160px 1fr 140px 120px 110px 100px 80px",
+                  gap: 0,
+                  padding: "14px 20px",
+                  borderBottom: i < safeOrders.length - 1 ? `1px solid ${GRAY2}` : "none",
+                  alignItems: "center",
+                  transition: "background 0.15s",
+                }}
+              >
+                <span style={{ fontSize: 12, color: GRAY_TEXT }}>{date}</span>
+                <div>
+                  <p style={{ margin: 0, fontSize: 14, fontWeight: 600, color: WHITE }}>{order.customer_name || "—"}</p>
+                  <p style={{ margin: 0, fontSize: 12, color: GRAY_TEXT }}>{order.customer_email}</p>
+                </div>
+                <span style={{ fontSize: 13, color: ORANGE, fontWeight: 700 }}>{PACKAGE_LABELS[order.package] ?? order.package}</span>
+                <span style={{ fontSize: 13, color: WHITE, fontWeight: 600 }}>{order.roast_target || "—"}</span>
+                <span style={{
+                  display: "inline-block", fontSize: 11, fontWeight: 700,
+                  padding: "4px 10px", borderRadius: 20,
+                  color: status.color, background: status.bg,
+                  border: `1px solid ${status.color}44`,
+                }}>
+                  {status.label}
+                </span>
+                <span style={{ fontSize: 13, color: WHITE }}>{price}</span>
+                <Link
+                  href={`/admin/orders/${order.id}`}
+                  style={{
+                    display: "inline-block", padding: "6px 14px", borderRadius: 8,
+                    background: `${RED}22`, border: `1px solid ${RED}55`,
+                    color: RED, fontSize: 12, fontWeight: 700, textDecoration: "none",
+                  }}
+                >
+                  Open →
+                </Link>
+              </div>
+            );
+          })}
         </div>
       </div>
     </main>
   );
 }
-
-function InfoCard({ label, value }: { label: string; value: string | null }) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-      <div className="text-xs uppercase tracking-[0.18em] text-white/40">{label}</div>
-      <div className="mt-2 text-sm font-medium text-white">{value || "-"}</div>
-    </div>
-  );
-}
-
-function TextBlock({ title, content }: { title: string; content: string | null }) {
-  return (
-    <div className="rounded-3xl border border-white/10 bg-black/20 p-4">
-      <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-white/45">{title}</h3>
-      <pre className="mt-3 whitespace-pre-wrap break-words text-sm leading-6 text-white/85 font-sans">
-        {content || "-"}
-      </pre>
-    </div>
-  );
-}
-
-export default AdminPage;

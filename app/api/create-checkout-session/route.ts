@@ -72,8 +72,8 @@ export async function POST(req: Request) {
         },
       ],
       metadata: { order_id: order.id },
-      success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/succes?order_id=${order.id}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/bestellen`,
+      success_url: `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3004"}/succes?order_id=${order.id}`,
+      cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3004"}/bestellen`,
     });
 
     await supabaseAdmin
