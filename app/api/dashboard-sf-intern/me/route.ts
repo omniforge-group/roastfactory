@@ -1,7 +1,6 @@
-import { verifySession } from "@/lib/admin-auth";
+import { isAdminRequest } from "@/lib/check-admin-token";
 
 export async function GET(req: Request) {
-  const user = verifySession(req);
-  if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 });
-  return Response.json({ userId: user.userId, name: user.name, role: user.role });
+  if (!isAdminRequest(req)) return Response.json({ error: "Unauthorized" }, { status: 401 });
+  return Response.json({ userId: "admin", name: "Admin", role: "admin" });
 }

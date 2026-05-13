@@ -1,4 +1,4 @@
-import { verifySession } from "@/lib/admin-auth";
+import { isAdminRequest } from "@/lib/check-admin-token";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 
 function countBy<T>(arr: T[], key: keyof T): { label: string; count: number }[] {
@@ -13,7 +13,7 @@ function countBy<T>(arr: T[], key: keyof T): { label: string; count: number }[] 
 }
 
 export async function GET(req: Request) {
-  if (!verifySession(req)) return Response.json({ error: "Unauthorized" }, { status: 401 });
+  if (!isAdminRequest(req)) return Response.json({ error: "Unauthorized" }, { status: 401 });
 
   const [ordersRes, discountRes] = await Promise.all([
     supabaseAdmin

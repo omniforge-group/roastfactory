@@ -1,8 +1,8 @@
-import { verifySession } from "@/lib/admin-auth";
+import { isAdminRequest } from "@/lib/check-admin-token";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 
 export async function GET(req: Request, { params }: { params: { id: string } }) {
-  if (!verifySession(req)) return Response.json({ error: "Unauthorized" }, { status: 401 });
+  if (!isAdminRequest(req)) return Response.json({ error: "Unauthorized" }, { status: 401 });
 
   const { data, error } = await supabaseAdmin
     .from("orders")
@@ -14,10 +14,8 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   return Response.json(data);
 }
 
-// Upload audio naar Supabase Storage bucket 'roast-audio'
 export async function POST(req: Request, { params }: { params: { id: string } }) {
-  const actor = verifySession(req);
-  if (!actor) return Response.json({ error: "Unauthorized" }, { status: 401 });
+  if (!isAdminRequest(req)) return Response.json({ error: "Unauthorized" }, { status: 401 });
 
   const formData = await req.formData();
   const file = formData.get("audio") as File | null;

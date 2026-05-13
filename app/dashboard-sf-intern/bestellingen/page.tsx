@@ -1,23 +1,7 @@
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-import { supabaseAdmin } from "@/lib/supabase-admin";
-import crypto from "crypto";
+"use client";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-
-const COOKIE_NAME = "sf_admin_session";
-const SALT = "songfactory-admin-2026";
-
-function sign(p: string) {
-  return crypto.createHmac("sha256", SALT).update(p).digest("hex");
-}
-
-function isLoggedIn(): boolean {
-  const val = cookies().get(COOKIE_NAME)?.value;
-  if (!val) return false;
-  const dot = val.lastIndexOf(".");
-  if (dot < 0) return false;
-  return val.slice(dot + 1) === sign(val.slice(0, dot));
-}
+import AdminShell from "../_components/AdminShell";
 
 const STATUS: Record<string, { label: string; color: string; bg: string; border: string }> = {
   pending:     { label: "Wacht op betaling", color: "#999999", bg: "#1a1a1a", border: "#333333" },
@@ -37,46 +21,47 @@ const LEVEL: Record<string, string> = {
   mild: "Mild 😅", medium: "Medium 😬", savage: "Savage 🔥", nuclear: "Nuclear ☢️",
 };
 
-export default async function AdminPage() {
-  if (!isLoggedIn()) redirect("/dashboard-sf-intern/login");
+type Order = {
+  id: string;
+  created_at: string;
+  status: string;
+  package: string;
+  price: number;
+  customer_name: string;
+  customer_email: string;
+  roast_target: string;
+  occasion: string;
+  roast_level: string;
+  delivered_at: string | null;
+  audio_url: string | null;
+};
 
-  const { data: orders, error } = await supabaseAdmin
-    .from("orders")
-    .select("id, created_at, status, package, price, customer_name, customer_email, roast_target, occasion, roast_level, delivered_at, audio_url, inside_jokes")
-    .order("created_at", { ascending: false });
+export default function BestellingenPage() {
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const rows = orders ?? [];
+  useEffect(() => {
+    fetch("/api/dashboard-sf-intern/orders")
+      .then(r => r.ok ? r.json() : Promise.reject(r.status))
+      .then(data => { setOrders(data); setLoading(false); })
+      .catch(() => { setError("Kon bestellingen niet laden."); setLoading(false); });
+  }, []);
 
-  const statPaid       = rows.filter(o => o.status === "paid").length;
-  const statProgress   = rows.filter(o => o.status === "in_progress").length;
-  const statDelivered  = rows.filter(o => o.status === "delivered").length;
-  const statRevenue    = rows
+  const statPaid      = orders.filter(o => o.status === "paid").length;
+  const statProgress  = orders.filter(o => o.status === "in_progress").length;
+  const statDelivered = orders.filter(o => o.status === "delivered").length;
+  const statRevenue   = orders
     .filter(o => o.status !== "pending")
     .reduce((sum, o) => sum + Number(o.price ?? 0), 0);
 
   return (
-    <main style={{ minHeight: "100vh", background: "#0A0A0A", color: "#FFFFFF", fontFamily: "system-ui, -apple-system, sans-serif" }}>
-      <style>{`
-        .rf-row:hover { background: #1a0505 !important; }
-        .rf-btn:hover { background: #cc0000 !important; }
-      `}</style>
-
-      {/* ── Header ── */}
-      <header style={{ background: "#111111", borderBottom: "2px solid #FF2D2D", padding: "0 32px" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 60 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <span style={{ fontSize: 22, fontWeight: 900, letterSpacing: -0.5 }}>🔥 ROASTFACTORY ADMIN</span>
-            <span style={{ fontSize: 12, color: "#666", background: "#1a1a1a", border: "1px solid #333", borderRadius: 6, padding: "3px 10px" }}>
-              Roast bestellingen beheren
-            </span>
-          </div>
-          <a href="/api/dashboard-sf-intern/logout" style={{ fontSize: 13, color: "#666", textDecoration: "none" }}>Uitloggen →</a>
-        </div>
-      </header>
+    <AdminShell>
+      <style>{`.rf-row:hover { background: #1a0505 !important; } .rf-btn:hover { background: #cc0000 !important; }`}</style>
 
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "32px 24px" }}>
 
-        {/* ── Stats ── */}
+        {/* Stats */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16, marginBottom: 32 }}>
           {[
             { emoji: "💳", label: "Nieuwe bestellingen", value: statPaid,      color: "#60A5FA" },
@@ -92,42 +77,43 @@ export default async function AdminPage() {
           ))}
         </div>
 
-        {/* ── Titel ── */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
           <div>
             <h1 style={{ margin: 0, fontSize: 22, fontWeight: 900 }}>Alle roast bestellingen</h1>
-            <p style={{ margin: "4px 0 0", fontSize: 13, color: "#666" }}>{rows.length} bestellingen — klik op een rij om te openen</p>
+            <p style={{ margin: "4px 0 0", fontSize: 13, color: "#666" }}>
+              {loading ? "Laden..." : `${orders.length} bestellingen — klik op een rij om te openen`}
+            </p>
           </div>
         </div>
 
         {error && (
           <div style={{ background: "#1a0505", border: "1px solid #FF2D2D44", borderRadius: 10, padding: "12px 18px", marginBottom: 20, color: "#ff8888", fontSize: 14 }}>
-            Fout bij ophalen van bestellingen.
+            {error}
           </div>
         )}
 
-        {/* ── Tabel ── */}
         <div style={{ background: "#111111", border: "1px solid #222222", borderRadius: 14, overflow: "hidden" }}>
-
-          {/* Tabelheader */}
           <div style={{ display: "grid", gridTemplateColumns: "150px 1fr 130px 130px 130px 140px 110px", padding: "10px 20px", borderBottom: "1px solid #222222", background: "#0d0d0d" }}>
             {["Datum", "Klant", "Pakket", "Voor wie", "Roast level", "Status", "Actie"].map(h => (
               <span key={h} style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#555" }}>{h}</span>
             ))}
           </div>
 
-          {rows.length === 0 && (
+          {loading && (
+            <div style={{ padding: "48px 20px", textAlign: "center", color: "#555", fontSize: 14 }}>Laden...</div>
+          )}
+
+          {!loading && orders.length === 0 && !error && (
             <div style={{ padding: "48px 20px", textAlign: "center", color: "#555", fontSize: 14 }}>
               Nog geen roast bestellingen.
             </div>
           )}
 
-          {rows.map((order, i) => {
+          {orders.map((order, i) => {
             const s = STATUS[order.status] ?? STATUS.pending;
             const date = new Date(order.created_at).toLocaleString("nl-NL", {
               day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit",
             });
-
             return (
               <div
                 key={order.id}
@@ -136,25 +122,20 @@ export default async function AdminPage() {
                   display: "grid",
                   gridTemplateColumns: "150px 1fr 130px 130px 130px 140px 110px",
                   padding: "14px 20px",
-                  borderBottom: i < rows.length - 1 ? "1px solid #1a1a1a" : "none",
+                  borderBottom: i < orders.length - 1 ? "1px solid #1a1a1a" : "none",
                   alignItems: "center",
                   transition: "background 0.12s",
                   background: "transparent",
                 }}
               >
                 <span style={{ fontSize: 12, color: "#555" }}>{date}</span>
-
                 <div>
                   <p style={{ margin: 0, fontSize: 14, fontWeight: 700, color: "#fff" }}>{order.customer_name || "—"}</p>
                   <p style={{ margin: 0, fontSize: 11, color: "#555" }}>{order.customer_email}</p>
                 </div>
-
                 <span style={{ fontSize: 12, fontWeight: 700, color: "#FF6B00" }}>{PKG[order.package] ?? order.package}</span>
-
                 <span style={{ fontSize: 13, fontWeight: 600, color: "#fff" }}>{order.roast_target || "—"}</span>
-
                 <span style={{ fontSize: 12, color: "#aaa" }}>{LEVEL[order.roast_level] ?? order.roast_level ?? "—"}</span>
-
                 <span style={{
                   display: "inline-block", fontSize: 11, fontWeight: 700,
                   padding: "4px 10px", borderRadius: 20,
@@ -163,7 +144,6 @@ export default async function AdminPage() {
                 }}>
                   {s.label}
                 </span>
-
                 <Link
                   href={`/dashboard-sf-intern/orders/${order.id}`}
                   className="rf-btn"
@@ -180,8 +160,7 @@ export default async function AdminPage() {
             );
           })}
         </div>
-
       </div>
-    </main>
+    </AdminShell>
   );
 }

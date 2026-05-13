@@ -1,9 +1,9 @@
-import { verifySession } from "@/lib/admin-auth";
+import { isAdminRequest } from "@/lib/check-admin-token";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { logActivity } from "@/lib/activity-log";
 
 export async function GET(req: Request) {
-  if (!verifySession(req)) return Response.json({ error: "Unauthorized" }, { status: 401 });
+  if (!isAdminRequest(req)) return Response.json({ error: "Unauthorized" }, { status: 401 });
 
   const { data, error } = await supabaseAdmin
     .from("page_permissions")
@@ -15,7 +15,7 @@ export async function GET(req: Request) {
 }
 
 export async function PUT(req: Request) {
-  const actor = verifySession(req);
+  const actor = isAdminRequest(req);
   if (!actor) return Response.json({ error: "Unauthorized" }, { status: 401 });
   if (actor.role !== "admin") return Response.json({ error: "Forbidden" }, { status: 403 });
 

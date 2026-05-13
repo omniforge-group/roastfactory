@@ -1,8 +1,8 @@
-import { verifySession } from "@/lib/admin-auth";
+import { isAdminRequest } from "@/lib/check-admin-token";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 
 export async function GET(req: Request) {
-  if (!verifySession(req)) return Response.json({ error: "Unauthorized" }, { status: 401 });
+  if (!isAdminRequest(req)) return Response.json({ error: "Unauthorized" }, { status: 401 });
 
   const { data, error } = await supabaseAdmin
     .from("orders")
@@ -14,7 +14,7 @@ export async function GET(req: Request) {
 }
 
 export async function PATCH(req: Request) {
-  if (!verifySession(req)) return Response.json({ error: "Unauthorized" }, { status: 401 });
+  if (!isAdminRequest(req)) return Response.json({ error: "Unauthorized" }, { status: 401 });
 
   const { id, status, lyrics, audio_url } = await req.json();
   if (!id) return Response.json({ error: "Missing id" }, { status: 400 });

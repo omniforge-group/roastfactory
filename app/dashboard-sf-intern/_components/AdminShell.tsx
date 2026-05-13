@@ -2,53 +2,75 @@
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { getAdminToken } from "@/lib/admin-client";
 
 type NavItem = { href: string; label: string; pageKey: string; roles?: string[] };
 
 const NAV: NavItem[] = [
   { href: "/dashboard-sf-intern/bestellingen",                                   label: "🔥 Bestellingen",  pageKey: "bestellingen" },
   { href: "/dashboard-sf-intern/dashboard",           label: "Dashboard",        pageKey: "dashboard" },
-  { href: "/dashboard-sf-intern/kortingscodes",       label: "Kortingscodes",    pageKey: "kortingscodes", roles: ["admin", "tier2"] },
-  { href: "/dashboard-sf-intern/gebruikers",          label: "Gebruikers",       pageKey: "gebruikers",    roles: ["admin"] },
-  { href: "/dashboard-sf-intern/activiteiten",        label: "Activiteiten",     pageKey: "activiteiten",  roles: ["admin", "tier2"] },
+  { href: "/dashboard-sf-intern/kortingscodes",       label: "Kortingscodes",    pageKey: "kortingscodes" },
+  { href: "/dashboard-sf-intern/gebruikers",          label: "Gebruikers",       pageKey: "gebruikers" },
+  { href: "/dashboard-sf-intern/activiteiten",        label: "Activiteiten",     pageKey: "activiteiten" },
   { href: "/dashboard-sf-intern/stats",               label: "Statistieken",     pageKey: "stats" },
   { href: "/dashboard-sf-intern/analytics",           label: "Analytics",        pageKey: "analytics" },
-  { href: "/dashboard-sf-intern/toegang",             label: "Toegang",          pageKey: "toegang",       roles: ["admin"] },
+  { href: "/dashboard-sf-intern/toegang",             label: "Toegang",          pageKey: "toegang" },
 ];
 
-type PagePerm = { page_key: string; medewerker: boolean; tier2: boolean };
 
 export default function AdminShell({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
-  const [role, setRole] = useState<string | null>(null);
-  const [perms, setPerms] = useState<PagePerm[] | null>(null);
+  const [authed, setAuthed] = useState<boolean | null>(null);
 
   useEffect(() => {
-    fetch("/api/dashboard-sf-intern/me").then(r => r.ok ? r.json() : null).then(d => { if (d?.role) setRole(d.role); });
-    fetch("/api/dashboard-sf-intern/permissions").then(r => r.ok ? r.json() : null).then(d => { if (Array.isArray(d)) setPerms(d); });
-  }, []);
+    const token = getAdminToken();
+    if (!token) {
+      router.replace("/dashboard-sf-intern/login");
+      return;
+    }
 
-  async function logout() {
-    await fetch("/api/dashboard-sf-intern/logout", { method: "POST" });
+    // Intercept all fetch calls to inject the admin token automatically
+    const origFetch = window.fetch.bind(window);
+    window.fetch = (input: RequestInfo | URL, init: RequestInit = {}) => {
+      const url = typeof input === "string" ? input : input instanceof URL ? input.toString() : (input as Request).url;
+      if (url.startsWith("/api/dashboard-sf-intern/")) {
+        const t = localStorage.getItem("admin_token") ?? "";
+        init = { ...init, headers: { ...init.headers as Record<string, string>, "x-admin-token": t } };
+      }
+      return origFetch(input, init);
+    };
+
+    origFetch("/api/dashboard-sf-intern/me", { headers: { "x-admin-token": token } })
+      .then(r => {
+        if (!r.ok) {
+          localStorage.removeItem("admin_token");
+          window.fetch = origFetch;
+          router.replace("/dashboard-sf-intern/login");
+        } else {
+          setAuthed(true);
+        }
+      })
+      .catch(() => {
+        window.fetch = origFetch;
+        router.replace("/dashboard-sf-intern/login");
+      });
+
+    return () => { window.fetch = origFetch; };
+  }, [router]);
+
+  function logout() {
+    localStorage.removeItem("admin_token");
     router.push("/dashboard-sf-intern/login");
   }
 
-  function canAccess(item: NavItem): boolean {
-    if (!role) return true;
-    if (role === "admin") return true;
-    if (item.roles && !item.roles.includes(role)) return false;
-    if (perms) {
-      const perm = perms.find(p => p.page_key === item.pageKey);
-      if (perm) {
-        if (role === "medewerker" && !perm.medewerker) return false;
-        if (role === "tier2" && !perm.tier2) return false;
-      }
-    }
-    return true;
+  if (authed === null) {
+    return (
+      <div style={{ minHeight: "100vh", background: "#0A0A0A", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <span style={{ color: "#555", fontSize: 14 }}>Laden...</span>
+      </div>
+    );
   }
-
-  const visibleNav = NAV.filter(canAccess);
 
   return (
     <div style={{ minHeight: "100vh", background: "#0A0A0A", fontFamily: "system-ui, sans-serif", color: "#fff" }}>
@@ -59,7 +81,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
               🔥 ROASTFACTORY ADMIN
             </span>
             <nav style={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
-              {visibleNav.map(({ href, label, pageKey }) => {
+              {NAV.map(({ href, label, pageKey }) => {
                 const active = pageKey === "bestellingen"
                   ? pathname === "/dashboard-sf-intern/bestellingen" || pathname.startsWith("/dashboard-sf-intern/orders")
                   : pathname === href || pathname.startsWith(href + "/");

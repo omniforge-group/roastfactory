@@ -20,6 +20,8 @@ export default function AdminLogin() {
     });
 
     if (res.ok) {
+      const data = await res.json();
+      localStorage.setItem("admin_token", data.token);
       router.push("/dashboard-sf-intern/dashboard");
     } else {
       const data = await res.json();

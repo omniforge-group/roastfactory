@@ -1,8 +1,8 @@
-import { verifySession } from "@/lib/admin-auth";
+import { isAdminRequest } from "@/lib/check-admin-token";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 
 export async function PATCH(req: Request, { params }: { params: { id: string } }) {
-  const user = verifySession(req);
+  const user = isAdminRequest(req);
   if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 });
   if (user.role !== "admin") return Response.json({ error: "Forbidden" }, { status: 403 });
 
@@ -21,7 +21,7 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
 }
 
 export async function DELETE(req: Request, { params }: { params: { id: string } }) {
-  const user = verifySession(req);
+  const user = isAdminRequest(req);
   if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 });
   if (user.role !== "admin") return Response.json({ error: "Forbidden" }, { status: 403 });
 

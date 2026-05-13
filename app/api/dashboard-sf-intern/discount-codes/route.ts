@@ -1,10 +1,10 @@
 import Stripe from "stripe";
-import { verifySession } from "@/lib/admin-auth";
+import { isAdminRequest } from "@/lib/check-admin-token";
 import { logActivity } from "@/lib/activity-log";
 import { stripe } from "@/lib/stripe";
 
 export async function GET(req: Request) {
-  const user = verifySession(req);
+  const user = isAdminRequest(req);
   if (!user) return Response.json({ error: "Unauthorized" }, { status: 401 });
   if (user.role !== "admin" && user.role !== "tier2") return Response.json({ error: "Forbidden" }, { status: 403 });
 
@@ -40,7 +40,7 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
-  const actor = verifySession(req);
+  const actor = isAdminRequest(req);
   if (!actor) return Response.json({ error: "Unauthorized" }, { status: 401 });
   if (actor.role !== "admin" && actor.role !== "tier2") return Response.json({ error: "Forbidden" }, { status: 403 });
 
@@ -82,7 +82,7 @@ export async function POST(req: Request) {
 }
 
 export async function DELETE(req: Request) {
-  const actor = verifySession(req);
+  const actor = isAdminRequest(req);
   if (!actor) return Response.json({ error: "Unauthorized" }, { status: 401 });
   if (actor.role !== "admin" && actor.role !== "tier2") return Response.json({ error: "Forbidden" }, { status: 403 });
 
