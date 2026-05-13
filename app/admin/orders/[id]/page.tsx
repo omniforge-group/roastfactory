@@ -20,29 +20,26 @@ type Order = {
   audio_url: string | null;
   delivered_at: string | null;
   stripe_session_id: string | null;
+  stripe_payment_intent: string | null;
 };
 
-const PACKAGE_LABELS: Record<string, string> = {
+const PKG: Record<string, string> = {
   quick_roast: "Quick Roast",
   savage_pack: "Savage Pack",
   nuclear_pack: "Nuclear Pack",
   battle_mode: "Battle Mode",
 };
 
-const ROAST_LEVEL_LABELS: Record<string, string> = {
-  mild: "Mild 😅",
-  medium: "Medium 😬",
-  savage: "Savage 🔥",
-  nuclear: "Nuclear ☢️",
+const LEVEL: Record<string, string> = {
+  mild: "Mild 😅", medium: "Medium 😬", savage: "Savage 🔥", nuclear: "Nuclear ☢️",
 };
 
-const BG = "#0A0A0A";
-const GRAY = "#1A1A1A";
-const GRAY2 = "#2A2A2A";
-const WHITE = "#FFFFFF";
-const RED = "#FF2D2D";
-const ORANGE = "#FF6B00";
-const GRAY_TEXT = "#888888";
+const STATUS_COLOR: Record<string, { color: string; bg: string; border: string }> = {
+  pending:     { color: "#999", bg: "#1a1a1a", border: "#333" },
+  paid:        { color: "#60A5FA", bg: "#0d1a2e", border: "#1a3a6b" },
+  in_progress: { color: "#FF6B00", bg: "#1e0e00", border: "#4a2000" },
+  delivered:   { color: "#22C55E", bg: "#061a0e", border: "#16a34a" },
+};
 
 export default function OrderDetailPage() {
   const router = useRouter();
@@ -64,8 +61,14 @@ export default function OrderDetailPage() {
 
   useEffect(() => {
     fetch(`/api/admin/orders/${id}`)
-      .then(r => { if (r.status === 401) { router.push("/admin/login"); return null; } return r.json(); })
-      .then(data => { if (data) { setOrder(data); setStatus(data.status); setLyrics(data.lyrics || ""); } setLoading(false); })
+      .then(r => {
+        if (r.status === 401) { router.push("/admin/login"); return null; }
+        return r.json();
+      })
+      .then(data => {
+        if (data) { setOrder(data); setStatus(data.status); setLyrics(data.lyrics || ""); }
+        setLoading(false);
+      })
       .catch(() => setLoading(false));
   }, [id, router]);
 
@@ -96,7 +99,7 @@ export default function OrderDetailPage() {
     const data = await res.json();
     setUploading(false);
     if (res.ok) {
-      setUploadMsg("✅ Audio geüpload");
+      setUploadMsg("✅ Audio geüpload en opgeslagen");
       setOrder(prev => prev ? { ...prev, audio_url: data.audio_url } : prev);
       if (fileRef.current) fileRef.current.value = "";
     } else {
@@ -105,10 +108,6 @@ export default function OrderDetailPage() {
   }
 
   async function deliverRoast() {
-    if (!order?.lyrics && !order?.audio_url) {
-      setDeliverMsg("⚠️ Voeg eerst lyrics of audio toe.");
-      return;
-    }
     if (!confirm(`Roast versturen naar ${order?.customer_email}?`)) return;
     setDelivering(true); setDeliverMsg("");
     const res = await fetch("/api/deliver-roast", {
@@ -127,157 +126,201 @@ export default function OrderDetailPage() {
     }
   }
 
-  const inputStyle: React.CSSProperties = {
-    width: "100%", background: BG, border: `1px solid ${GRAY2}`,
-    borderRadius: 10, padding: "12px 14px", color: WHITE,
-    fontSize: 14, outline: "none", boxSizing: "border-box", fontFamily: "inherit",
-  };
-
   if (loading) return (
-    <div style={{ minHeight: "100vh", background: BG, display: "flex", alignItems: "center", justifyContent: "center", color: GRAY_TEXT, fontFamily: "system-ui" }}>
+    <div style={{ minHeight: "100vh", background: "#0A0A0A", display: "flex", alignItems: "center", justifyContent: "center", color: "#555", fontFamily: "system-ui" }}>
       Laden...
     </div>
   );
 
   if (!order) return (
-    <div style={{ minHeight: "100vh", background: BG, display: "flex", alignItems: "center", justifyContent: "center", color: RED, fontFamily: "system-ui" }}>
+    <div style={{ minHeight: "100vh", background: "#0A0A0A", display: "flex", alignItems: "center", justifyContent: "center", color: "#FF2D2D", fontFamily: "system-ui" }}>
       Order niet gevonden.
     </div>
   );
 
-  const statusColors: Record<string, string> = { pending: "#888888", paid: "#60A5FA", in_progress: ORANGE, delivered: "#22C55E" };
-  const priceFormatted = `€${Number(order.price).toFixed(2).replace(".", ",")}`;
+  const sc = STATUS_COLOR[order.status] ?? STATUS_COLOR.pending;
+  const price = `€${Number(order.price).toFixed(2).replace(".", ",")}`;
+
+  const sectionTitle = (txt: string) => (
+    <p style={{ margin: "0 0 16px", fontSize: 10, fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "#FF2D2D", borderBottom: "1px solid #222", paddingBottom: 8 }}>
+      {txt}
+    </p>
+  );
+
+  const infoCard = (label: string, value: string | null, accent = false) => (
+    <div key={label} style={{ background: "#0A0A0A", borderRadius: 10, padding: "12px 14px", border: "1px solid #222" }}>
+      <p style={{ margin: "0 0 4px", fontSize: 10, color: "#555", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em" }}>{label}</p>
+      <p style={{ margin: 0, fontSize: 14, fontWeight: 700, color: accent ? "#FF6B00" : "#fff" }}>{value || "—"}</p>
+    </div>
+  );
 
   return (
-    <main style={{ minHeight: "100vh", background: BG, color: WHITE, fontFamily: "system-ui, -apple-system, sans-serif" }}>
+    <main style={{ minHeight: "100vh", background: "#0A0A0A", color: "#fff", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+      <style>{`
+        textarea:focus { border-color: #FF2D2D !important; outline: none !important; }
+        select:focus { border-color: #FF2D2D !important; outline: none !important; }
+      `}</style>
 
       {/* Header */}
-      <header style={{ borderBottom: `1px solid ${GRAY2}`, background: "#0D0D0D", padding: "14px 24px", display: "flex", alignItems: "center", gap: 16 }}>
-        <Link href="/admin" style={{ color: GRAY_TEXT, fontSize: 13, textDecoration: "none" }}>← Terug</Link>
-        <span style={{ color: GRAY2 }}>|</span>
-        <span style={{ fontWeight: 800, fontSize: 15, color: WHITE }}>🔥 {PACKAGE_LABELS[order.package]} — {order.roast_target}</span>
-        <span style={{ marginLeft: "auto", fontSize: 12, fontWeight: 700, padding: "4px 12px", borderRadius: 20, color: statusColors[order.status], background: `${statusColors[order.status]}22`, border: `1px solid ${statusColors[order.status]}44` }}>
-          {order.status}
-        </span>
+      <header style={{ background: "#111", borderBottom: "2px solid #FF2D2D", padding: "0 32px" }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto", display: "flex", alignItems: "center", gap: 16, height: 56 }}>
+          <Link href="/admin" style={{ color: "#555", fontSize: 13, textDecoration: "none", fontWeight: 600 }}>← Terug</Link>
+          <span style={{ color: "#222", fontSize: 18 }}>|</span>
+          <span style={{ fontSize: 16, fontWeight: 900 }}>🔥 Roast Details</span>
+          <span style={{ marginLeft: "auto", fontSize: 11, fontWeight: 700, padding: "4px 12px", borderRadius: 20, color: sc.color, background: sc.bg, border: `1px solid ${sc.border}` }}>
+            {order.status}
+          </span>
+        </div>
       </header>
 
-      <div style={{ maxWidth: 1000, margin: "0 auto", padding: "32px 24px", display: "grid", gridTemplateColumns: "1fr 360px", gap: 24, alignItems: "start" }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "28px 24px", display: "grid", gridTemplateColumns: "1fr 340px", gap: 24, alignItems: "start" }}>
 
-        {/* Links: klantgegevens + roast info */}
+        {/* ── Links: info ── */}
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
 
           {/* Klantgegevens */}
-          <div style={{ background: GRAY, borderRadius: 16, border: `1px solid ${GRAY2}`, padding: 24 }}>
-            <p style={{ margin: "0 0 16px", fontSize: 11, fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: GRAY_TEXT }}>Klantgegevens</p>
+          <div style={{ background: "#111", border: "1px solid #222", borderRadius: 14, padding: 24 }}>
+            {sectionTitle("Klantgegevens")}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-              {[
-                ["Naam", order.customer_name],
-                ["E-mail", order.customer_email],
-                ["Pakket", PACKAGE_LABELS[order.package] ?? order.package],
-                ["Prijs", priceFormatted],
-                ["Besteldatum", new Date(order.created_at).toLocaleString("nl-NL")],
-                ["Geleverd op", order.delivered_at ? new Date(order.delivered_at).toLocaleString("nl-NL") : "Nog niet"],
-              ].map(([label, value]) => (
-                <div key={label} style={{ background: BG, borderRadius: 10, padding: "12px 14px", border: `1px solid ${GRAY2}` }}>
-                  <p style={{ margin: "0 0 4px", fontSize: 11, color: GRAY_TEXT, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.1em" }}>{label}</p>
-                  <p style={{ margin: 0, fontSize: 14, color: WHITE, fontWeight: 600 }}>{value || "—"}</p>
-                </div>
-              ))}
+              {infoCard("Naam", order.customer_name)}
+              {infoCard("E-mailadres", order.customer_email)}
+              {infoCard("Pakket", PKG[order.package] ?? order.package, true)}
+              {infoCard("Prijs", price, true)}
+              {infoCard("Besteldatum", new Date(order.created_at).toLocaleString("nl-NL"))}
+              {infoCard("Geleverd op", order.delivered_at ? new Date(order.delivered_at).toLocaleString("nl-NL") : "Nog niet")}
+            </div>
+            <div style={{ marginTop: 12, background: "#0A0A0A", borderRadius: 10, padding: "10px 14px", border: "1px solid #222" }}>
+              <p style={{ margin: 0, fontSize: 10, color: "#555", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 4 }}>Stripe session ID</p>
+              <p style={{ margin: 0, fontSize: 12, color: "#444", fontFamily: "monospace" }}>{order.stripe_session_id || "—"}</p>
             </div>
           </div>
 
-          {/* Roast details */}
-          <div style={{ background: GRAY, borderRadius: 16, border: `1px solid ${GRAY2}`, padding: 24 }}>
-            <p style={{ margin: "0 0 16px", fontSize: 11, fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: GRAY_TEXT }}>Roast details</p>
+          {/* Roast informatie */}
+          <div style={{ background: "#111", border: "1px solid #222", borderRadius: 14, padding: 24 }}>
+            {sectionTitle("Roast informatie")}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 16 }}>
-              {[
-                ["Roast target", order.roast_target],
-                ["Gelegenheid", order.occasion],
-                ["Roast level", ROAST_LEVEL_LABELS[order.roast_level] ?? order.roast_level],
-              ].map(([label, value]) => (
-                <div key={label} style={{ background: BG, borderRadius: 10, padding: "12px 14px", border: `1px solid ${GRAY2}` }}>
-                  <p style={{ margin: "0 0 4px", fontSize: 11, color: GRAY_TEXT, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.1em" }}>{label}</p>
-                  <p style={{ margin: 0, fontSize: 14, color: ORANGE, fontWeight: 700 }}>{value || "—"}</p>
-                </div>
-              ))}
+              {infoCard("Voor wie", order.roast_target, true)}
+              {infoCard("Gelegenheid", order.occasion)}
+              {infoCard("Roast level", LEVEL[order.roast_level] ?? order.roast_level, true)}
             </div>
-            <div style={{ background: BG, borderRadius: 10, padding: "14px 16px", border: `1px solid ${GRAY2}`, marginBottom: 12 }}>
-              <p style={{ margin: "0 0 8px", fontSize: 11, color: GRAY_TEXT, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.1em" }}>Inside jokes & bijnamen</p>
-              <p style={{ margin: 0, fontSize: 14, color: WHITE, lineHeight: 1.7, whiteSpace: "pre-wrap" }}>{order.inside_jokes || "—"}</p>
+          </div>
+
+          {/* Inside jokes */}
+          <div style={{ background: "#111", border: "1px solid #222", borderRadius: 14, padding: 24 }}>
+            {sectionTitle("Inside jokes & bijnamen")}
+            <div style={{ background: "#0A0A0A", border: "1px solid #FF2D2D22", borderRadius: 10, padding: "16px" }}>
+              <p style={{ margin: 0, fontSize: 14, color: "#ddd", lineHeight: 1.8, whiteSpace: "pre-wrap" }}>{order.inside_jokes || "—"}</p>
             </div>
             {order.extra_info && (
-              <div style={{ background: BG, borderRadius: 10, padding: "14px 16px", border: `1px solid ${GRAY2}` }}>
-                <p style={{ margin: "0 0 8px", fontSize: 11, color: GRAY_TEXT, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.1em" }}>Extra info</p>
-                <p style={{ margin: 0, fontSize: 14, color: WHITE, lineHeight: 1.7, whiteSpace: "pre-wrap" }}>{order.extra_info}</p>
-              </div>
+              <>
+                <p style={{ margin: "16px 0 8px", fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#555" }}>Extra info</p>
+                <div style={{ background: "#0A0A0A", border: "1px solid #222", borderRadius: 10, padding: "16px" }}>
+                  <p style={{ margin: 0, fontSize: 14, color: "#ddd", lineHeight: 1.8, whiteSpace: "pre-wrap" }}>{order.extra_info}</p>
+                </div>
+              </>
             )}
           </div>
 
-          {/* Audio preview */}
+          {/* Audio (als beschikbaar) */}
           {order.audio_url && (
-            <div style={{ background: GRAY, borderRadius: 16, border: `1px solid ${GRAY2}`, padding: 24 }}>
-              <p style={{ margin: "0 0 12px", fontSize: 11, fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: GRAY_TEXT }}>Audio</p>
-              <audio controls src={order.audio_url} style={{ width: "100%", borderRadius: 8 }} />
-              <a href={order.audio_url} target="_blank" style={{ display: "inline-block", marginTop: 10, fontSize: 13, color: ORANGE }}>
-                Download link ↗
+            <div style={{ background: "#111", border: "1px solid #222", borderRadius: 14, padding: 24 }}>
+              {sectionTitle("Audio preview")}
+              <audio controls src={order.audio_url} style={{ width: "100%", borderRadius: 8, marginBottom: 10 }} />
+              <a href={order.audio_url} target="_blank" style={{ fontSize: 13, color: "#FF6B00", textDecoration: "none" }}>
+                ↗ Publieke download link
               </a>
             </div>
           )}
         </div>
 
-        {/* Rechts: acties */}
+        {/* ── Rechts: acties ── */}
         <div style={{ display: "flex", flexDirection: "column", gap: 20, position: "sticky", top: 24 }}>
 
-          {/* Status + lyrics opslaan */}
-          <div style={{ background: GRAY, borderRadius: 16, border: `1px solid ${GRAY2}`, padding: 24 }}>
-            <p style={{ margin: "0 0 16px", fontSize: 11, fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: GRAY_TEXT }}>Beheer</p>
+          {/* Status + Roast tekst */}
+          <div style={{ background: "#111", border: "1px solid #222", borderRadius: 14, padding: 24 }}>
+            {sectionTitle("Beheer")}
 
-            <div style={{ marginBottom: 14 }}>
-              <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: WHITE, marginBottom: 8 }}>Status</label>
-              <select value={status} onChange={e => setStatus(e.target.value)} style={{ ...inputStyle, appearance: "none" } as React.CSSProperties}>
-                <option value="pending">pending</option>
-                <option value="paid">paid</option>
-                <option value="in_progress">in_progress</option>
-                <option value="delivered">delivered</option>
-              </select>
-            </div>
+            <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: "#888", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.1em" }}>Status</label>
+            <select
+              value={status}
+              onChange={e => setStatus(e.target.value)}
+              style={{ width: "100%", background: "#0A0A0A", border: "1px solid #333", borderRadius: 8, padding: "11px 14px", color: "#fff", fontSize: 14, marginBottom: 16, fontFamily: "inherit", cursor: "pointer" }}
+            >
+              <option value="pending">pending — Wacht op betaling</option>
+              <option value="paid">paid — Betaald</option>
+              <option value="in_progress">in_progress — In behandeling</option>
+              <option value="delivered">delivered — Afgeleverd</option>
+            </select>
 
-            <div style={{ marginBottom: 16 }}>
-              <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: WHITE, marginBottom: 8 }}>Lyrics</label>
-              <textarea
-                value={lyrics}
-                onChange={e => setLyrics(e.target.value)}
-                placeholder="Voer hier de lyrics in..."
-                style={{ ...inputStyle, minHeight: 180, resize: "vertical" }}
-              />
-            </div>
+            <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: "#888", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.1em" }}>Roast tekst / Lyrics</label>
+            <textarea
+              value={lyrics}
+              onChange={e => setLyrics(e.target.value)}
+              placeholder="Voer hier de roast tekst in die naar de klant gestuurd wordt..."
+              style={{
+                width: "100%", minHeight: 200, background: "#0A0A0A",
+                border: "1px solid #333", borderRadius: 8, padding: "12px 14px",
+                color: "#fff", fontSize: 13, resize: "vertical",
+                fontFamily: "inherit", boxSizing: "border-box", marginBottom: 14,
+                lineHeight: 1.7, transition: "border-color 0.15s",
+              }}
+            />
 
-            <button onClick={saveChanges} disabled={saving} style={{ width: "100%", padding: "12px", borderRadius: 10, border: "none", background: saving ? GRAY2 : `linear-gradient(135deg, ${RED}, ${ORANGE})`, color: WHITE, fontWeight: 700, fontSize: 14, cursor: saving ? "not-allowed" : "pointer", marginBottom: 8 }}>
+            <button
+              onClick={saveChanges}
+              disabled={saving}
+              style={{ width: "100%", padding: "12px", borderRadius: 8, border: "none", background: saving ? "#1a1a1a" : "linear-gradient(135deg, #FF2D2D, #FF6B00)", color: "#fff", fontWeight: 700, fontSize: 14, cursor: saving ? "not-allowed" : "pointer", marginBottom: 8 }}
+            >
               {saving ? "Opslaan..." : "Opslaan"}
             </button>
-            {saveMsg && <p style={{ margin: 0, fontSize: 13, color: saveMsg.startsWith("✅") ? "#22C55E" : RED }}>{saveMsg}</p>}
+            {saveMsg && <p style={{ margin: 0, fontSize: 12, color: saveMsg.startsWith("✅") ? "#22C55E" : "#FF2D2D" }}>{saveMsg}</p>}
           </div>
 
           {/* Audio upload */}
-          <div style={{ background: GRAY, borderRadius: 16, border: `1px solid ${GRAY2}`, padding: 24 }}>
-            <p style={{ margin: "0 0 16px", fontSize: 11, fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: GRAY_TEXT }}>Audio uploaden</p>
-            <input ref={fileRef} type="file" accept="audio/mpeg,audio/mp3,.mp3" style={{ width: "100%", color: GRAY_TEXT, fontSize: 13, marginBottom: 12 }} />
-            <button onClick={uploadAudio} disabled={uploading} style={{ width: "100%", padding: "12px", borderRadius: 10, border: `1px solid ${GRAY2}`, background: BG, color: WHITE, fontWeight: 700, fontSize: 14, cursor: uploading ? "not-allowed" : "pointer", marginBottom: 8 }}>
-              {uploading ? "Uploaden..." : "Upload MP3"}
+          <div style={{ background: "#111", border: "1px solid #222", borderRadius: 14, padding: 24 }}>
+            {sectionTitle("Audio upload")}
+            <p style={{ margin: "0 0 14px", fontSize: 13, color: "#555", lineHeight: 1.6 }}>
+              Upload de MP3 roast. Wordt opgeslagen in Supabase Storage en gekoppeld aan deze bestelling.
+            </p>
+            <input
+              ref={fileRef}
+              type="file"
+              accept=".mp3,audio/mpeg"
+              style={{ width: "100%", color: "#888", fontSize: 13, marginBottom: 12 }}
+            />
+            <button
+              onClick={uploadAudio}
+              disabled={uploading}
+              style={{ width: "100%", padding: "12px", borderRadius: 8, border: "1px solid #FF2D2D", background: uploading ? "#1a1a1a" : "#FF2D2D1a", color: uploading ? "#555" : "#FF2D2D", fontWeight: 700, fontSize: 14, cursor: uploading ? "not-allowed" : "pointer", marginBottom: 8 }}
+            >
+              {uploading ? "Uploaden..." : "⬆ Upload MP3"}
             </button>
-            {uploadMsg && <p style={{ margin: 0, fontSize: 13, color: uploadMsg.startsWith("✅") ? "#22C55E" : RED }}>{uploadMsg}</p>}
+            {uploadMsg && <p style={{ margin: 0, fontSize: 12, color: uploadMsg.startsWith("✅") ? "#22C55E" : "#FF2D2D" }}>{uploadMsg}</p>}
           </div>
 
-          {/* Verstuur roast */}
-          <div style={{ background: `${RED}11`, borderRadius: 16, border: `1px solid ${RED}44`, padding: 24 }}>
-            <p style={{ margin: "0 0 8px", fontSize: 11, fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: RED }}>Bezorging</p>
-            <p style={{ margin: "0 0 16px", fontSize: 13, color: GRAY_TEXT, lineHeight: 1.6 }}>
-              Stuurt de roast (lyrics + audio link) naar <strong style={{ color: WHITE }}>{order.customer_email}</strong> en zet status op <em>delivered</em>.
+          {/* Levering */}
+          <div style={{ background: "#1a0505", border: "1px solid #FF2D2D55", borderRadius: 14, padding: 24 }}>
+            {sectionTitle("Levering")}
+            <p style={{ margin: "0 0 6px", fontSize: 13, color: "#aaa", lineHeight: 1.6 }}>
+              Stuur de roast (tekst + audio link) naar:
             </p>
-            <button onClick={deliverRoast} disabled={delivering} style={{ width: "100%", padding: "14px", borderRadius: 10, border: "none", background: delivering ? GRAY2 : `linear-gradient(135deg, ${RED}, ${ORANGE})`, color: WHITE, fontWeight: 800, fontSize: 15, cursor: delivering ? "not-allowed" : "pointer", marginBottom: 8 }}>
+            <p style={{ margin: "0 0 16px", fontSize: 14, fontWeight: 700, color: "#FF6B00" }}>{order.customer_email}</p>
+            <p style={{ margin: "0 0 16px", fontSize: 12, color: "#666", lineHeight: 1.5 }}>
+              Status wordt automatisch op <strong style={{ color: "#22C55E" }}>delivered</strong> gezet.
+            </p>
+            <button
+              onClick={deliverRoast}
+              disabled={delivering}
+              style={{ width: "100%", padding: "15px", borderRadius: 10, border: "none", background: delivering ? "#1a1a1a" : "linear-gradient(135deg, #FF2D2D, #FF6B00)", color: "#fff", fontWeight: 900, fontSize: 15, cursor: delivering ? "not-allowed" : "pointer", marginBottom: 8, letterSpacing: -0.3 }}
+            >
               {delivering ? "Versturen..." : "🔥 Verstuur roast naar klant"}
             </button>
-            {deliverMsg && <p style={{ margin: 0, fontSize: 13, color: deliverMsg.startsWith("✅") ? "#22C55E" : deliverMsg.startsWith("⚠️") ? ORANGE : RED }}>{deliverMsg}</p>}
+            {order.delivered_at && (
+              <p style={{ margin: 0, fontSize: 12, color: "#22C55E" }}>
+                ✅ Verstuurd op {new Date(order.delivered_at).toLocaleString("nl-NL")}
+              </p>
+            )}
+            {deliverMsg && <p style={{ margin: "6px 0 0", fontSize: 12, color: deliverMsg.startsWith("✅") ? "#22C55E" : "#FF2D2D" }}>{deliverMsg}</p>}
           </div>
 
         </div>
