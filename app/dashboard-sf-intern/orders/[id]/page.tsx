@@ -18,6 +18,7 @@ type Order = {
   extra_info: string | null;
   lyrics: string | null;
   audio_url: string | null;
+  audio_expires_at: string | null;
   delivered_at: string | null;
   stripe_session_id: string | null;
   stripe_payment_intent: string | null;
@@ -304,6 +305,47 @@ Mood: ${mood}`;
               <a href={order.audio_url} target="_blank" style={{ fontSize: 13, color: "#FF6B00", textDecoration: "none" }}>
                 ↗ Publieke download link
               </a>
+              {(() => {
+                if (!order.audio_expires_at) return null;
+                const expiresAt = new Date(order.audio_expires_at);
+                const now = new Date();
+                const daysLeft = Math.ceil((expiresAt.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+                if (daysLeft <= 0) {
+                  return (
+                    <div style={{ marginTop: 12, background: "#1a0505", border: "1px solid #FF2D2D", borderRadius: 10, padding: "10px 14px" }}>
+                      <p style={{ margin: 0, fontSize: 13, color: "#FF2D2D", fontWeight: 700 }}>
+                        ❌ Audio verlopen — bestand is verwijderd van de server
+                      </p>
+                    </div>
+                  );
+                }
+                if (daysLeft <= 3) {
+                  return (
+                    <div style={{ marginTop: 12, background: "#1a0e00", border: "1px solid #FF6B00", borderRadius: 10, padding: "10px 14px" }}>
+                      <p style={{ margin: 0, fontSize: 13, color: "#FF6B00", fontWeight: 700 }}>
+                        ⚠️ Audio verloopt over {daysLeft} dag{daysLeft !== 1 ? "en" : ""} — automatisch verwijderd op {expiresAt.toLocaleDateString("nl-NL")}
+                      </p>
+                    </div>
+                  );
+                }
+                return (
+                  <p style={{ marginTop: 10, fontSize: 12, color: "#555" }}>
+                    Beschikbaar tot {expiresAt.toLocaleDateString("nl-NL")} ({daysLeft} dagen)
+                  </p>
+                );
+              })()}
+            </div>
+          )}
+
+          {/* Audio verlopen maar URL al null */}
+          {!order.audio_url && order.delivered_at && (
+            <div style={{ background: "#111", border: "1px solid #222", borderRadius: 14, padding: 24 }}>
+              {sectionTitle("Audio preview")}
+              <div style={{ background: "#1a0505", border: "1px solid #FF2D2D44", borderRadius: 10, padding: "12px 14px" }}>
+                <p style={{ margin: 0, fontSize: 13, color: "#ff8888" }}>
+                  Audio is verwijderd (14 dagen na levering automatisch opgeschoond).
+                </p>
+              </div>
             </div>
           )}
         </div>

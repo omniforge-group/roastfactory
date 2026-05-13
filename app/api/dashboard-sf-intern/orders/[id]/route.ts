@@ -46,7 +46,7 @@ export async function POST(req: Request, { params }: { params: { id: string } })
   if (!file || file.size === 0) return Response.json({ error: "Geen audiobestand" }, { status: 400 });
 
   const buffer = Buffer.from(await file.arrayBuffer());
-  const filename = `${params.id}/${Date.now()}.mp3`;
+  const filename = `${params.id}-roast.mp3`;
 
   const { data: uploadData, error: uploadError } = await supabaseAdmin.storage
     .from("roast-audio")

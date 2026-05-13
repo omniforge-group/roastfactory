@@ -104,9 +104,11 @@ export async function POST(req: Request) {
 </html>`,
   });
 
+  const deliveredAt = new Date().toISOString();
+  const audioExpiresAt = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString();
   await supabaseAdmin
     .from("orders")
-    .update({ status: "delivered", delivered_at: new Date().toISOString() })
+    .update({ status: "delivered", delivered_at: deliveredAt, audio_expires_at: audioExpiresAt })
     .eq("id", orderId);
 
   // Admin bevestiging
