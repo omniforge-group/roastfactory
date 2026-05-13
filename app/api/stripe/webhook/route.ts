@@ -136,7 +136,7 @@ export async function POST(req: Request) {
         await resend.emails.send({
           from: "RoastFactory <roasts@songfactory.eu>",
           to: process.env.ADMIN_EMAIL!,
-          subject: `Nieuwe roast bestelling 🔥 — ${order.customer_name}`,
+          subject: `✅ Betaling ontvangen — ${packageLabel} voor ${order.roast_target}`,
           html: `<!DOCTYPE html>
 <html lang="nl">
 <head><meta charset="UTF-8"/></head>
@@ -214,6 +214,85 @@ export async function POST(req: Request) {
       }
 
       console.log("✅ Order betaald en mails verstuurd:", orderId);
+    }
+
+    if (event.type === "checkout.session.expired") {
+      const session = event.data.object as Stripe.Checkout.Session;
+      const orderId = session.metadata?.order_id;
+
+      let packageLabel = "—";
+      let roastTarget = "onbekend";
+      let customerEmail = session.customer_email ?? "—";
+      let customerName = "—";
+
+      if (orderId) {
+        const { data: order } = await supabaseAdmin
+          .from("orders")
+          .select("package, roast_target, customer_email, customer_name")
+          .eq("id", orderId)
+          .single();
+
+        if (order) {
+          packageLabel = PACKAGE_LABELS[order.package] ?? order.package;
+          roastTarget = order.roast_target;
+          customerEmail = order.customer_email;
+          customerName = order.customer_name;
+        }
+      }
+
+      try {
+        await resend.emails.send({
+          from: "RoastFactory <roasts@songfactory.eu>",
+          to: process.env.ADMIN_EMAIL!,
+          subject: `❌ Checkout verlopen — ${packageLabel} voor ${roastTarget}`,
+          html: `<!DOCTYPE html>
+<html lang="nl">
+<head><meta charset="UTF-8"/></head>
+<body style="margin:0;padding:0;background:#f8fafc;font-family:Arial,Helvetica,sans-serif;">
+
+  <div style="background:#7f1d1d;padding:28px 32px;text-align:center;">
+    <p style="margin:0 0 4px;font-size:12px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#fca5a5;">RoastFactory Admin</p>
+    <h1 style="margin:0;font-size:22px;font-weight:900;color:#ffffff;">❌ Checkout verlopen</h1>
+  </div>
+
+  <div style="max-width:600px;margin:0 auto;padding:24px 16px 48px;">
+
+    <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:12px;padding:14px 20px;margin-bottom:20px;">
+      <p style="margin:0;font-size:14px;font-weight:700;color:#991b1b;">Klant heeft betaling niet afgerond</p>
+    </div>
+
+    <div style="background:#ffffff;border-radius:16px;padding:24px;box-shadow:0 2px 8px rgba(15,23,42,0.06);">
+      <table style="width:100%;border-collapse:collapse;">
+        <tr>
+          <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;font-size:13px;color:#64748b;width:140px;">Naam</td>
+          <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;font-size:14px;color:#0f172a;">${customerName}</td>
+        </tr>
+        <tr>
+          <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;font-size:13px;color:#64748b;">E-mail</td>
+          <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;font-size:14px;color:#0f172a;">${customerEmail}</td>
+        </tr>
+        <tr>
+          <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;font-size:13px;color:#64748b;">Pakket</td>
+          <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;font-size:14px;font-weight:700;color:#FF2D2D;">${packageLabel}</td>
+        </tr>
+        <tr>
+          <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;font-size:13px;color:#64748b;">Roast target</td>
+          <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;font-size:14px;color:#0f172a;">${roastTarget}</td>
+        </tr>
+        <tr>
+          <td style="padding:8px 0;font-size:13px;color:#64748b;">Session ID</td>
+          <td style="padding:8px 0;font-size:13px;font-family:monospace;color:#64748b;">${session.id}</td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+</body>
+</html>`,
+        });
+      } catch (err) {
+        console.error("Expired checkout admin email error:", err);
+      }
     }
 
     return new Response("OK", { status: 200 });
