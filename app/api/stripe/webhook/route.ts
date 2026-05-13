@@ -119,8 +119,8 @@ export async function POST(req: Request) {
     </div>
 
     <div style="text-align:center;margin-top:28px;">
-      <p style="font-size:13px;color:#555555;margin:0;">Vragen? Mail naar <a href="mailto:info@roastfactory.nl" style="color:#FF6B00;">info@roastfactory.nl</a></p>
-      <p style="font-size:12px;color:#333333;margin:8px 0 0;">© roastfactory.nl</p>
+      <p style="font-size:13px;color:#555555;margin:0;">Vragen? Mail naar <a href="mailto:info@songfactory.eu" style="color:#FF6B00;">info@songfactory.eu</a></p>
+      <p style="font-size:12px;color:#333333;margin:8px 0 0;">© RoastFactory.eu</p>
     </div>
 
   </div>

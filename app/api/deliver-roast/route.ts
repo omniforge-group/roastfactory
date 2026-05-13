@@ -41,7 +41,7 @@ export async function POST(req: Request) {
         Klik op de knop om je roast te downloaden.<br/>
         <strong style="color:#888888;">Op mobiel:</strong> houd de knop ingedrukt en kies <em>Opslaan</em> of <em>Downloaden</em>.
       </p>`
-    : `<p style="color:#FF2D2D;font-size:14px;">De audio is nog niet beschikbaar. Neem contact op met info@roastfactory.nl</p>`;
+    : `<p style="color:#FF2D2D;font-size:14px;">De audio is nog niet beschikbaar. Neem contact op met info@songfactory.eu</p>`;
 
   await resend.emails.send({
     from: "RoastFactory <roasts@songfactory.eu>",
@@ -82,6 +82,12 @@ export async function POST(req: Request) {
         ${audioButton}
       </div>
 
+      <div style="background:#1a0e00;border:1px solid #FF6B00;border-radius:12px;padding:14px 18px;margin:0 0 20px;">
+        <p style="margin:0;font-size:13px;color:#FF6B00;line-height:1.6;">
+          ⚠️ <strong>Belangrijk:</strong> Sla je roast op binnen 14 dagen. Na 14 dagen wordt het bestand automatisch verwijderd van onze servers en is de downloadlink niet meer geldig.
+        </p>
+      </div>
+
       ${lyricsBlock}
 
       <p style="margin:24px 0 0;font-size:13px;color:#555555;background:#111111;border-radius:10px;padding:12px 16px;">
@@ -90,7 +96,7 @@ export async function POST(req: Request) {
     </div>
 
     <div style="text-align:center;margin-top:28px;">
-      <p style="font-size:13px;color:#444444;margin:0;">Vragen? <a href="mailto:info@roastfactory.nl" style="color:#FF6B00;">info@roastfactory.nl</a></p>
+      <p style="font-size:13px;color:#444444;margin:0;">Vragen? <a href="mailto:info@songfactory.eu" style="color:#FF6B00;">info@songfactory.eu</a></p>
       <p style="font-size:12px;color:#333333;margin:6px 0 0;">© RoastFactory.eu</p>
     </div>
   </div>
