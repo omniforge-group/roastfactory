@@ -1,36 +1,23 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
 
-function unauthorized() {
-  return new NextResponse('Toegang geweigerd', {
-    status: 401,
-    headers: { 'WWW-Authenticate': 'Basic realm="RoastFactory Admin"' },
-  });
-}
+export function middleware(request: NextRequest) {
+  if (request.nextUrl.pathname.startsWith('/admin')) {
+    const authHeader = request.headers.get('authorization')
+    const adminUser = process.env.ADMIN_USERNAME || 'admin'
+    const adminPass = process.env.ADMIN_PASSWORD || 'password'
+    const expected = 'Basic ' + Buffer.from(`${adminUser}:${adminPass}`).toString('base64')
 
-export function middleware(req: NextRequest) {
-  const { pathname } = req.nextUrl;
-
-  if (pathname.startsWith('/admin')) {
-    const auth = req.headers.get('authorization') ?? '';
-    const [scheme, encoded] = auth.split(' ');
-    if (scheme !== 'Basic' || !encoded) return unauthorized();
-
-    const decoded = atob(encoded);
-    const colonIdx = decoded.indexOf(':');
-    const user = decoded.slice(0, colonIdx);
-    const pass = decoded.slice(colonIdx + 1);
-
-    if (
-      user !== process.env.ADMIN_USERNAME ||
-      pass !== process.env.ADMIN_PASSWORD
-    ) {
-      return unauthorized();
+    if (authHeader !== expected) {
+      return new NextResponse('Unauthorized', {
+        status: 401,
+        headers: { 'WWW-Authenticate': 'Basic realm="Admin"' }
+      })
     }
   }
-
-  return NextResponse.next();
+  return NextResponse.next()
 }
 
 export const config = {
-  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)'],
-};
+  matcher: ['/admin/:path*']
+}
