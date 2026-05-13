@@ -231,7 +231,7 @@ Mood: ${mood}`;
       {/* Header */}
       <header style={{ background: "#111", borderBottom: "2px solid #FF2D2D", padding: "0 32px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto", display: "flex", alignItems: "center", gap: 16, height: 56 }}>
-          <Link href="/dashboard-sf-intern/bestellingen" style={{ color: "#555", fontSize: 13, textDecoration: "none", fontWeight: 600 }}>← Terug</Link>
+          <Link href="/dashboard-sf-intern" style={{ color: "#555", fontSize: 13, textDecoration: "none", fontWeight: 600 }}>← Terug</Link>
           <span style={{ color: "#222", fontSize: 18 }}>|</span>
           <span style={{ fontSize: 16, fontWeight: 900 }}>🔥 Roast Details</span>
           <span style={{ marginLeft: "auto", fontSize: 11, fontWeight: 700, padding: "4px 12px", borderRadius: 20, color: sc.color, background: sc.bg, border: `1px solid ${sc.border}` }}>
