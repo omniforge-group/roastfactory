@@ -2,6 +2,15 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
+const NAV = [
+  { href: "/dashboard-sf-intern",              label: "🔥 Bestellingen" },
+  { href: "/dashboard-sf-intern/stats",         label: "📊 Statistieken" },
+  { href: "/dashboard-sf-intern/kortingscodes", label: "🎟️ Kortingscodes" },
+  { href: "/dashboard-sf-intern/gebruikers",    label: "👥 Gebruikers" },
+  { href: "/dashboard-sf-intern/activiteiten",  label: "📋 Activiteiten" },
+  { href: "/dashboard-sf-intern/toegang",       label: "🔐 Toegang" },
+];
+
 export default function AdminNav() {
   const pathname = usePathname();
   const router = useRouter();
@@ -13,20 +22,35 @@ export default function AdminNav() {
   }
 
   const active = (href: string) =>
-    pathname === href || pathname.startsWith(href + "/")
+    pathname === href || (href !== "/dashboard-sf-intern" && pathname.startsWith(href + "/"))
       ? { background: "#FF2D2D", color: "#fff", fontWeight: 700 }
-      : { background: "transparent", color: "#555", fontWeight: 400 };
+      : { background: "transparent", color: "#666", fontWeight: 400 };
 
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
       <nav style={{ display: "flex", gap: 2 }}>
-        <Link href="/dashboard-sf-intern" style={{ padding: "5px 13px", borderRadius: 7, fontSize: 13, textDecoration: "none", whiteSpace: "nowrap", ...active("/dashboard-sf-intern") }}>
-          🔥 Bestellingen
-        </Link>
+        {NAV.map(({ href, label }) => (
+          <Link
+            key={href}
+            href={href}
+            style={{
+              padding: "5px 11px", borderRadius: 7, fontSize: 12,
+              textDecoration: "none", whiteSpace: "nowrap",
+              transition: "background 0.12s",
+              ...active(href),
+            }}
+          >
+            {label}
+          </Link>
+        ))}
       </nav>
       <button
         onClick={logout}
-        style={{ background: "transparent", border: "1px solid #333", borderRadius: 7, padding: "5px 14px", color: "#555", fontSize: 13, cursor: "pointer" }}
+        style={{
+          background: "transparent", border: "1px solid #333",
+          borderRadius: 7, padding: "5px 14px", color: "#555",
+          fontSize: 12, cursor: "pointer", whiteSpace: "nowrap",
+        }}
       >
         Uitloggen
       </button>
