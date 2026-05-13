@@ -29,11 +29,13 @@ export type SessionUser = { userId: string; name: string; role: string };
 export function createSessionCookie(userId: string, name: string, role: string): string {
   const payload = Buffer.from(JSON.stringify({ u: userId, n: name, r: role })).toString("base64url");
   const sig = sign(payload);
-  return `${COOKIE_NAME}=${payload}.${sig}; HttpOnly; Secure; SameSite=Strict; Max-Age=${60 * 60 * 24}; Path=/`;
+  const secure = process.env.NODE_ENV === "production" ? " Secure;" : "";
+  return `${COOKIE_NAME}=${payload}.${sig}; HttpOnly;${secure} SameSite=Strict; Max-Age=${60 * 60 * 24}; Path=/`;
 }
 
 export function clearSessionCookie(): string {
-  return `${COOKIE_NAME}=; HttpOnly; Secure; SameSite=Strict; Max-Age=0; Path=/`;
+  const secure = process.env.NODE_ENV === "production" ? " Secure;" : "";
+  return `${COOKIE_NAME}=; HttpOnly;${secure} SameSite=Strict; Max-Age=0; Path=/`;
 }
 
 // Returns user info from cookie, or null if invalid.
