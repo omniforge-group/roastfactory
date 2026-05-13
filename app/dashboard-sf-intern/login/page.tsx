@@ -13,7 +13,7 @@ export default function AdminLogin() {
     setLoading(true);
     setError("");
 
-    const res = await fetch("/api/admin/login", {
+    const res = await fetch("/api/dashboard-sf-intern/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ password }),

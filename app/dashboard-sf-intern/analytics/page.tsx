@@ -19,7 +19,7 @@ function AnalyticsContent() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch("/api/admin/analytics")
+    fetch("/api/dashboard-sf-intern/analytics")
       .then(r => {
         if (r.status === 401) { router.push("/dashboard-sf-intern"); return null; }
         return r.json();

@@ -53,7 +53,7 @@ function GebruikersContent() {
   const [resetSaving, setResetSaving] = useState(false);
 
   async function load() {
-    const res = await fetch("/api/admin/users");
+    const res = await fetch("/api/dashboard-sf-intern/users");
     if (res.status === 401) { router.push("/dashboard-sf-intern"); return; }
     if (res.status === 403) { setForbidden(true); setLoading(false); return; }
     const data = await res.json();
@@ -67,7 +67,7 @@ function GebruikersContent() {
     e.preventDefault();
     setFormSaving(true);
     setFormError("");
-    const res = await fetch("/api/admin/users", {
+    const res = await fetch("/api/dashboard-sf-intern/users", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: formName, email: formEmail, password: formPassword, role: formRole }),
@@ -82,7 +82,7 @@ function GebruikersContent() {
 
   async function toggleActive(id: string, is_active: boolean) {
     setUsers(prev => prev.map(u => u.id === id ? { ...u, is_active } : u));
-    await fetch(`/api/admin/users/${id}`, {
+    await fetch(`/api/dashboard-sf-intern/users/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ is_active }),
@@ -91,7 +91,7 @@ function GebruikersContent() {
 
   async function changeRole(id: string, role: string) {
     setUsers(prev => prev.map(u => u.id === id ? { ...u, role } : u));
-    await fetch(`/api/admin/users/${id}`, {
+    await fetch(`/api/dashboard-sf-intern/users/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ role }),
@@ -102,7 +102,7 @@ function GebruikersContent() {
     e.preventDefault();
     if (!resetId || !resetPw) return;
     setResetSaving(true);
-    await fetch(`/api/admin/users/${resetId}`, {
+    await fetch(`/api/dashboard-sf-intern/users/${resetId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ password: resetPw }),

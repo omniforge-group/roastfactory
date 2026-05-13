@@ -35,11 +35,11 @@ export default function StatsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/admin/me").then(r => r.ok ? r.json() : null).then(d => { if (d?.role) setRole(d.role); });
+    fetch("/api/dashboard-sf-intern/me").then(r => r.ok ? r.json() : null).then(d => { if (d?.role) setRole(d.role); });
   }, []);
 
   useEffect(() => {
-    fetch("/api/admin/stats")
+    fetch("/api/dashboard-sf-intern/stats")
       .then(r => { if (r.status === 401) router.push("/dashboard-sf-intern"); return r.json(); })
       .then(d => { setData(d); setLoading(false); })
       .catch(() => setLoading(false));
@@ -47,7 +47,7 @@ export default function StatsPage() {
 
   useEffect(() => {
     if (role !== "admin") return;
-    fetch("/api/admin/stats/finance")
+    fetch("/api/dashboard-sf-intern/stats/finance")
       .then(r => r.ok ? r.json() : null)
       .then(d => { if (d && !d.error) setFinance(d); });
   }, [role]);

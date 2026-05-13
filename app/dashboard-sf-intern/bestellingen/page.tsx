@@ -38,7 +38,7 @@ const LEVEL: Record<string, string> = {
 };
 
 export default async function AdminPage() {
-  if (!isLoggedIn()) redirect("/admin/login");
+  if (!isLoggedIn()) redirect("/dashboard-sf-intern/login");
 
   const { data: orders, error } = await supabaseAdmin
     .from("orders")
@@ -70,7 +70,7 @@ export default async function AdminPage() {
               Roast bestellingen beheren
             </span>
           </div>
-          <a href="/api/admin/logout" style={{ fontSize: 13, color: "#666", textDecoration: "none" }}>Uitloggen →</a>
+          <a href="/api/dashboard-sf-intern/logout" style={{ fontSize: 13, color: "#666", textDecoration: "none" }}>Uitloggen →</a>
         </div>
       </header>
 
@@ -165,7 +165,7 @@ export default async function AdminPage() {
                 </span>
 
                 <Link
-                  href={`/admin/orders/${order.id}`}
+                  href={`/dashboard-sf-intern/orders/${order.id}`}
                   className="rf-btn"
                   style={{
                     display: "inline-block", padding: "7px 14px", borderRadius: 8,

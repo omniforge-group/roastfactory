@@ -32,7 +32,7 @@ export default function ToegangsPage() {
   const [role, setRole] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("/api/admin/me")
+    fetch("/api/dashboard-sf-intern/me")
       .then(r => r.ok ? r.json() : null)
       .then(d => {
         if (!d?.role) { router.push("/dashboard-sf-intern"); return; }
@@ -40,7 +40,7 @@ export default function ToegangsPage() {
         setRole(d.role);
       });
 
-    fetch("/api/admin/permissions")
+    fetch("/api/dashboard-sf-intern/permissions")
       .then(r => { if (r.status === 401) router.push("/dashboard-sf-intern"); return r.json(); })
       .then(data => { setPermissions(data ?? []); setLoading(false); })
       .catch(() => setLoading(false));
@@ -54,7 +54,7 @@ export default function ToegangsPage() {
     const updated = { ...current, [field]: value };
     setPermissions(prev => prev.map(p => p.page_key === page_key ? updated : p));
 
-    const res = await fetch("/api/admin/permissions", {
+    const res = await fetch("/api/dashboard-sf-intern/permissions", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updated),

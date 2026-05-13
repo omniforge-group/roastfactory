@@ -30,11 +30,11 @@ function WerkprocessenContent() {
   const [role, setRole] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("/api/admin/me").then(r => r.ok ? r.json() : null).then(d => { if (d?.role) setRole(d.role); });
+    fetch("/api/dashboard-sf-intern/me").then(r => r.ok ? r.json() : null).then(d => { if (d?.role) setRole(d.role); });
   }, []);
 
   useEffect(() => {
-    fetch("/api/admin/werkprocessen")
+    fetch("/api/dashboard-sf-intern/werkprocessen")
       .then(r => {
         if (r.status === 401) { router.push("/dashboard-sf-intern"); return null; }
         if (r.status === 403) { setForbidden(true); setLoading(false); return null; }

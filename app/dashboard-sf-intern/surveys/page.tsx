@@ -42,7 +42,7 @@ export default function SurveysPage() {
   const [expanded, setExpanded] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("/api/admin/surveys")
+    fetch("/api/dashboard-sf-intern/surveys")
       .then(r => { if (r.status === 401) router.push("/dashboard-sf-intern"); return r.json(); })
       .then(data => { setSurveys(Array.isArray(data) ? data : []); setLoading(false); })
       .catch(() => setLoading(false));

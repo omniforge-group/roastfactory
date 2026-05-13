@@ -84,14 +84,14 @@ function OrdersContent() {
   const [notesSaving, setNotesSaving] = useState(false);
 
   const load = useCallback(() => {
-    fetch("/api/admin/orders")
+    fetch("/api/dashboard-sf-intern/orders")
       .then(r => { if (r.status === 401) router.push("/dashboard-sf-intern"); return r.json(); })
       .then(data => { setOrders(Array.isArray(data) ? data : []); setLoading(false); })
       .catch(() => setLoading(false));
   }, [router]);
 
   useEffect(() => { load(); }, [load]);
-  useEffect(() => { fetch("/api/admin/me").then(r => r.ok ? r.json() : null).then(d => { if (d?.role) setRole(d.role); }); }, []);
+  useEffect(() => { fetch("/api/dashboard-sf-intern/me").then(r => r.ok ? r.json() : null).then(d => { if (d?.role) setRole(d.role); }); }, []);
   useEffect(() => { setSelected(new Set()); }, [tab]);
 
   useEffect(() => {
@@ -100,23 +100,23 @@ function OrdersContent() {
 
   async function updateStatus(id: string, order_status: string) {
     setOrders(prev => prev.map(o => o.id === id ? { ...o, order_status } : o));
-    await fetch("/api/admin/orders", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id, order_status }) });
+    await fetch("/api/dashboard-sf-intern/orders", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id, order_status }) });
   }
 
   async function archiveOrder(id: string, folder: string) {
     setOrders(prev => prev.map(o => o.id === id ? { ...o, archived_at: new Date().toISOString(), archive_folder: folder } : o));
-    await fetch("/api/admin/orders", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id, archive_folder: folder }) });
+    await fetch("/api/dashboard-sf-intern/orders", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id, archive_folder: folder }) });
   }
 
   async function unarchiveOrder(id: string) {
     setOrders(prev => prev.map(o => o.id === id ? { ...o, archived_at: null, archive_folder: null } : o));
-    await fetch("/api/admin/orders", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id, unarchive: true }) });
+    await fetch("/api/dashboard-sf-intern/orders", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id, unarchive: true }) });
   }
 
   async function deleteOrder(id: string) {
     setOrders(prev => prev.filter(o => o.id !== id));
     setConfirmDelete(null);
-    await fetch("/api/admin/orders", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) });
+    await fetch("/api/dashboard-sf-intern/orders", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) });
   }
 
   async function bulkArchive() {
@@ -124,7 +124,7 @@ function OrdersContent() {
     const now = new Date().toISOString();
     setOrders(prev => prev.map(o => ids.includes(o.id) ? { ...o, archived_at: now, archive_folder: bulkFolder } : o));
     setSelected(new Set());
-    await Promise.all(ids.map(id => fetch("/api/admin/orders", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id, archive_folder: bulkFolder }) })));
+    await Promise.all(ids.map(id => fetch("/api/dashboard-sf-intern/orders", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id, archive_folder: bulkFolder }) })));
     setBulkSuccess(`${ids.length} order${ids.length !== 1 ? "s" : ""} gearchiveerd naar "${bulkFolder}"`);
     setTimeout(() => setBulkSuccess(null), 4000);
   }
@@ -134,7 +134,7 @@ function OrdersContent() {
     setOrders(prev => prev.filter(o => !ids.includes(o.id)));
     setSelected(new Set());
     setConfirmBulkDelete(false);
-    await fetch("/api/admin/orders", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ids }) });
+    await fetch("/api/dashboard-sf-intern/orders", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ids }) });
     setBulkSuccess(`${ids.length} order${ids.length !== 1 ? "s" : ""} permanent verwijderd`);
     setTimeout(() => setBulkSuccess(null), 4000);
   }
@@ -143,7 +143,7 @@ function OrdersContent() {
     if (!notesOrderId) return;
     setNotesSaving(true);
     setOrders(prev => prev.map(o => o.id === notesOrderId ? { ...o, internal_notes: notesText } : o));
-    await fetch("/api/admin/orders", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: notesOrderId, internal_notes: notesText || null }) });
+    await fetch("/api/dashboard-sf-intern/orders", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: notesOrderId, internal_notes: notesText || null }) });
     setNotesOrderId(null);
     setNotesSaving(false);
   }

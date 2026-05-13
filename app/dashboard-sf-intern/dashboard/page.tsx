@@ -21,11 +21,11 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/admin/dashboard")
+    fetch("/api/dashboard-sf-intern/dashboard")
       .then(r => { if (r.status === 401) router.push("/dashboard-sf-intern"); return r.json(); })
       .then(data => { setStats(data); setLoading(false); })
       .catch(() => setLoading(false));
-    fetch("/api/admin/analytics")
+    fetch("/api/dashboard-sf-intern/analytics")
       .then(r => r.ok ? r.json() : null)
       .then(d => { if (d && !d.error) setAnalytics(d); });
   }, [router]);

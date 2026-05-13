@@ -45,7 +45,7 @@ function KortingscodesContent() {
   const [deleting, setDeleting] = useState(false);
 
   async function load() {
-    const res = await fetch("/api/admin/discount-codes");
+    const res = await fetch("/api/dashboard-sf-intern/discount-codes");
     if (res.status === 401) { router.push("/dashboard-sf-intern"); return; }
     if (res.status === 403) { setForbidden(true); setLoading(false); return; }
     const data = await res.json();
@@ -59,7 +59,7 @@ function KortingscodesContent() {
     e.preventDefault();
     setFormSaving(true);
     setFormError("");
-    const res = await fetch("/api/admin/discount-codes", {
+    const res = await fetch("/api/dashboard-sf-intern/discount-codes", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -81,7 +81,7 @@ function KortingscodesContent() {
   async function deleteCode() {
     if (!confirmDelete) return;
     setDeleting(true);
-    const res = await fetch("/api/admin/discount-codes", {
+    const res = await fetch("/api/dashboard-sf-intern/discount-codes", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: confirmDelete.id, coupon_id: confirmDelete.coupon_id, code: confirmDelete.code }),

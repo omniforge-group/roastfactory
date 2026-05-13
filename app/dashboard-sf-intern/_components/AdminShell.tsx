@@ -6,7 +6,7 @@ import Link from "next/link";
 type NavItem = { href: string; label: string; pageKey: string; roles?: string[] };
 
 const NAV: NavItem[] = [
-  { href: "/admin",                                   label: "🔥 Bestellingen",  pageKey: "bestellingen" },
+  { href: "/dashboard-sf-intern/bestellingen",                                   label: "🔥 Bestellingen",  pageKey: "bestellingen" },
   { href: "/dashboard-sf-intern/dashboard",           label: "Dashboard",        pageKey: "dashboard" },
   { href: "/dashboard-sf-intern/kortingscodes",       label: "Kortingscodes",    pageKey: "kortingscodes", roles: ["admin", "tier2"] },
   { href: "/dashboard-sf-intern/gebruikers",          label: "Gebruikers",       pageKey: "gebruikers",    roles: ["admin"] },
@@ -25,13 +25,13 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
   const [perms, setPerms] = useState<PagePerm[] | null>(null);
 
   useEffect(() => {
-    fetch("/api/admin/me").then(r => r.ok ? r.json() : null).then(d => { if (d?.role) setRole(d.role); });
-    fetch("/api/admin/permissions").then(r => r.ok ? r.json() : null).then(d => { if (Array.isArray(d)) setPerms(d); });
+    fetch("/api/dashboard-sf-intern/me").then(r => r.ok ? r.json() : null).then(d => { if (d?.role) setRole(d.role); });
+    fetch("/api/dashboard-sf-intern/permissions").then(r => r.ok ? r.json() : null).then(d => { if (Array.isArray(d)) setPerms(d); });
   }, []);
 
   async function logout() {
-    await fetch("/api/admin/logout", { method: "POST" });
-    router.push("/admin/login");
+    await fetch("/api/dashboard-sf-intern/logout", { method: "POST" });
+    router.push("/dashboard-sf-intern/login");
   }
 
   function canAccess(item: NavItem): boolean {
@@ -61,7 +61,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
             <nav style={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
               {visibleNav.map(({ href, label, pageKey }) => {
                 const active = pageKey === "bestellingen"
-                  ? pathname === "/admin" || pathname.startsWith("/admin/orders")
+                  ? pathname === "/dashboard-sf-intern/bestellingen" || pathname.startsWith("/dashboard-sf-intern/orders")
                   : pathname === href || pathname.startsWith(href + "/");
                 return (
                   <Link

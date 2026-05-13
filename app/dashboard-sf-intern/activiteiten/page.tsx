@@ -56,7 +56,7 @@ function ActiviteitenContent() {
 
   async function load(action: string) {
     setLoading(true);
-    const url = action ? `/api/admin/activity?action=${action}` : "/api/admin/activity";
+    const url = action ? `/api/dashboard-sf-intern/activity?action=${action}` : "/api/dashboard-sf-intern/activity";
     const res = await fetch(url);
     if (res.status === 401) { router.push("/dashboard-sf-intern"); return; }
     if (res.status === 403) { setForbidden(true); setLoading(false); return; }

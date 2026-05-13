@@ -53,8 +53,8 @@ function BeheerContent() {
 
   async function load() {
     const [itemsRes, catRes] = await Promise.all([
-      fetch("/api/admin/werkprocessen"),
-      fetch("/api/admin/werkprocessen/categories"),
+      fetch("/api/dashboard-sf-intern/werkprocessen"),
+      fetch("/api/dashboard-sf-intern/werkprocessen/categories"),
     ]);
     if (itemsRes.status === 401) { router.push("/dashboard-sf-intern"); return; }
     if (itemsRes.status === 403) { setForbidden(true); setLoading(false); return; }
@@ -69,7 +69,7 @@ function BeheerContent() {
   async function createItem(e: React.FormEvent) {
     e.preventDefault();
     setFSaving(true); setFError("");
-    const res = await fetch("/api/admin/werkprocessen", {
+    const res = await fetch("/api/dashboard-sf-intern/werkprocessen", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title: fTitle, description: fDesc || null, url: fUrl, category_id: fCategory || null }),
@@ -84,7 +84,7 @@ function BeheerContent() {
     e.preventDefault();
     if (!editId) return;
     setEditSaving(true);
-    await fetch(`/api/admin/werkprocessen/${editId}`, {
+    await fetch(`/api/dashboard-sf-intern/werkprocessen/${editId}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title: editTitle, description: editDesc || null, url: editUrl, category_id: editCategory || null }),
@@ -94,14 +94,14 @@ function BeheerContent() {
 
   async function deleteItem(id: string) {
     if (!confirm("Dit werkproces verwijderen?")) return;
-    await fetch(`/api/admin/werkprocessen/${id}`, { method: "DELETE" });
+    await fetch(`/api/dashboard-sf-intern/werkprocessen/${id}`, { method: "DELETE" });
     load();
   }
 
   async function createCategory(e: React.FormEvent) {
     e.preventDefault();
     setCatSaving(true);
-    await fetch("/api/admin/werkprocessen/categories", {
+    await fetch("/api/dashboard-sf-intern/werkprocessen/categories", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: catName, sort_order: catOrder ? parseInt(catOrder) : 0 }),
@@ -111,7 +111,7 @@ function BeheerContent() {
 
   async function deleteCategory(id: string) {
     if (!confirm("Categorie verwijderen? Werkprocessen in deze categorie worden niet verwijderd.")) return;
-    await fetch("/api/admin/werkprocessen/categories", {
+    await fetch("/api/dashboard-sf-intern/werkprocessen/categories", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id }),
