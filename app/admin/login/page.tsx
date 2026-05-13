@@ -20,7 +20,7 @@ export default function AdminLogin() {
     });
 
     if (res.ok) {
-      router.push("/admin");
+      router.push("/dashboard-sf-intern/dashboard");
     } else {
       const data = await res.json();
       setError(data.error || "Ongeldig wachtwoord.");
