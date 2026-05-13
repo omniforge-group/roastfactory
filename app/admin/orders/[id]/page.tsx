@@ -59,6 +59,9 @@ export default function OrderDetailPage() {
   const [delivering, setDelivering] = useState(false);
   const [deliverMsg, setDeliverMsg] = useState("");
 
+  const [activePromptTab, setActivePromptTab] = useState<"lyrics" | "suno">("lyrics");
+  const [copiedTab, setCopiedTab] = useState<"lyrics" | "suno" | null>(null);
+
   useEffect(() => {
     fetch(`/api/admin/orders/${id}`)
       .then(r => {
@@ -124,6 +127,70 @@ export default function OrderDetailPage() {
     } else {
       setDeliverMsg(`❌ ${data.error}`);
     }
+  }
+
+  function generateLyricsPrompt(o: Order): string {
+    const lengthMap: Record<string, string> = {
+      quick_roast: "1 couplet + refrein",
+      savage_pack: "2 coupletten + refrein",
+      nuclear_pack: "3 coupletten + refrein + bridge",
+      battle_mode: "2 rondes van elk 1 couplet + refrein",
+    };
+    return `Schrijf een roast in het Nederlands voor ${o.roast_target} ter gelegenheid van ${o.occasion}.
+
+Roast level: ${LEVEL[o.roast_level] ?? o.roast_level}
+- Mild 😅: vriendelijk, licht plagend, geen echte beledigingen
+- Medium 😬: grappig, wat scherper, licht gênant
+- Savage 🔥: hard, direct, scherp maar nog steeds grappig
+- Nuclear ☢️: geen genade, maximaal hard, alles mag
+
+Inside jokes en bijnamen om te verwerken:
+${o.inside_jokes || "—"}
+
+Extra informatie:
+${o.extra_info || "—"}
+
+Eisen voor de lyrics:
+- Schrijf in couplet/refrein structuur
+- Gebruik rijm waar mogelijk
+- Verwerk de inside jokes en bijnamen natuurlijk in de tekst
+- Pas de toon aan op het gekozen roast level
+- Maak het persoonlijk en herkenbaar voor de ontvanger
+- Lengte: ${lengthMap[o.package] ?? "1 couplet + refrein"}`;
+  }
+
+  function generateSunoPrompt(o: Order): string {
+    const genreMap: Record<string, string> = {
+      mild: "upbeat pop, fun, playful",
+      medium: "hip hop, comedic rap, bouncy beat",
+      savage: "aggressive rap, diss track, hard hitting",
+      nuclear: "battle rap, aggressive, dark beat, intense",
+    };
+    const bpmMap: Record<string, string> = {
+      mild: "120bpm", medium: "130bpm", savage: "140bpm", nuclear: "150bpm",
+    };
+    const moodMap: Record<string, string> = {
+      mild: "fun and playful",
+      medium: "comedic and sharp",
+      savage: "brutal and funny",
+      nuclear: "no mercy",
+    };
+    const genre = genreMap[o.roast_level] ?? "upbeat pop, fun, playful";
+    const bpm = bpmMap[o.roast_level] ?? "120bpm";
+    const mood = moodMap[o.roast_level] ?? "fun and playful";
+    const battleExtra = o.package === "battle_mode"
+      ? ", battle rap format, two verses alternating, competitive energy"
+      : "";
+    return `Style: ${genre}, Dutch lyrics, roast song about ${o.roast_target}, ${o.occasion} theme, ${o.roast_level} intensity, catchy hook, ${bpm}${battleExtra}
+
+Mood: ${mood}`;
+  }
+
+  async function copyPrompt(tab: "lyrics" | "suno") {
+    const text = tab === "lyrics" ? generateLyricsPrompt(order!) : generateSunoPrompt(order!);
+    await navigator.clipboard.writeText(text);
+    setCopiedTab(tab);
+    setTimeout(() => setCopiedTab(null), 2000);
   }
 
   if (loading) return (
@@ -235,6 +302,59 @@ export default function OrderDetailPage() {
 
         {/* ── Rechts: acties ── */}
         <div style={{ display: "flex", flexDirection: "column", gap: 20, position: "sticky", top: 24 }}>
+
+          {/* AI Prompt Generator */}
+          <div style={{ background: "#1a1a1a", border: "1px solid #FF2D2D55", borderRadius: 14, padding: 24 }}>
+            <div style={{ marginBottom: 16 }}>
+              <p style={{ margin: "0 0 4px", fontSize: 14, fontWeight: 900, color: "#fff", letterSpacing: -0.3 }}>🤖 AI Prompt Generator</p>
+              <p style={{ margin: 0, fontSize: 12, color: "#555" }}>Gebruik deze prompts om de roast te maken</p>
+            </div>
+
+            {/* Tabs */}
+            <div style={{ display: "flex", gap: 4, marginBottom: 14 }}>
+              {(["lyrics", "suno"] as const).map(tab => (
+                <button
+                  key={tab}
+                  onClick={() => setActivePromptTab(tab)}
+                  style={{
+                    flex: 1, padding: "8px 4px", borderRadius: 7, border: "none",
+                    background: activePromptTab === tab ? "#FF2D2D" : "#0A0A0A",
+                    color: activePromptTab === tab ? "#fff" : "#555",
+                    fontWeight: 700, fontSize: 11, cursor: "pointer",
+                    letterSpacing: "0.04em", transition: "all 0.12s",
+                  }}
+                >
+                  {tab === "lyrics" ? "Lyrics Prompt" : "Suno Stijl Prompt"}
+                </button>
+              ))}
+            </div>
+
+            {/* Prompt tekst */}
+            <textarea
+              readOnly
+              value={activePromptTab === "lyrics" ? generateLyricsPrompt(order) : generateSunoPrompt(order)}
+              style={{
+                width: "100%", height: 220, background: "#0A0A0A",
+                border: "1px solid #2a2a2a", borderRadius: 8,
+                padding: "12px 14px", color: "#ccc", fontSize: 12,
+                fontFamily: "monospace", lineHeight: 1.7, resize: "none",
+                boxSizing: "border-box", marginBottom: 10, overflow: "auto",
+              }}
+            />
+
+            {/* Kopieer knop */}
+            <button
+              onClick={() => copyPrompt(activePromptTab)}
+              style={{
+                width: "100%", padding: "11px", borderRadius: 8, border: "none",
+                background: copiedTab === activePromptTab ? "#22C55E" : "#FF2D2D",
+                color: "#fff", fontWeight: 700, fontSize: 13, cursor: "pointer",
+                transition: "background 0.15s",
+              }}
+            >
+              {copiedTab === activePromptTab ? "Gekopieerd! ✓" : "Kopieer prompt"}
+            </button>
+          </div>
 
           {/* Status + Roast tekst */}
           <div style={{ background: "#111", border: "1px solid #222", borderRadius: 14, padding: 24 }}>
