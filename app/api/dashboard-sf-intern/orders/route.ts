@@ -2,6 +2,22 @@ import { isAdminRequest } from "@/lib/check-admin-token";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { logActivity } from "@/lib/activity-log";
 
+export async function DELETE(req: Request) {
+  const actor = isAdminRequest(req);
+  if (!actor) return Response.json({ error: "Unauthorized" }, { status: 401 });
+
+  const { ids } = await req.json().catch(() => ({ ids: [] }));
+  if (!Array.isArray(ids) || ids.length === 0) {
+    return Response.json({ error: "Missing ids array" }, { status: 400 });
+  }
+
+  const { error } = await supabaseAdmin.from("orders").delete().in("id", ids);
+  if (error) return Response.json({ error: error.message }, { status: 500 });
+
+  await logActivity(actor.userId, actor.name, "bestellingen_verwijderd", `${ids.length} bestelling(en) verwijderd`);
+  return Response.json({ ok: true });
+}
+
 export async function GET(req: Request) {
   if (!isAdminRequest(req)) return Response.json({ error: "Unauthorized" }, { status: 401 });
 

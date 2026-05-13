@@ -27,8 +27,8 @@ export default function AdminNav() {
       : { background: "transparent", color: "#666", fontWeight: 400 };
 
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-      <nav style={{ display: "flex", gap: 2 }}>
+    <div style={{ display: "flex", alignItems: "center", gap: 12, overflowX: "auto", minWidth: 0 }}>
+      <nav style={{ display: "flex", gap: 2, flexShrink: 0 }}>
         {NAV.map(({ href, label }) => (
           <Link
             key={href}

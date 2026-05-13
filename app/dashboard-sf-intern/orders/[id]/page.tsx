@@ -226,11 +226,19 @@ Mood: ${mood}`;
       <style>{`
         textarea:focus { border-color: #FF2D2D !important; outline: none !important; }
         select:focus { border-color: #FF2D2D !important; outline: none !important; }
+        @media (max-width: 768px) {
+          .rf-detail-grid { grid-template-columns: 1fr !important; padding: 14px !important; }
+          .rf-detail-sidebar { position: static !important; }
+          .rf-info-2col { grid-template-columns: 1fr 1fr !important; }
+          .rf-info-3col { grid-template-columns: 1fr !important; }
+          .rf-detail-header { padding: 0 16px !important; }
+          .rf-detail-header-inner { height: auto !important; padding: 10px 0 !important; flex-wrap: wrap !important; gap: 8px !important; }
+        }
       `}</style>
 
       {/* Header */}
-      <header style={{ background: "#111", borderBottom: "2px solid #FF2D2D", padding: "0 32px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", display: "flex", alignItems: "center", gap: 16, height: 56 }}>
+      <header className="rf-detail-header" style={{ background: "#111", borderBottom: "2px solid #FF2D2D", padding: "0 32px" }}>
+        <div className="rf-detail-header-inner" style={{ maxWidth: 1100, margin: "0 auto", display: "flex", alignItems: "center", gap: 16, height: 56 }}>
           <Link href="/dashboard-sf-intern" style={{ color: "#555", fontSize: 13, textDecoration: "none", fontWeight: 600 }}>← Terug</Link>
           <span style={{ color: "#222", fontSize: 18 }}>|</span>
           <span style={{ fontSize: 16, fontWeight: 900 }}>🔥 Roast Details</span>
@@ -240,7 +248,7 @@ Mood: ${mood}`;
         </div>
       </header>
 
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "28px 24px", display: "grid", gridTemplateColumns: "1fr 340px", gap: 24, alignItems: "start" }}>
+      <div className="rf-detail-grid" style={{ maxWidth: 1100, margin: "0 auto", padding: "28px 24px", display: "grid", gridTemplateColumns: "1fr 340px", gap: 24, alignItems: "start" }}>
 
         {/* ── Links: info ── */}
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
@@ -248,7 +256,7 @@ Mood: ${mood}`;
           {/* Klantgegevens */}
           <div style={{ background: "#111", border: "1px solid #222", borderRadius: 14, padding: 24 }}>
             {sectionTitle("Klantgegevens")}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+            <div className="rf-info-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
               {infoCard("Naam", order.customer_name)}
               {infoCard("E-mailadres", order.customer_email)}
               {infoCard("Pakket", PKG[order.package] ?? order.package, true)}
@@ -265,7 +273,7 @@ Mood: ${mood}`;
           {/* Roast informatie */}
           <div style={{ background: "#111", border: "1px solid #222", borderRadius: 14, padding: 24 }}>
             {sectionTitle("Roast informatie")}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 16 }}>
+            <div className="rf-info-3col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 16 }}>
               {infoCard("Voor wie", order.roast_target, true)}
               {infoCard("Gelegenheid", order.occasion)}
               {infoCard("Roast level", LEVEL[order.roast_level] ?? order.roast_level, true)}
@@ -301,7 +309,7 @@ Mood: ${mood}`;
         </div>
 
         {/* ── Rechts: acties ── */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 20, position: "sticky", top: 24 }}>
+        <div className="rf-detail-sidebar" style={{ display: "flex", flexDirection: "column", gap: 20, position: "sticky", top: 24 }}>
 
           {/* AI Prompt Generator */}
           <div style={{ background: "#1a1a1a", border: "1px solid #FF2D2D55", borderRadius: 14, padding: 24 }}>
