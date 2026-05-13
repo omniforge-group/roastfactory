@@ -1,10 +1,9 @@
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { resend } from "@/lib/resend";
-import { verifySession } from "@/lib/admin-auth";
+import { isAdminRequest } from "@/lib/check-admin-token";
 
 export async function POST(req: Request) {
-  const actor = verifySession(req);
-  if (!actor) return Response.json({ error: "Unauthorized" }, { status: 401 });
+  if (!isAdminRequest(req)) return Response.json({ error: "Unauthorized" }, { status: 401 });
 
   const { orderId } = await req.json();
   if (!orderId) return Response.json({ error: "Missing orderId" }, { status: 400 });
