@@ -54,6 +54,11 @@ const ROAST_LEVELS = [
   { value: "nuclear", label: "Nuclear", emoji: "☢️" },
 ];
 
+const ENDINGS = [
+  { value: "positive", label: "Positief afsluiten", emoji: "😂", description: "Eindig met een vriendelijke noot, zoals bij een echte roast" },
+  { value: "oneliner", label: "One-liner", emoji: "💥", description: "Eindig hard met één vernietigende zin" },
+];
+
 const STEP_LABELS = ["Pakket", "Roast info", "Gegevens", "Overzicht"];
 
 const BG = "#0A0A0A";
@@ -73,6 +78,7 @@ export default function BestellenFlow() {
     roastTarget: "",
     occasion: "",
     roastLevel: "",
+    ending: "",
     insideJokes: "",
     extraInfo: "",
     customerName: "",
@@ -85,12 +91,14 @@ export default function BestellenFlow() {
 
   const selectedPackage = PACKAGES.find((p) => p.id === form.package);
   const selectedLevel = ROAST_LEVELS.find((r) => r.value === form.roastLevel);
+  const selectedEnding = ENDINGS.find((e) => e.value === form.ending);
 
   const step1Valid = !!form.package;
   const step2Valid =
     !!form.roastTarget &&
     !!form.occasion &&
     !!form.roastLevel &&
+    !!form.ending &&
     form.insideJokes.length >= 20;
   const step3Valid = !!form.customerName && !!form.email && form.agreeTerms;
 
@@ -335,6 +343,33 @@ export default function BestellenFlow() {
 
               <div>
                 <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: WHITE, marginBottom: 8 }}>
+                  Hoe moet de roast eindigen? <span style={{ color: RED }}>*</span>
+                </label>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                  {ENDINGS.map((ending) => {
+                    const sel = form.ending === ending.value;
+                    return (
+                      <button
+                        key={ending.value}
+                        onClick={() => setForm({ ...form, ending: ending.value })}
+                        style={{
+                          padding: "14px 12px", borderRadius: 10, textAlign: "left",
+                          border: `2px solid ${sel ? RED : GRAY2}`,
+                          background: sel ? `${RED}22` : GRAY,
+                          color: WHITE, cursor: "pointer", transition: "all 0.2s",
+                        }}
+                      >
+                        <div style={{ fontSize: 22, marginBottom: 6 }}>{ending.emoji}</div>
+                        <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 4 }}>{ending.label}</div>
+                        <div style={{ fontSize: 11, color: sel ? "#ccc" : GRAY_TEXT, lineHeight: 1.5 }}>{ending.description}</div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div>
+                <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: WHITE, marginBottom: 8 }}>
                   Inside jokes & bijnamen <span style={{ color: RED }}>*</span>
                 </label>
                 <textarea
@@ -474,6 +509,7 @@ export default function BestellenFlow() {
                   { label: "Roast target", value: form.roastTarget },
                   { label: "Gelegenheid", value: form.occasion },
                   { label: "Roast level", value: `${selectedLevel?.label} ${selectedLevel?.emoji}` },
+                  { label: "Afsluiting", value: `${selectedEnding?.emoji} ${selectedEnding?.label}` },
                   { label: "Jouw naam", value: form.customerName },
                   { label: "E-mailadres", value: form.email },
                 ].map((row) => (

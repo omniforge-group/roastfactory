@@ -19,13 +19,14 @@ export async function POST(req: Request) {
       roastTarget,
       occasion,
       roastLevel,
+      ending,
       insideJokes,
       extraInfo,
       customerName,
       email,
     } = body;
 
-    if (!pkg || !roastTarget || !occasion || !roastLevel || !insideJokes || !customerName || !email) {
+    if (!pkg || !roastTarget || !occasion || !roastLevel || !ending || !insideJokes || !customerName || !email) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
@@ -45,6 +46,7 @@ export async function POST(req: Request) {
         roast_target: roastTarget,
         occasion,
         roast_level: roastLevel,
+        ending: ending,
         inside_jokes: insideJokes,
         extra_info: extraInfo || null,
       })
@@ -137,6 +139,10 @@ export async function POST(req: Request) {
         <tr>
           <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;font-size:13px;color:#64748b;">Roast level</td>
           <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;font-size:14px;color:#0f172a;">${roastLevel}</td>
+        </tr>
+        <tr>
+          <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;font-size:13px;color:#64748b;">Afsluiting</td>
+          <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;font-size:14px;color:#0f172a;">${ending === "positive" ? "😂 Positief afsluiten" : "💥 One-liner"}</td>
         </tr>
         <tr>
           <td style="padding:8px 0;font-size:13px;color:#64748b;">Inside jokes</td>

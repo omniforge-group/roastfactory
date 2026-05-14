@@ -14,6 +14,7 @@ type Order = {
   roast_target: string;
   occasion: string;
   roast_level: string;
+  ending: string | null;
   inside_jokes: string;
   extra_info: string | null;
   lyrics: string | null;
@@ -157,7 +158,8 @@ Eisen voor de lyrics:
 - Verwerk de inside jokes en bijnamen natuurlijk in de tekst
 - Pas de toon aan op het gekozen roast level
 - Maak het persoonlijk en herkenbaar voor de ontvanger
-- Lengte: ${lengthMap[o.package] ?? "1 couplet + refrein"}`;
+- Lengte: ${lengthMap[o.package] ?? "1 couplet + refrein"}
+- Sluit de roast af met: ${o.ending === "positive" ? "een positieve, vriendelijke noot — zoals bij een echte roast avond eindigt met een knuffel" : "een harde one-liner — één vernietigende laatste zin zonder genade"}`;
   }
 
   function generateSunoPrompt(o: Order): string {
@@ -274,11 +276,16 @@ Mood: ${mood}`;
           {/* Roast informatie */}
           <div style={{ background: "#111", border: "1px solid #222", borderRadius: 14, padding: 24 }}>
             {sectionTitle("Roast informatie")}
-            <div className="rf-info-3col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 16 }}>
+            <div className="rf-info-3col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: order.ending ? 12 : 16 }}>
               {infoCard("Voor wie", order.roast_target, true)}
               {infoCard("Gelegenheid", order.occasion)}
               {infoCard("Roast level", LEVEL[order.roast_level] ?? order.roast_level, true)}
             </div>
+            {order.ending && (
+              <div style={{ marginBottom: 0 }}>
+                {infoCard("Afsluiting", order.ending === "positive" ? "😂 Positief afsluiten" : "💥 One-liner")}
+              </div>
+            )}
           </div>
 
           {/* Inside jokes */}

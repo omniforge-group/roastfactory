@@ -66,6 +66,7 @@ export async function POST(req: Request) {
 
       const packageLabel = PACKAGE_LABELS[order.package] ?? order.package;
       const roastLevelLabel = ROAST_LEVEL_LABELS[order.roast_level] ?? order.roast_level;
+      const endingLabel = order.ending === "positive" ? "😂 Positief afsluiten" : order.ending === "oneliner" ? "💥 One-liner" : null;
       const priceFormatted = `€${Number(order.price).toFixed(2).replace(".", ",")}`;
 
       // ── Bevestigingsmail naar klant ──────────────────────────────────────
@@ -107,9 +108,13 @@ export async function POST(req: Request) {
             <td style="padding:8px 0;border-bottom:1px solid #2A2A2A;font-size:14px;color:#ffffff;">${order.occasion}</td>
           </tr>
           <tr>
-            <td style="padding:8px 0;font-size:13px;color:#888888;">Roast level</td>
-            <td style="padding:8px 0;font-size:14px;color:#ffffff;">${roastLevelLabel}</td>
+            <td style="padding:8px 0;${endingLabel ? "border-bottom:1px solid #2A2A2A;" : ""}font-size:13px;color:#888888;">Roast level</td>
+            <td style="padding:8px 0;${endingLabel ? "border-bottom:1px solid #2A2A2A;" : ""}font-size:14px;color:#ffffff;">${roastLevelLabel}</td>
           </tr>
+          ${endingLabel ? `<tr>
+            <td style="padding:8px 0;font-size:13px;color:#888888;">Afsluiting</td>
+            <td style="padding:8px 0;font-size:14px;color:#ffffff;">${endingLabel}</td>
+          </tr>` : ""}
         </table>
       </div>
 
@@ -182,6 +187,10 @@ export async function POST(req: Request) {
           <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;font-size:13px;color:#64748b;">Roast level</td>
           <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;font-size:14px;color:#0f172a;">${roastLevelLabel}</td>
         </tr>
+        ${endingLabel ? `<tr>
+          <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;font-size:13px;color:#64748b;">Afsluiting</td>
+          <td style="padding:8px 0;border-bottom:1px solid #f1f5f9;font-size:14px;color:#0f172a;">${endingLabel}</td>
+        </tr>` : ""}
         <tr>
           <td style="padding:8px 0;font-size:13px;color:#64748b;">Pakket</td>
           <td style="padding:8px 0;font-size:14px;font-weight:700;color:#FF2D2D;">${packageLabel}</td>
