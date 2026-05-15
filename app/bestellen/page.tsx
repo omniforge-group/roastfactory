@@ -38,13 +38,29 @@ const PACKAGES = [
 ];
 
 const OCCASIONS = [
-  "Verjaardag",
-  "Bachelor/bachelorette party",
-  "Pensioen",
-  "Afstuderen",
-  "Zomaar/voor de lol",
-  "Werkafscheid",
-  "Anders",
+  "🎂 Verjaardag",
+  "🥂 Bachelor/bachelorette party",
+  "🎓 Afstuderen",
+  "🚗 Rijbewijs gehaald",
+  "👔 Nieuwe baan / Promotie",
+  "👋 Werkafscheid",
+  "💍 Vrijgezellenfeest",
+  "🏠 Eerste eigen huis",
+  "🏆 Sportprestatie",
+  "😂 Zomaar / Voor de lol",
+  "✏️ Anders",
+];
+
+const TARGETS = [
+  { emoji: "👫", label: "Je beste vriend" },
+  { emoji: "💔", label: "Je ex" },
+  { emoji: "⚽", label: "Je voetbalteam" },
+  { emoji: "💼", label: "Je collega" },
+  { emoji: "🎂", label: "De jarige" },
+  { emoji: "📱", label: "De groepschat" },
+  { emoji: "💍", label: "Bachelor party" },
+  { emoji: "😤", label: "Die ene gast die altijd stoer doet" },
+  { emoji: "✏️", label: "Anders", fill: "" },
 ];
 
 const ROAST_LEVELS = [
@@ -72,6 +88,8 @@ const GRAY_TEXT = "#888888";
 export default function BestellenFlow() {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [occasionSelect, setOccasionSelect] = useState("");
+  const [clickedTarget, setClickedTarget] = useState<string | null>(null);
 
   const [form, setForm] = useState({
     package: "",
@@ -287,13 +305,41 @@ export default function BestellenFlow() {
             <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
 
               <div>
-                <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: WHITE, marginBottom: 8 }}>
-                  Naam van wie geroast wordt <span style={{ color: RED }}>*</span>
+                <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: WHITE, marginBottom: 12 }}>
+                  Wie ga jij slopen? 🔥 <span style={{ color: RED }}>*</span>
                 </label>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8, marginBottom: 12 }}>
+                  {TARGETS.map((t) => {
+                    const fillValue = "fill" in t ? t.fill : t.label;
+                    const isSel = clickedTarget === t.label;
+                    return (
+                      <button
+                        key={t.label}
+                        type="button"
+                        onClick={() => { setClickedTarget(t.label); setForm({ ...form, roastTarget: fillValue }); }}
+                        style={{
+                          padding: "10px 8px",
+                          borderRadius: 10,
+                          border: `2px solid ${isSel ? RED : GRAY2}`,
+                          background: isSel ? `${RED}22` : GRAY,
+                          color: WHITE,
+                          cursor: "pointer",
+                          textAlign: "center",
+                          transition: "all 0.2s",
+                          fontSize: 12,
+                          lineHeight: 1.4,
+                        }}
+                      >
+                        <div style={{ fontSize: 18, marginBottom: 4 }}>{t.emoji}</div>
+                        <div style={{ fontWeight: 600 }}>{t.label}</div>
+                      </button>
+                    );
+                  })}
+                </div>
                 <input
-                  placeholder="Bijv. Kevin"
+                  placeholder="Of typ zelf een naam — bijv. Kevin"
                   value={form.roastTarget}
-                  onChange={(e) => setForm({ ...form, roastTarget: e.target.value })}
+                  onChange={(e) => { setClickedTarget(null); setForm({ ...form, roastTarget: e.target.value }); }}
                   style={inputStyle}
                 />
               </div>
@@ -303,15 +349,28 @@ export default function BestellenFlow() {
                   Gelegenheid <span style={{ color: RED }}>*</span>
                 </label>
                 <select
-                  value={form.occasion}
-                  onChange={(e) => setForm({ ...form, occasion: e.target.value })}
-                  style={{ ...inputStyle, appearance: "none", color: form.occasion ? WHITE : GRAY_TEXT } as React.CSSProperties}
+                  value={occasionSelect}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setOccasionSelect(v);
+                    if (v !== "✏️ Anders") setForm({ ...form, occasion: v });
+                    else setForm({ ...form, occasion: "" });
+                  }}
+                  style={{ ...inputStyle, appearance: "none", color: occasionSelect ? WHITE : GRAY_TEXT } as React.CSSProperties}
                 >
                   <option value="" disabled>Kies een gelegenheid</option>
                   {OCCASIONS.map((o) => (
                     <option key={o} value={o}>{o}</option>
                   ))}
                 </select>
+                {occasionSelect === "✏️ Anders" && (
+                  <input
+                    placeholder="Vertel ons de gelegenheid:"
+                    value={form.occasion}
+                    onChange={(e) => setForm({ ...form, occasion: e.target.value })}
+                    style={{ ...inputStyle, marginTop: 10 }}
+                  />
+                )}
               </div>
 
               <div>
