@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Bestelling ontvangen — RoastFactory",
+  title: "Bestelling bevestigd | RoastFactory",
 };
 
 export default function SuccesPage() {

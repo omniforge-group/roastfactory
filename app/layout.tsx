@@ -20,46 +20,48 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "RoastFactory | AI Roasts & Diss Tracks op Maat | Vanaf €4,99",
+  title: "RoastFactory | Persoonlijke roast laten maken | Vanaf €4,99",
   description:
-    "Laat AI een persoonlijke roast maken van je vriend, collega of ex. Diss tracks, battle mode en savage content — klaar voor TikTok, Reels of de groepschat. Vanaf €4,99.",
-  keywords: [
-    "roast op maat",
-    "AI diss track",
-    "persoonlijke roast",
-    "grappig cadeau",
-    "verjaardag roast",
-    "battle mode",
-    "groepschat roast",
-    "TikTok roast",
-  ],
+    "Laat een professionele roast maken voor je vriend, collega of ex. Grappig, persoonlijk en binnen 24 uur geleverd. Battle mode, diss tracks en meer. Vanaf €4,99.",
+  keywords:
+    "roast maken, persoonlijke roast, diss track, roast cadeau, verjaardag roast, bachelor party roast, roast laten maken, grappig cadeau, roast factory",
+  authors: [{ name: "RoastFactory" }],
+  creator: "RoastFactory",
   metadataBase: new URL("https://www.roastfactory.eu"),
   alternates: {
     canonical: "https://www.roastfactory.eu",
   },
   openGraph: {
-    title: "RoastFactory | AI Roasts & Diss Tracks op Maat",
+    title: "RoastFactory | Laat iemand professioneel roosteren 🔥",
     description:
-      "Laat AI een persoonlijke roast maken van je vriend, collega of ex. Klaar voor TikTok, Reels of de groepschat. Vanaf €4,99.",
+      "Personaliseerde roasts voor verjaardagen, bachelor parties en meer. Grappig, rauw en binnen 24 uur geleverd.",
     url: "https://www.roastfactory.eu",
     siteName: "RoastFactory",
-    locale: "nl_NL",
-    type: "website",
     images: [
       {
-        url: "/logo.png",
+        url: "/images/og-image.svg",
         width: 1200,
         height: 630,
-        alt: "RoastFactory – AI Roasts & Diss Tracks op Maat",
+        alt: "RoastFactory - Persoonlijke roasts op maat",
       },
     ],
+    locale: "nl_NL",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "RoastFactory | AI Roasts & Diss Tracks op Maat",
+    title: "RoastFactory | Laat iemand professioneel roosteren 🔥",
     description:
-      "Laat AI een persoonlijke roast maken van je vriend, collega of ex. Vanaf €4,99.",
-    images: ["/logo.png"],
+      "Personaliseerde roasts voor verjaardagen, bachelor parties en meer.",
+    images: ["/images/og-image.svg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
   },
 };
 

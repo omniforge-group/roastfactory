@@ -70,20 +70,85 @@ const faqs = [
 ];
 
 // ─── Schema ───────────────────────────────────────────────────────────────────
-const productSchema = {
+const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "Product",
-  name: "AI Roast op maat",
-  description: "Persoonlijke AI-gegenereerde roast klaar voor TikTok, Reels of de groepschat. Vanaf €4,99.",
-  brand: { "@type": "Brand", name: "RoastFactory" },
-  offers: {
-    "@type": "AggregateOffer",
-    lowPrice: "4.99",
-    highPrice: "19.99",
-    priceCurrency: "EUR",
-    availability: "https://schema.org/InStock",
-    url: "https://www.roastfactory.eu/bestellen",
-  },
+  "@graph": [
+    {
+      "@type": "Organization",
+      name: "RoastFactory",
+      url: "https://www.roastfactory.eu",
+      logo: "https://www.roastfactory.eu/logo.png",
+      contactPoint: {
+        "@type": "ContactPoint",
+        email: "info@roastfactory.eu",
+        contactType: "customer service",
+        availableLanguage: "Dutch",
+      },
+    },
+    {
+      "@type": "Product",
+      name: "Quick Roast",
+      description: "Persoonlijke AI-roast van 45–60 seconden. Inclusief MP3 download en simpele cover art. Klaar in 24 uur.",
+      brand: { "@type": "Brand", name: "RoastFactory" },
+      offers: {
+        "@type": "Offer",
+        price: "4.99",
+        priceCurrency: "EUR",
+        availability: "https://schema.org/InStock",
+        url: "https://www.roastfactory.eu/bestellen",
+      },
+    },
+    {
+      "@type": "Product",
+      name: "Savage Pack",
+      description: "Persoonlijke AI-roast van 60–90 seconden met meer details en custom cover art. Klaar in 24 uur.",
+      brand: { "@type": "Brand", name: "RoastFactory" },
+      offers: {
+        "@type": "Offer",
+        price: "9.99",
+        priceCurrency: "EUR",
+        availability: "https://schema.org/InStock",
+        url: "https://www.roastfactory.eu/bestellen",
+      },
+    },
+    {
+      "@type": "Product",
+      name: "Nuclear Pack",
+      description: "Ultrapersoonlijke AI-roast van 90 seconden of meer, met intro op naam en custom cover art. Klaar in 24 uur.",
+      brand: { "@type": "Brand", name: "RoastFactory" },
+      offers: {
+        "@type": "Offer",
+        price: "19.99",
+        priceCurrency: "EUR",
+        availability: "https://schema.org/InStock",
+        url: "https://www.roastfactory.eu/bestellen",
+      },
+    },
+    {
+      "@type": "Product",
+      name: "Battle Mode",
+      description: "Twee personen, twee rondes diss. Een MP3 per persoon. Wie wint de battle?",
+      brand: { "@type": "Brand", name: "RoastFactory" },
+      offers: {
+        "@type": "Offer",
+        price: "14.99",
+        priceCurrency: "EUR",
+        availability: "https://schema.org/InStock",
+        url: "https://www.roastfactory.eu/bestellen",
+      },
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map(({ q, a }) => ({
+        "@type": "Question",
+        name: q,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: a,
+        },
+      })),
+    },
+  ],
 };
 
 // ─── FAQ accordion (client-rendered via details/summary) ─────────────────────
@@ -108,7 +173,7 @@ export default function HomePage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
       <div className="min-h-screen bg-[#0A0A0A] text-white">

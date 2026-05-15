@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A0A0A"/>
+      <stop offset="100%" stop-color="#1a0a0a"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF2D2D" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#FF6B00" stop-opacity="0.1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Left red accent bar -->
+  <rect x="0" y="0" width="6" height="630" fill="#FF2D2D"/>
+
+  <!-- Brand label -->
+  <text x="80" y="210" font-family="Arial Black, Impact, sans-serif" font-size="22" font-weight="900" fill="#FF2D2D" letter-spacing="8" text-transform="uppercase">ROASTFACTORY.EU</text>
+
+  <!-- Main headline -->
+  <text x="80" y="330" font-family="Arial Black, Impact, sans-serif" font-size="100" font-weight="900" fill="#FFFFFF" letter-spacing="2">ROAST</text>
+  <text x="80" y="440" font-family="Arial Black, Impact, sans-serif" font-size="100" font-weight="900" fill="#FF2D2D" letter-spacing="2">YOUR FRIENDS.</text>
+
+  <!-- Tagline -->
+  <text x="80" y="510" font-family="Arial, sans-serif" font-size="28" fill="rgba(255,255,255,0.55)" letter-spacing="1">Persoonlijke roasts · Diss tracks · Battle mode · Vanaf €4,99</text>
+
+  <!-- Bottom accent line -->
+  <rect x="0" y="620" width="1200" height="10" fill="#FF2D2D" opacity="0.8"/>
+</svg>

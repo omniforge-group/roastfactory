@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Algemene Voorwaarden — RoastFactory",
+  title: "Algemene Voorwaarden | RoastFactory",
   description: "Lees de algemene voorwaarden van RoastFactory.eu.",
 };
 
