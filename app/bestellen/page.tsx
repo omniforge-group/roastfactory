@@ -316,7 +316,7 @@ export default function BestellenFlow() {
                       <button
                         key={t.label}
                         type="button"
-                        onClick={() => { setClickedTarget(t.label); setForm({ ...form, roastTarget: fillValue }); }}
+                        onClick={() => { setClickedTarget(t.label); setForm({ ...form, roastTarget: fillValue ?? "" }); }}
                         style={{
                           padding: "10px 8px",
                           borderRadius: 10,
