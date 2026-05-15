@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 
 type Order = {
@@ -64,39 +64,8 @@ export default function OrdersClient({
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [saving, setSaving] = useState<Record<string, "saving" | "saved" | null>>({});
   const [deleting, setDeleting] = useState(false);
-  const [notifStatus, setNotifStatus] = useState<"idle" | "granted" | "denied" | "loading">("idle");
   const touchStartX = useRef<number | null>(null);
   const touchStartTime = useRef<number | null>(null);
-
-  useEffect(() => {
-    if (typeof Notification !== "undefined") {
-      if (Notification.permission === "granted") setNotifStatus("granted");
-      else if (Notification.permission === "denied") setNotifStatus("denied");
-    }
-  }, []);
-
-  async function enableNotifications() {
-    if (!("serviceWorker" in navigator) || !("PushManager" in window)) return;
-    setNotifStatus("loading");
-    try {
-      const reg = await navigator.serviceWorker.register("/sw.js");
-      const permission = await Notification.requestPermission();
-      if (permission !== "granted") { setNotifStatus("denied"); return; }
-      const sub = await reg.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
-      });
-      await fetch("/api/dashboard-sf-intern/push-subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ subscription: sub }),
-      });
-      setNotifStatus("granted");
-    } catch (err) {
-      console.error("Push subscribe error:", err);
-      setNotifStatus("idle");
-    }
-  }
 
   function onTouchStart(e: React.TouchEvent) {
     touchStartX.current = e.touches[0].clientX;
@@ -216,25 +185,7 @@ export default function OrdersClient({
           <p style={{ margin: "4px 0 0", fontSize: 13, color: "#666" }}>{orders.length} bestellingen — klik op Bekijk roast om te openen</p>
         </div>
         <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
-          {notifStatus !== "granted" && notifStatus !== "denied" && (
-            <button
-              onClick={enableNotifications}
-              disabled={notifStatus === "loading"}
-              style={{
-                background: "transparent", border: "1px solid #333", borderRadius: 8,
-                padding: "8px 14px", color: "#888", fontSize: 12, cursor: notifStatus === "loading" ? "wait" : "pointer",
-              }}
-            >
-              {notifStatus === "loading" ? "Bezig..." : "🔔 Notificaties inschakelen"}
-            </button>
-          )}
-          {notifStatus === "granted" && (
-            <span style={{ fontSize: 12, color: "#22C55E" }}>🔔 Notificaties actief</span>
-          )}
-          {notifStatus === "denied" && (
-            <span style={{ fontSize: 12, color: "#555" }}>🔕 Notificaties geblokkeerd</span>
-          )}
-        {selected.size > 0 && (
+          {selected.size > 0 && (
           <button
             className="rf-del-btn"
             onClick={handleDelete}

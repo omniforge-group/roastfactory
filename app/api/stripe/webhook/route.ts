@@ -3,7 +3,6 @@ import Stripe from "stripe";
 import { stripe } from "@/lib/stripe";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { resend } from "@/lib/resend";
-import webpush from "web-push";
 
 
 const PACKAGE_LABELS: Record<string, string> = {
@@ -225,32 +224,6 @@ export async function POST(req: Request) {
       }
 
       // Push notificaties
-      try {
-        if (process.env.VAPID_PUBLIC_KEY && process.env.VAPID_PRIVATE_KEY) {
-          webpush.setVapidDetails(
-            "mailto:info@songfactory.eu",
-            process.env.VAPID_PUBLIC_KEY,
-            process.env.VAPID_PRIVATE_KEY
-          );
-          const { data: subs } = await supabaseAdmin.from("push_subscriptions").select("endpoint, p256dh, auth");
-          if (subs && subs.length > 0) {
-            const payload = JSON.stringify({
-              title: "🔥 Nieuwe roast bestelling!",
-              body: `${packageLabel} voor ${order.roast_target} — ${priceFormatted}`,
-              url: `/dashboard-sf-intern/orders/${order.id}`,
-            });
-            await Promise.allSettled(subs.map(sub =>
-              webpush.sendNotification(
-                { endpoint: sub.endpoint, keys: { p256dh: sub.p256dh, auth: sub.auth } },
-                payload
-              ).catch(() => null)
-            ));
-          }
-        }
-      } catch (err) {
-        console.error("Push notification error:", err);
-      }
-
       console.log("✅ Order betaald en mails verstuurd:", orderId);
     }
 
