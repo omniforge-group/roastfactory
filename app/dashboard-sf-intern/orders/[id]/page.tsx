@@ -216,6 +216,20 @@ Mood: ${mood}`;
     await navigator.clipboard.writeText(text);
     setCopiedTab(tab);
     setTimeout(() => setCopiedTab(null), 2000);
+
+    if (order?.status === "paid") {
+      const res = await fetch("/api/dashboard-sf-intern/orders", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, status: "in_progress" }),
+      });
+      if (res.ok) {
+        setStatus("in_progress");
+        setOrder(prev => prev ? { ...prev, status: "in_progress" } : prev);
+        setSaveMsg("Status automatisch bijgewerkt naar In behandeling ✓");
+        setTimeout(() => setSaveMsg(""), 4000);
+      }
+    }
   }
 
   if (loading) return (

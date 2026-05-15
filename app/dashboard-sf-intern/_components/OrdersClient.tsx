@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 
 type Order = {
@@ -64,6 +64,55 @@ export default function OrdersClient({
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [saving, setSaving] = useState<Record<string, "saving" | "saved" | null>>({});
   const [deleting, setDeleting] = useState(false);
+  const [notifStatus, setNotifStatus] = useState<"idle" | "granted" | "denied" | "loading">("idle");
+  const touchStartX = useRef<number | null>(null);
+  const touchStartTime = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (typeof Notification !== "undefined") {
+      if (Notification.permission === "granted") setNotifStatus("granted");
+      else if (Notification.permission === "denied") setNotifStatus("denied");
+    }
+  }, []);
+
+  async function enableNotifications() {
+    if (!("serviceWorker" in navigator) || !("PushManager" in window)) return;
+    setNotifStatus("loading");
+    try {
+      const reg = await navigator.serviceWorker.register("/sw.js");
+      const permission = await Notification.requestPermission();
+      if (permission !== "granted") { setNotifStatus("denied"); return; }
+      const sub = await reg.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
+      });
+      await fetch("/api/dashboard-sf-intern/push-subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ subscription: sub }),
+      });
+      setNotifStatus("granted");
+    } catch (err) {
+      console.error("Push subscribe error:", err);
+      setNotifStatus("idle");
+    }
+  }
+
+  function onTouchStart(e: React.TouchEvent) {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartTime.current = Date.now();
+  }
+
+  function onTouchEnd(e: React.TouchEvent, orderId: string, currentStatus: string) {
+    if (touchStartX.current === null || touchStartTime.current === null) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartX.current;
+    const deltaTime = Date.now() - touchStartTime.current;
+    touchStartX.current = null;
+    touchStartTime.current = null;
+    if (deltaX > 100 && deltaTime < 500 && currentStatus === "paid") {
+      handleStatusChange(orderId, "in_progress");
+    }
+  }
 
   const sortedOrders = [...orders].sort((a, b) => Number(b.urgent ?? false) - Number(a.urgent ?? false));
 
@@ -166,6 +215,25 @@ export default function OrdersClient({
           <h1 style={{ margin: 0, fontSize: 22, fontWeight: 900 }}>Alle roast bestellingen</h1>
           <p style={{ margin: "4px 0 0", fontSize: 13, color: "#666" }}>{orders.length} bestellingen — klik op Bekijk roast om te openen</p>
         </div>
+        <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
+          {notifStatus !== "granted" && notifStatus !== "denied" && (
+            <button
+              onClick={enableNotifications}
+              disabled={notifStatus === "loading"}
+              style={{
+                background: "transparent", border: "1px solid #333", borderRadius: 8,
+                padding: "8px 14px", color: "#888", fontSize: 12, cursor: notifStatus === "loading" ? "wait" : "pointer",
+              }}
+            >
+              {notifStatus === "loading" ? "Bezig..." : "🔔 Notificaties inschakelen"}
+            </button>
+          )}
+          {notifStatus === "granted" && (
+            <span style={{ fontSize: 12, color: "#22C55E" }}>🔔 Notificaties actief</span>
+          )}
+          {notifStatus === "denied" && (
+            <span style={{ fontSize: 12, color: "#555" }}>🔕 Notificaties geblokkeerd</span>
+          )}
         {selected.size > 0 && (
           <button
             className="rf-del-btn"
@@ -180,6 +248,7 @@ export default function OrdersClient({
             {deleting ? "Verwijderen..." : `🗑 Verwijder ${selected.size} geselecteerde`}
           </button>
         )}
+        </div>
       </div>
 
       {fetchError && (
@@ -322,13 +391,19 @@ export default function OrdersClient({
           return (
             <div
               key={order.id}
+              onTouchStart={onTouchStart}
+              onTouchEnd={e => onTouchEnd(e, order.id, order.status)}
               style={{
                 background: "#111", border: `1px solid ${isUrgent ? "#FF2D2D" : "#222"}`,
                 borderRadius: 14, padding: "16px 18px",
                 display: "flex", flexDirection: "column", gap: 10,
                 borderLeft: isUrgent ? "4px solid #FF2D2D" : undefined,
+                position: "relative", overflow: "hidden",
               }}
             >
+              {order.status === "paid" && (
+                <div style={{ position: "absolute", right: 10, top: "50%", transform: "translateY(-50%)", fontSize: 16, color: "#333", pointerEvents: "none" }}>›</div>
+              )}
               {/* Top row: name + date + flag */}
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                 <div>

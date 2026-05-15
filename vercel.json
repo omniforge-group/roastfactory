@@ -15,6 +15,14 @@
     {
       "path": "/api/cron/cleanup-audio",
       "schedule": "0 2 * * *"
+    },
+    {
+      "path": "/api/cron/check-pending",
+      "schedule": "0 * * * *"
+    },
+    {
+      "path": "/api/cron/daily-summary",
+      "schedule": "0 8 * * *"
     }
   ]
 }
