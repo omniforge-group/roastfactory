@@ -140,7 +140,7 @@ export async function POST(req: Request) {
       try {
         await resend.emails.send({
           from: "RoastFactory <roasts@songfactory.eu>",
-          to: process.env.ADMIN_EMAIL!,
+          to: process.env.ADMIN_EMAIL || 'info@songfactory.eu',
           subject: `✅ Betaling ontvangen — ${packageLabel} voor ${order.roast_target}`,
           html: `<!DOCTYPE html>
 <html lang="nl">
@@ -252,7 +252,7 @@ export async function POST(req: Request) {
       try {
         await resend.emails.send({
           from: "RoastFactory <roasts@songfactory.eu>",
-          to: process.env.ADMIN_EMAIL!,
+          to: process.env.ADMIN_EMAIL || 'info@songfactory.eu',
           subject: `❌ Checkout verlopen — ${packageLabel} voor ${roastTarget}`,
           html: `<!DOCTYPE html>
 <html lang="nl">

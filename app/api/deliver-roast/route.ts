@@ -114,7 +114,7 @@ export async function POST(req: Request) {
   // Admin bevestiging
   await resend.emails.send({
     from: "RoastFactory <roasts@songfactory.eu>",
-    to: process.env.ADMIN_EMAIL!,
+    to: process.env.ADMIN_EMAIL || 'info@songfactory.eu',
     subject: `✅ Roast verstuurd — ${order.roast_target}`,
     html: `<p style="font-family:sans-serif;">Roast voor <strong>${order.roast_target}</strong> (${order.customer_email}) is succesvol verstuurd.<br/>Order ID: ${order.id}</p>`,
   }).catch(() => {});

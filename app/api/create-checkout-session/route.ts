@@ -89,7 +89,7 @@ export async function POST(req: Request) {
     try {
       await resend.emails.send({
         from: "RoastFactory <roasts@songfactory.eu>",
-        to: process.env.ADMIN_EMAIL!,
+        to: process.env.ADMIN_EMAIL || 'info@songfactory.eu',
         subject: `🛒 Nieuwe checkout gestart — ${packageInfo.label} voor ${roastTarget}`,
         html: `<!DOCTYPE html>
 <html lang="nl">
