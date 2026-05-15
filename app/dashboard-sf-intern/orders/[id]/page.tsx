@@ -266,12 +266,14 @@ Mood: ${mood}`;
         textarea:focus { border-color: #FF2D2D !important; outline: none !important; }
         select:focus { border-color: #FF2D2D !important; outline: none !important; }
         @media (max-width: 768px) {
-          .rf-detail-grid { grid-template-columns: 1fr !important; padding: 14px !important; }
+          .rf-detail-grid { grid-template-columns: 1fr !important; padding: 14px !important; gap: 14px !important; }
           .rf-detail-sidebar { position: static !important; }
           .rf-info-2col { grid-template-columns: 1fr 1fr !important; }
           .rf-info-3col { grid-template-columns: 1fr !important; }
           .rf-detail-header { padding: 0 16px !important; }
           .rf-detail-header-inner { height: auto !important; padding: 10px 0 !important; flex-wrap: wrap !important; gap: 8px !important; }
+          .rf-prompt-tabs button { min-height: 44px !important; }
+          textarea { min-height: 120px; }
         }
       `}</style>
 
@@ -404,7 +406,7 @@ Mood: ${mood}`;
             </div>
 
             {/* Tabs */}
-            <div style={{ display: "flex", gap: 4, marginBottom: 14 }}>
+            <div className="rf-prompt-tabs" style={{ display: "flex", gap: 4, marginBottom: 14 }}>
               {(["lyrics", "suno"] as const).map(tab => (
                 <button
                   key={tab}

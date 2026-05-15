@@ -110,9 +110,20 @@ export default async function StatsPage() {
 
   return (
     <div style={{ maxWidth: 1100, margin: "0 auto", padding: "32px 24px" }}>
+      <style>{`
+        .rf-stats-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 24px; }
+        .rf-stats-bottom { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+        @media (max-width: 768px) {
+          .rf-stats-cards { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+          .rf-stats-bottom { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 480px) {
+          .rf-stats-cards { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
 
       {/* Row 1: 6 summary cards */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16, marginBottom: 24 }}>
+      <div className="rf-stats-cards">
         {[
           { label: "Totale omzet",      value: `€${totalRevenue.toFixed(2).replace(".", ",")}`,       color: "#FF2D2D" },
           { label: "Deze maand",        value: `€${revenueThisMonth.toFixed(2).replace(".", ",")}`,   color: "#FF6B00" },
@@ -169,7 +180,7 @@ export default async function StatsPage() {
       </div>
 
       {/* Row 4: 3 columns */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 20 }}>
+      <div className="rf-stats-bottom">
 
         {/* Package distribution met % */}
         <div style={cardStyle}>

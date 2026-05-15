@@ -21,7 +21,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   return (
     <div style={{ minHeight: "100vh", background: "#0A0A0A", fontFamily: "system-ui, sans-serif", color: "#fff" }}>
-      <header style={{ background: "#111111", borderBottom: "2px solid #FF2D2D", padding: "0 28px" }}>
+      <style>{`
+        .rf-layout-header { padding: 0 28px; }
+        @media (max-width: 768px) {
+          .rf-layout-header { padding: 0 16px; }
+        }
+      `}</style>
+      <header className="rf-layout-header" style={{ background: "#111111", borderBottom: "2px solid #FF2D2D" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 54 }}>
           <span style={{ fontSize: 16, fontWeight: 900, letterSpacing: -0.5, whiteSpace: "nowrap" }}>
             🔥 ROASTFACTORY ADMIN

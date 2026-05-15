@@ -14,7 +14,8 @@ type AdminUser = {
 
 const BTN: React.CSSProperties = {
   background: "#FF2D2D", color: "#fff", border: "none", borderRadius: 8,
-  padding: "8px 16px", fontSize: 13, fontWeight: 700, cursor: "pointer",
+  padding: "10px 16px", fontSize: 13, fontWeight: 700, cursor: "pointer",
+  minHeight: 44,
 };
 
 const INPUT: React.CSSProperties = {
@@ -83,7 +84,19 @@ export default function GebruikersPage() {
 
   return (
     <div style={{ maxWidth: 1000, margin: "0 auto", padding: "32px 24px" }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 24 }}>
+      <style>{`
+        .rf-u-desktop { display: block; }
+        .rf-u-mobile { display: none; flex-direction: column; gap: 12px; }
+        .rf-u-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+        @media (max-width: 768px) {
+          .rf-u-desktop { display: none; }
+          .rf-u-mobile { display: flex; }
+          .rf-u-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+          .rf-u-header button { width: 100%; }
+        }
+      `}</style>
+
+      <div className="rf-u-header">
         <div>
           <h1 style={{ margin: 0, fontSize: 22, fontWeight: 900 }}>Gebruikers</h1>
           <p style={{ margin: "4px 0 0", fontSize: 13, color: "#666" }}>Admin-accounts beheren</p>
@@ -95,41 +108,88 @@ export default function GebruikersPage() {
         <div style={{ background: "#1a0505", border: "1px solid #FF2D2D44", borderRadius: 10, padding: "12px 18px", marginBottom: 20, color: "#ff8888", fontSize: 14 }}>{error}</div>
       )}
 
-      <div style={{ background: "#111111", border: "1px solid #222", borderRadius: 14, overflow: "hidden" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 110px 140px 90px", padding: "10px 20px", borderBottom: "1px solid #222", background: "#0d0d0d" }}>
-          {["Naam", "E-mail", "Rol", "Laatste login", "Status"].map(h => (
-            <span key={h} style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#555" }}>{h}</span>
-          ))}
+      {/* Desktop table */}
+      <div className="rf-u-desktop">
+        <div style={{ background: "#111111", border: "1px solid #222", borderRadius: 14, overflow: "hidden" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 110px 140px 90px", padding: "10px 20px", borderBottom: "1px solid #222", background: "#0d0d0d" }}>
+            {["Naam", "E-mail", "Rol", "Laatste login", "Status"].map(h => (
+              <span key={h} style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#555" }}>{h}</span>
+            ))}
+          </div>
+
+          {loading && <div style={{ padding: "40px 20px", textAlign: "center", color: "#555", fontSize: 14 }}>Laden...</div>}
+          {!loading && users.length === 0 && <div style={{ padding: "40px 20px", textAlign: "center", color: "#555", fontSize: 14 }}>Geen gebruikers gevonden.</div>}
+
+          {users.map((u, i) => {
+            const rc = ROLE_COLORS[u.role] ?? ROLE_COLORS.medewerker;
+            return (
+              <div key={u.id} style={{
+                display: "grid", gridTemplateColumns: "1fr 1fr 110px 140px 90px",
+                padding: "13px 20px", borderBottom: i < users.length - 1 ? "1px solid #1a1a1a" : "none",
+                alignItems: "center",
+              }}>
+                <span style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{u.name}</span>
+                <span style={{ fontSize: 12, color: "#666" }}>{u.email}</span>
+                <span style={{
+                  display: "inline-block", fontSize: 11, fontWeight: 700, padding: "3px 9px",
+                  borderRadius: 20, whiteSpace: "nowrap",
+                  color: rc.color, background: rc.bg, border: `1px solid ${rc.border}`,
+                }}>
+                  {ROLE_LABELS[u.role] ?? u.role}
+                </span>
+                <span style={{ fontSize: 11, color: "#555" }}>
+                  {u.last_login ? new Date(u.last_login).toLocaleString("nl-NL", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" }) : "Nooit"}
+                </span>
+                <button
+                  onClick={() => toggleActive(u)}
+                  style={{
+                    background: "transparent", border: `1px solid ${u.is_active ? "#333" : "#16a34a"}`,
+                    borderRadius: 7, padding: "4px 10px", fontSize: 11, cursor: "pointer",
+                    color: u.is_active ? "#666" : "#22C55E",
+                  }}
+                >
+                  {u.is_active ? "Deactiveer" : "Activeer"}
+                </button>
+              </div>
+            );
+          })}
         </div>
+      </div>
 
-        {loading && <div style={{ padding: "40px 20px", textAlign: "center", color: "#555", fontSize: 14 }}>Laden...</div>}
-        {!loading && users.length === 0 && <div style={{ padding: "40px 20px", textAlign: "center", color: "#555", fontSize: 14 }}>Geen gebruikers gevonden.</div>}
-
-        {users.map((u, i) => {
+      {/* Mobile cards */}
+      <div className="rf-u-mobile">
+        {loading && (
+          <div style={{ padding: "20px 0", textAlign: "center", color: "#555", fontSize: 14 }}>Laden...</div>
+        )}
+        {!loading && users.length === 0 && (
+          <div style={{ padding: "20px 0", textAlign: "center", color: "#555", fontSize: 14 }}>Geen gebruikers gevonden.</div>
+        )}
+        {!loading && users.map(u => {
           const rc = ROLE_COLORS[u.role] ?? ROLE_COLORS.medewerker;
           return (
-            <div key={u.id} style={{
-              display: "grid", gridTemplateColumns: "1fr 1fr 110px 140px 90px",
-              padding: "13px 20px", borderBottom: i < users.length - 1 ? "1px solid #1a1a1a" : "none",
-              alignItems: "center",
+            <div key={u.id + "-m"} style={{
+              background: "#111111", border: "1px solid #222",
+              borderLeft: "3px solid #333", borderRadius: 12, padding: 16,
             }}>
-              <span style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{u.name}</span>
-              <span style={{ fontSize: 12, color: "#666" }}>{u.email}</span>
-              <span style={{
-                display: "inline-block", fontSize: 11, fontWeight: 700, padding: "3px 9px",
-                borderRadius: 20, whiteSpace: "nowrap",
-                color: rc.color, background: rc.bg, border: `1px solid ${rc.border}`,
-              }}>
-                {ROLE_LABELS[u.role] ?? u.role}
-              </span>
-              <span style={{ fontSize: 11, color: "#555" }}>
-                {u.last_login ? new Date(u.last_login).toLocaleString("nl-NL", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" }) : "Nooit"}
-              </span>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+                <span style={{ fontSize: 16, fontWeight: 800, color: "#fff" }}>{u.name}</span>
+                <span style={{
+                  fontSize: 11, fontWeight: 700, padding: "3px 10px", borderRadius: 20,
+                  color: rc.color, background: rc.bg, border: `1px solid ${rc.border}`,
+                }}>
+                  {ROLE_LABELS[u.role] ?? u.role}
+                </span>
+              </div>
+              <p style={{ margin: "0 0 8px", fontSize: 13, color: "#666" }}>{u.email}</p>
+              <p style={{ margin: "0 0 14px", fontSize: 12, color: "#555" }}>
+                Laatste login: {u.last_login ? new Date(u.last_login).toLocaleString("nl-NL", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" }) : "Nooit"}
+              </p>
               <button
                 onClick={() => toggleActive(u)}
                 style={{
-                  background: "transparent", border: `1px solid ${u.is_active ? "#333" : "#16a34a"}`,
-                  borderRadius: 7, padding: "4px 10px", fontSize: 11, cursor: "pointer",
+                  width: "100%", minHeight: 44, background: "transparent",
+                  border: `1px solid ${u.is_active ? "#333" : "#16a34a"}`,
+                  borderRadius: 8, fontSize: 13, cursor: "pointer",
                   color: u.is_active ? "#666" : "#22C55E",
                 }}
               >
@@ -141,8 +201,8 @@ export default function GebruikersPage() {
       </div>
 
       {showModal && (
-        <div style={{ position: "fixed", inset: 0, background: "#000000cc", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 100 }}>
-          <div style={{ background: "#111", border: "1px solid #222", borderRadius: 18, padding: 32, width: "100%", maxWidth: 420 }}>
+        <div style={{ position: "fixed", inset: 0, background: "#000000cc", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 100, padding: 16 }}>
+          <div style={{ background: "#111", border: "1px solid #222", borderRadius: 18, padding: 28, width: "100%", maxWidth: 420 }}>
             <h2 style={{ margin: "0 0 20px", fontSize: 18, fontWeight: 900 }}>Nieuwe gebruiker</h2>
             <form onSubmit={handleCreate} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               <div>
@@ -168,7 +228,7 @@ export default function GebruikersPage() {
               {formError && <div style={{ color: "#ff8888", fontSize: 13 }}>{formError}</div>}
               <div style={{ display: "flex", gap: 10, marginTop: 4 }}>
                 <button type="submit" disabled={submitting} style={{ ...BTN, flex: 1 }}>{submitting ? "Bezig..." : "Aanmaken"}</button>
-                <button type="button" onClick={() => setShowModal(false)} style={{ flex: 1, background: "transparent", border: "1px solid #333", borderRadius: 8, padding: "8px 16px", color: "#888", fontSize: 13, cursor: "pointer" }}>Annuleer</button>
+                <button type="button" onClick={() => setShowModal(false)} style={{ flex: 1, background: "transparent", border: "1px solid #333", borderRadius: 8, padding: "10px 16px", color: "#888", fontSize: 13, cursor: "pointer", minHeight: 44 }}>Annuleer</button>
               </div>
             </form>
           </div>
