@@ -1,19 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "./components/Navbar";
+import UseCasesSection from "./components/UseCasesSection";
+import BattleAudioCards from "./components/BattleAudioCards";
 import { ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
-
-// ─── Use-case kaartjes ────────────────────────────────────────────────────────
-const useCases = [
-  { emoji: "👯", label: "Je beste vriend" },
-  { emoji: "💔", label: "Je ex" },
-  { emoji: "⚽", label: "Je voetbalteam" },
-  { emoji: "💼", label: "Je collega" },
-  { emoji: "🎂", label: "De jarige" },
-  { emoji: "📱", label: "De groepschat" },
-  { emoji: "💍", label: "Bachelor party" },
-  { emoji: "😤", label: "Die ene gast die altijd stoer doet" },
-];
 
 // ─── Pakketten ────────────────────────────────────────────────────────────────
 const packages = [
@@ -204,21 +194,7 @@ export default function HomePage() {
               Wie ga jij slopen? <span className="text-[#FF2D2D]">🔥</span>
             </h2>
 
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {useCases.map(({ emoji, label }) => (
-                <Link
-                  key={label}
-                  href="/bestellen"
-                  className="group flex items-center gap-4 rounded-2xl border border-[#FF2D2D]/40 bg-black p-5 transition-all hover:border-[#FF2D2D] hover:shadow-[0_0_20px_rgba(255,45,45,0.15)]"
-                >
-                  <span className="text-3xl">{emoji}</span>
-                  <span className="font-semibold text-white group-hover:text-[#FF2D2D] transition-colors">
-                    {label}
-                  </span>
-                  <ArrowRight className="ml-auto h-4 w-4 shrink-0 text-white/20 transition-colors group-hover:text-[#FF2D2D]" />
-                </Link>
-              ))}
-            </div>
+            <UseCasesSection />
           </div>
         </section>
 
@@ -284,6 +260,7 @@ export default function HomePage() {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </div>
+            <BattleAudioCards />
           </div>
         </section>
 
