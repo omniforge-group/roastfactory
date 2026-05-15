@@ -13,6 +13,7 @@ type Order = {
   roast_target: string | null;
   occasion: string | null;
   roast_level: string | null;
+  urgent: boolean | null;
 };
 
 const STATUS: Record<string, { label: string; color: string; bg: string; border: string }> = {
@@ -33,7 +34,7 @@ const LEVEL: Record<string, string> = {
   mild: "Mild 😅", medium: "Medium 😬", savage: "Savage 🔥", nuclear: "Nuclear ☢️",
 };
 
-const COLS = "36px 130px 1fr 110px 110px 100px 185px 100px";
+const COLS = "36px 130px 1fr 110px 110px 100px 36px 185px 100px";
 
 function statusSelectStyle(status: string): React.CSSProperties {
   const s = STATUS[status] ?? STATUS.pending;
@@ -64,7 +65,8 @@ export default function OrdersClient({
   const [saving, setSaving] = useState<Record<string, "saving" | "saved" | null>>({});
   const [deleting, setDeleting] = useState(false);
 
-  // Computed stats
+  const sortedOrders = [...orders].sort((a, b) => Number(b.urgent ?? false) - Number(a.urgent ?? false));
+
   const statPaid      = orders.filter(o => o.status === "paid").length;
   const statProgress  = orders.filter(o => o.status === "in_progress").length;
   const statDelivered = orders.filter(o => o.status === "delivered").length;
@@ -98,6 +100,16 @@ export default function OrdersClient({
     setTimeout(() => setSaving(s => ({ ...s, [id]: null })), 2000);
   }
 
+  async function handleUrgent(id: string, current: boolean) {
+    const newUrgent = !current;
+    setOrders(prev => prev.map(o => o.id === id ? { ...o, urgent: newUrgent } : o));
+    await fetch(`/api/dashboard-sf-intern/orders/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ urgent: newUrgent }),
+    });
+  }
+
   async function handleDelete() {
     if (!confirm(`Weet je zeker dat je ${selected.size} bestelling${selected.size !== 1 ? "en" : ""} wilt verwijderen? Dit kan niet ongedaan worden gemaakt.`)) return;
     setDeleting(true);
@@ -119,6 +131,7 @@ export default function OrdersClient({
         .rf-row:hover { background: #1a0505 !important; }
         .rf-btn:hover { background: #cc0000 !important; }
         .rf-del-btn:hover { background: #7f0000 !important; }
+        .rf-flag-btn:hover { opacity: 0.8 !important; }
         .rf-status-select { appearance: none; -webkit-appearance: none; }
         @media (max-width: 768px) {
           .rf-stats-grid { grid-template-columns: repeat(2,1fr) !important; }
@@ -187,7 +200,7 @@ export default function OrdersClient({
               style={{ cursor: "pointer", accentColor: "#FF2D2D", width: 15, height: 15 }}
             />
           </div>
-          {["Datum", "Klant", "Pakket", "Voor wie", "Level", "Status", "Actie"].map(h => (
+          {["Datum", "Klant", "Pakket", "Voor wie", "Level", "🚩", "Status", "Actie"].map(h => (
             <span key={h} style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#555" }}>{h}</span>
           ))}
         </div>
@@ -198,20 +211,22 @@ export default function OrdersClient({
           </div>
         )}
 
-        {orders.map((order, i) => {
+        {sortedOrders.map((order, i) => {
           const date = new Date(order.created_at).toLocaleString("nl-NL", {
             day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit",
           });
           const isSelected = selected.has(order.id);
+          const isUrgent = !!order.urgent;
           return (
             <div
               key={order.id}
               className="rf-row"
               style={{
                 display: "grid", gridTemplateColumns: COLS,
-                padding: "12px 20px", borderBottom: i < orders.length - 1 ? "1px solid #1a1a1a" : "none",
+                padding: "12px 20px", borderBottom: i < sortedOrders.length - 1 ? "1px solid #1a1a1a" : "none",
                 alignItems: "center", transition: "background 0.12s",
-                background: isSelected ? "#1a0a0a" : "transparent",
+                background: isSelected ? "#1a0a0a" : isUrgent ? "#1a0800" : "transparent",
+                borderLeft: isUrgent ? "3px solid #FF2D2D" : "3px solid transparent",
               }}
             >
               {/* Checkbox */}
@@ -241,6 +256,22 @@ export default function OrdersClient({
 
               {/* Level */}
               <span style={{ fontSize: 11, color: "#aaa" }}>{LEVEL[order.roast_level ?? ""] ?? order.roast_level ?? "—"}</span>
+
+              {/* Urgent vlag */}
+              <button
+                className="rf-flag-btn"
+                onClick={() => handleUrgent(order.id, isUrgent)}
+                title={isUrgent ? "Markering verwijderen" : "Markeer als urgent"}
+                style={{
+                  background: "none", border: "none", cursor: "pointer",
+                  fontSize: 16, padding: 0, lineHeight: 1,
+                  opacity: isUrgent ? 1 : 0.25,
+                  filter: isUrgent ? "none" : "grayscale(1)",
+                  transition: "opacity 0.12s",
+                }}
+              >
+                🚩
+              </button>
 
               {/* Status dropdown */}
               <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
@@ -283,25 +314,42 @@ export default function OrdersClient({
             Nog geen roast bestellingen.
           </div>
         )}
-        {orders.map(order => {
+        {sortedOrders.map(order => {
           const date = new Date(order.created_at).toLocaleString("nl-NL", {
             day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit",
           });
+          const isUrgent = !!order.urgent;
           return (
             <div
               key={order.id}
               style={{
-                background: "#111", border: "1px solid #222", borderRadius: 14,
-                padding: "16px 18px", display: "flex", flexDirection: "column", gap: 10,
+                background: "#111", border: `1px solid ${isUrgent ? "#FF2D2D" : "#222"}`,
+                borderRadius: 14, padding: "16px 18px",
+                display: "flex", flexDirection: "column", gap: 10,
+                borderLeft: isUrgent ? "4px solid #FF2D2D" : undefined,
               }}
             >
-              {/* Top row: name + date */}
+              {/* Top row: name + date + flag */}
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                 <div>
-                  <p style={{ margin: 0, fontSize: 15, fontWeight: 800, color: "#fff" }}>{order.customer_name || "—"}</p>
+                  <p style={{ margin: 0, fontSize: 15, fontWeight: 800, color: "#fff" }}>
+                    {isUrgent && <span style={{ color: "#FF2D2D", marginRight: 6 }}>🚩</span>}
+                    {order.customer_name || "—"}
+                  </p>
                   <p style={{ margin: 0, fontSize: 11, color: "#555" }}>{order.customer_email}</p>
                 </div>
-                <span style={{ fontSize: 11, color: "#555", textAlign: "right", flexShrink: 0 }}>{date}</span>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <button
+                    onClick={() => handleUrgent(order.id, isUrgent)}
+                    style={{
+                      background: "none", border: "none", cursor: "pointer",
+                      fontSize: 18, padding: 0, lineHeight: 1,
+                      opacity: isUrgent ? 1 : 0.25,
+                      filter: isUrgent ? "none" : "grayscale(1)",
+                    }}
+                  >🚩</button>
+                  <span style={{ fontSize: 11, color: "#555", textAlign: "right", flexShrink: 0 }}>{date}</span>
+                </div>
               </div>
 
               {/* Package + roast target */}

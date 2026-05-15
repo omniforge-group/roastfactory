@@ -23,6 +23,8 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
   const updates: Record<string, unknown> = {};
   if (body.status !== undefined) updates.status = body.status;
   if (body.lyrics !== undefined) updates.lyrics = body.lyrics;
+  if (body.urgent !== undefined) updates.urgent = body.urgent;
+  if (body.internal_notes !== undefined) updates.internal_notes = body.internal_notes;
 
   if (Object.keys(updates).length === 0) {
     return Response.json({ error: "No updates" }, { status: 400 });

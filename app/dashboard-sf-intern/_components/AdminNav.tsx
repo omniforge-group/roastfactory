@@ -1,9 +1,10 @@
 "use client";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const NAV = [
-  { href: "/dashboard-sf-intern",              label: "🔥 Bestellingen" },
+  { href: "/dashboard-sf-intern",              label: "🔥 Bestellingen", badge: true },
   { href: "/dashboard-sf-intern/stats",         label: "📊 Statistieken" },
   { href: "/dashboard-sf-intern/kortingscodes", label: "🎟️ Kortingscodes" },
   { href: "/dashboard-sf-intern/gebruikers",    label: "👥 Gebruikers" },
@@ -14,6 +15,22 @@ const NAV = [
 export default function AdminNav() {
   const pathname = usePathname();
   const router = useRouter();
+  const [paidCount, setPaidCount] = useState(0);
+
+  useEffect(() => {
+    async function fetchCount() {
+      try {
+        const res = await fetch("/api/dashboard-sf-intern/orders/count");
+        if (res.ok) {
+          const data = await res.json();
+          setPaidCount(data.count ?? 0);
+        }
+      } catch {}
+    }
+    fetchCount();
+    const interval = setInterval(fetchCount, 60_000);
+    return () => clearInterval(interval);
+  }, []);
 
   async function logout() {
     await fetch("/api/dashboard-sf-intern/auth/logout", { method: "POST" });
@@ -29,11 +46,12 @@ export default function AdminNav() {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 12, overflowX: "auto", minWidth: 0 }}>
       <nav style={{ display: "flex", gap: 2, flexShrink: 0 }}>
-        {NAV.map(({ href, label }) => (
+        {NAV.map(({ href, label, badge }) => (
           <Link
             key={href}
             href={href}
             style={{
+              position: "relative",
               padding: "5px 11px", borderRadius: 7, fontSize: 12,
               textDecoration: "none", whiteSpace: "nowrap",
               transition: "background 0.12s",
@@ -41,6 +59,18 @@ export default function AdminNav() {
             }}
           >
             {label}
+            {badge && paidCount > 0 && (
+              <span style={{
+                position: "absolute", top: -6, right: -6,
+                background: "#FF2D2D", color: "#fff",
+                fontSize: 9, fontWeight: 900, lineHeight: 1,
+                padding: "2px 5px", borderRadius: 10,
+                minWidth: 16, textAlign: "center",
+                border: "1px solid #0A0A0A",
+              }}>
+                {paidCount > 99 ? "99+" : paidCount}
+              </span>
+            )}
           </Link>
         ))}
       </nav>

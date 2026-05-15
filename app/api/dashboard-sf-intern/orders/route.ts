@@ -34,13 +34,14 @@ export async function PATCH(req: Request) {
   const actor = isAdminRequest(req);
   if (!actor) return Response.json({ error: "Unauthorized" }, { status: 401 });
 
-  const { id, status, lyrics, audio_url } = await req.json();
+  const { id, status, lyrics, audio_url, internal_notes } = await req.json();
   if (!id) return Response.json({ error: "Missing id" }, { status: 400 });
 
   const updates: Record<string, unknown> = {};
   if (status !== undefined) updates.status = status;
   if (lyrics !== undefined) updates.lyrics = lyrics;
   if (audio_url !== undefined) updates.audio_url = audio_url;
+  if (internal_notes !== undefined) updates.internal_notes = internal_notes;
 
   const { error } = await supabaseAdmin.from("orders").update(updates).eq("id", id);
   if (error) return Response.json({ error: error.message }, { status: 500 });

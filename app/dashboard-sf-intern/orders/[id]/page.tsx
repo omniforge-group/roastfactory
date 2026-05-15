@@ -23,6 +23,7 @@ type Order = {
   delivered_at: string | null;
   stripe_session_id: string | null;
   stripe_payment_intent: string | null;
+  internal_notes: string | null;
 };
 
 const PKG: Record<string, string> = {
@@ -54,6 +55,10 @@ export default function OrderDetailPage() {
   const [saving, setSaving] = useState(false);
   const [saveMsg, setSaveMsg] = useState("");
 
+  const [notes, setNotes] = useState("");
+  const [savingNotes, setSavingNotes] = useState(false);
+  const [notesMsg, setNotesMsg] = useState("");
+
   const [uploading, setUploading] = useState(false);
   const [uploadMsg, setUploadMsg] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
@@ -71,7 +76,7 @@ export default function OrderDetailPage() {
         return r.json();
       })
       .then(data => {
-        if (data) { setOrder(data); setStatus(data.status); setLyrics(data.lyrics || ""); }
+        if (data) { setOrder(data); setStatus(data.status); setLyrics(data.lyrics || ""); setNotes(data.internal_notes || ""); }
         setLoading(false);
       })
       .catch(() => setLoading(false));
@@ -92,6 +97,23 @@ export default function OrderDetailPage() {
       setSaveMsg("❌ Opslaan mislukt");
     }
     setTimeout(() => setSaveMsg(""), 3000);
+  }
+
+  async function saveNotes() {
+    setSavingNotes(true); setNotesMsg("");
+    const res = await fetch("/api/dashboard-sf-intern/orders", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, internal_notes: notes }),
+    });
+    setSavingNotes(false);
+    if (res.ok) {
+      setNotesMsg("✅ Notitie opgeslagen");
+      setOrder(prev => prev ? { ...prev, internal_notes: notes } : prev);
+    } else {
+      setNotesMsg("❌ Opslaan mislukt");
+    }
+    setTimeout(() => setNotesMsg(""), 3000);
   }
 
   async function uploadAudio() {
@@ -451,6 +473,39 @@ Mood: ${mood}`;
               {saving ? "Opslaan..." : "Opslaan"}
             </button>
             {saveMsg && <p style={{ margin: 0, fontSize: 12, color: saveMsg.startsWith("✅") ? "#22C55E" : "#FF2D2D" }}>{saveMsg}</p>}
+          </div>
+
+          {/* Interne notities */}
+          <div style={{ background: "#111", border: "1px solid #333", borderRadius: 14, padding: 24 }}>
+            {sectionTitle("Interne notities")}
+            <p style={{ margin: "0 0 10px", fontSize: 12, color: "#555", lineHeight: 1.6 }}>
+              Alleen zichtbaar voor admins. Niet verstuurd naar de klant.
+            </p>
+            <textarea
+              value={notes}
+              onChange={e => setNotes(e.target.value)}
+              placeholder="Bijv. klant belde, audio herkansen, speciale wens..."
+              style={{
+                width: "100%", minHeight: 100, background: "#0A0A0A",
+                border: "1px solid #333", borderRadius: 8, padding: "12px 14px",
+                color: "#fff", fontSize: 13, resize: "vertical",
+                fontFamily: "inherit", boxSizing: "border-box", marginBottom: 10,
+                lineHeight: 1.7, transition: "border-color 0.15s",
+              }}
+            />
+            <button
+              onClick={saveNotes}
+              disabled={savingNotes}
+              style={{
+                width: "100%", padding: "11px", borderRadius: 8, border: "none",
+                background: savingNotes ? "#1a1a1a" : "#333",
+                color: "#fff", fontWeight: 700, fontSize: 13,
+                cursor: savingNotes ? "not-allowed" : "pointer", marginBottom: 6,
+              }}
+            >
+              {savingNotes ? "Opslaan..." : "💾 Notitie opslaan"}
+            </button>
+            {notesMsg && <p style={{ margin: 0, fontSize: 12, color: notesMsg.startsWith("✅") ? "#22C55E" : "#FF2D2D" }}>{notesMsg}</p>}
           </div>
 
           {/* Audio upload */}
