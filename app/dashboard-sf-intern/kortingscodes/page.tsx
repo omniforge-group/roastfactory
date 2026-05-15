@@ -87,12 +87,26 @@ export default function KortingscodesPage() {
 
   return (
     <div style={{ maxWidth: 1000, margin: "0 auto", padding: "32px 24px" }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 24 }}>
+      <style>{`
+        @media (max-width: 768px) {
+          .rf-kc-page { padding: 16px 14px !important; }
+          .rf-kc-header { flex-wrap: wrap !important; gap: 12px !important; }
+          .rf-kc-header h1 { font-size: 20px !important; }
+          .rf-kc-new-btn { width: 100% !important; padding: 12px 16px !important; min-height: 44px !important; font-size: 14px !important; }
+          .rf-kc-desktop { display: none !important; }
+          .rf-kc-mobile { display: flex !important; }
+          .rf-kc-del-btn { width: 100% !important; padding: 12px !important; min-height: 44px !important; font-size: 14px !important; }
+        }
+        @media (min-width: 769px) {
+          .rf-kc-mobile { display: none !important; }
+        }
+      `}</style>
+      <div className="rf-kc-header" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 24 }}>
         <div>
           <h1 style={{ margin: 0, fontSize: 22, fontWeight: 900 }}>Kortingscodes</h1>
           <p style={{ margin: "4px 0 0", fontSize: 13, color: "#666" }}>Stripe promo codes beheren</p>
         </div>
-        <button style={BTN} onClick={() => setShowModal(true)}>+ Nieuwe code</button>
+        <button className="rf-kc-new-btn" style={BTN} onClick={() => setShowModal(true)}>+ Nieuwe code</button>
       </div>
 
       {error && (
@@ -101,7 +115,8 @@ export default function KortingscodesPage() {
         </div>
       )}
 
-      <div style={{ background: "#111111", border: "1px solid #222", borderRadius: 14, overflow: "hidden" }}>
+      {/* Desktop table */}
+      <div className="rf-kc-desktop" style={{ background: "#111111", border: "1px solid #222", borderRadius: 14, overflow: "hidden" }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 90px 90px 90px 90px 100px 80px", padding: "10px 20px", borderBottom: "1px solid #222", background: "#0d0d0d" }}>
           {["Code", "Korting", "Gebruikt", "Max", "Verloopt", "Status", "Actie"].map(h => (
             <span key={h} style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#555" }}>{h}</span>
@@ -140,6 +155,61 @@ export default function KortingscodesPage() {
             <button
               onClick={() => handleDelete(c)}
               style={{ background: "transparent", border: "1px solid #333", borderRadius: 7, padding: "5px 10px", color: "#666", fontSize: 11, cursor: "pointer" }}
+            >
+              Verwijder
+            </button>
+          </div>
+        ))}
+      </div>
+
+      {/* Mobile cards */}
+      <div className="rf-kc-mobile" style={{ flexDirection: "column", gap: 12, display: "none" }}>
+        {loading && (
+          <div style={{ padding: "40px 20px", textAlign: "center", color: "#555", fontSize: 14 }}>Laden...</div>
+        )}
+        {!loading && codes.length === 0 && (
+          <div style={{ padding: "40px 20px", textAlign: "center", color: "#555", fontSize: 14, background: "#111", borderRadius: 14 }}>Geen kortingscodes gevonden.</div>
+        )}
+        {codes.map(c => (
+          <div key={c.id} style={{
+            background: "#111", border: "1px solid #222", borderRadius: 14,
+            padding: 12, display: "flex", flexDirection: "column", gap: 10,
+            borderLeft: "4px solid #333",
+          }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span style={{ fontSize: 16, fontWeight: 900, color: "#fff", letterSpacing: 1 }}>{c.code}</span>
+              <span style={{
+                fontSize: 11, fontWeight: 700, padding: "3px 10px",
+                borderRadius: 20, whiteSpace: "nowrap",
+                color: c.active ? "#22C55E" : "#666",
+                background: c.active ? "#061a0e" : "#1a1a1a",
+                border: `1px solid ${c.active ? "#16a34a" : "#333"}`,
+              }}>
+                {c.active ? "Actief" : "Inactief"}
+              </span>
+            </div>
+            <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+              <div>
+                <p style={{ margin: 0, fontSize: 10, color: "#555", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em" }}>Korting</p>
+                <p style={{ margin: 0, fontSize: 15, fontWeight: 700, color: "#FF6B00" }}>{discount(c)}</p>
+              </div>
+              <div>
+                <p style={{ margin: 0, fontSize: 10, color: "#555", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em" }}>Gebruikt</p>
+                <p style={{ margin: 0, fontSize: 14, color: "#aaa" }}>{c.times_redeemed}x</p>
+              </div>
+              <div>
+                <p style={{ margin: 0, fontSize: 10, color: "#555", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em" }}>Max</p>
+                <p style={{ margin: 0, fontSize: 14, color: "#aaa" }}>{c.max_redemptions ?? "∞"}</p>
+              </div>
+              <div>
+                <p style={{ margin: 0, fontSize: 10, color: "#555", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em" }}>Verloopt</p>
+                <p style={{ margin: 0, fontSize: 13, color: "#666" }}>{c.expires_at ? new Date(c.expires_at * 1000).toLocaleDateString("nl-NL") : "Nooit"}</p>
+              </div>
+            </div>
+            <button
+              onClick={() => handleDelete(c)}
+              className="rf-kc-del-btn"
+              style={{ background: "transparent", border: "1px solid #333", borderRadius: 8, padding: "10px", color: "#666", fontSize: 13, cursor: "pointer", textAlign: "center" }}
             >
               Verwijder
             </button>

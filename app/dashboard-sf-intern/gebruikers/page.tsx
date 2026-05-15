@@ -83,19 +83,34 @@ export default function GebruikersPage() {
 
   return (
     <div style={{ maxWidth: 1000, margin: "0 auto", padding: "32px 24px" }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 24 }}>
+      <style>{`
+        @media (max-width: 768px) {
+          .rf-gb-page { padding: 16px 14px !important; }
+          .rf-gb-header { flex-wrap: wrap !important; gap: 12px !important; }
+          .rf-gb-header h1 { font-size: 20px !important; }
+          .rf-gb-new-btn { width: 100% !important; padding: 12px 16px !important; min-height: 44px !important; font-size: 14px !important; }
+          .rf-gb-desktop { display: none !important; }
+          .rf-gb-mobile { display: flex !important; }
+          .rf-gb-toggle-btn { width: 100% !important; padding: 12px !important; min-height: 44px !important; font-size: 14px !important; }
+        }
+        @media (min-width: 769px) {
+          .rf-gb-mobile { display: none !important; }
+        }
+      `}</style>
+      <div className="rf-gb-header" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 24 }}>
         <div>
           <h1 style={{ margin: 0, fontSize: 22, fontWeight: 900 }}>Gebruikers</h1>
           <p style={{ margin: "4px 0 0", fontSize: 13, color: "#666" }}>Admin-accounts beheren</p>
         </div>
-        <button style={BTN} onClick={() => setShowModal(true)}>+ Nieuwe gebruiker</button>
+        <button className="rf-gb-new-btn" style={BTN} onClick={() => setShowModal(true)}>+ Nieuwe gebruiker</button>
       </div>
 
       {error && (
         <div style={{ background: "#1a0505", border: "1px solid #FF2D2D44", borderRadius: 10, padding: "12px 18px", marginBottom: 20, color: "#ff8888", fontSize: 14 }}>{error}</div>
       )}
 
-      <div style={{ background: "#111111", border: "1px solid #222", borderRadius: 14, overflow: "hidden" }}>
+      {/* Desktop table */}
+      <div className="rf-gb-desktop" style={{ background: "#111111", border: "1px solid #222", borderRadius: 14, overflow: "hidden" }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 110px 140px 90px", padding: "10px 20px", borderBottom: "1px solid #222", background: "#0d0d0d" }}>
           {["Naam", "E-mail", "Rol", "Laatste login", "Status"].map(h => (
             <span key={h} style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#555" }}>{h}</span>
@@ -131,6 +146,52 @@ export default function GebruikersPage() {
                   background: "transparent", border: `1px solid ${u.is_active ? "#333" : "#16a34a"}`,
                   borderRadius: 7, padding: "4px 10px", fontSize: 11, cursor: "pointer",
                   color: u.is_active ? "#666" : "#22C55E",
+                }}
+              >
+                {u.is_active ? "Deactiveer" : "Activeer"}
+              </button>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Mobile cards */}
+      <div className="rf-gb-mobile" style={{ flexDirection: "column", gap: 12, display: "none" }}>
+        {loading && <div style={{ padding: "40px 20px", textAlign: "center", color: "#555", fontSize: 14 }}>Laden...</div>}
+        {!loading && users.length === 0 && <div style={{ padding: "40px 20px", textAlign: "center", color: "#555", fontSize: 14, background: "#111", borderRadius: 14 }}>Geen gebruikers gevonden.</div>}
+        {users.map(u => {
+          const rc = ROLE_COLORS[u.role] ?? ROLE_COLORS.medewerker;
+          return (
+            <div key={u.id} style={{
+              background: "#111", border: "1px solid #222", borderRadius: 14,
+              padding: 12, display: "flex", flexDirection: "column", gap: 10,
+              borderLeft: "4px solid #333",
+            }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                <div>
+                  <p style={{ margin: 0, fontSize: 15, fontWeight: 800, color: "#fff" }}>{u.name}</p>
+                  <p style={{ margin: "2px 0 0", fontSize: 12, color: "#555" }}>{u.email}</p>
+                </div>
+                <span style={{
+                  fontSize: 11, fontWeight: 700, padding: "3px 10px",
+                  borderRadius: 20, whiteSpace: "nowrap",
+                  color: rc.color, background: rc.bg, border: `1px solid ${rc.border}`,
+                }}>
+                  {ROLE_LABELS[u.role] ?? u.role}
+                </span>
+              </div>
+              <p style={{ margin: 0, fontSize: 12, color: "#555" }}>
+                Laatste login: {u.last_login ? new Date(u.last_login).toLocaleString("nl-NL", { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" }) : "Nooit"}
+              </p>
+              <button
+                onClick={() => toggleActive(u)}
+                className="rf-gb-toggle-btn"
+                style={{
+                  background: "transparent",
+                  border: `1px solid ${u.is_active ? "#333" : "#16a34a"}`,
+                  borderRadius: 8, padding: "10px", fontSize: 13, cursor: "pointer",
+                  color: u.is_active ? "#666" : "#22C55E",
+                  textAlign: "center",
                 }}
               >
                 {u.is_active ? "Deactiveer" : "Activeer"}

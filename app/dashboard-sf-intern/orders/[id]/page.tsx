@@ -272,6 +272,15 @@ Mood: ${mood}`;
           .rf-info-3col { grid-template-columns: 1fr !important; }
           .rf-detail-header { padding: 0 16px !important; }
           .rf-detail-header-inner { height: auto !important; padding: 10px 0 !important; flex-wrap: wrap !important; gap: 8px !important; }
+          .rf-prompt-tabs { overflow-x: auto !important; flex-wrap: nowrap !important; -webkit-overflow-scrolling: touch !important; }
+          .rf-prompt-tabs button { flex-shrink: 0 !important; min-height: 44px !important; font-size: 13px !important; }
+          .rf-deliver-btn { padding: 18px !important; font-size: 16px !important; }
+          .rf-upload-btn { padding: 14px !important; font-size: 14px !important; min-height: 44px !important; }
+          .rf-save-btn { padding: 14px !important; font-size: 15px !important; min-height: 44px !important; }
+          .rf-notes-btn { padding: 14px !important; font-size: 14px !important; min-height: 44px !important; }
+          .rf-detail-textarea { min-height: 120px !important; font-size: 14px !important; }
+          .rf-detail-select { padding: 14px !important; font-size: 15px !important; min-height: 44px !important; }
+          .rf-copy-btn { padding: 14px !important; font-size: 14px !important; min-height: 44px !important; }
         }
       `}</style>
 
@@ -404,7 +413,7 @@ Mood: ${mood}`;
             </div>
 
             {/* Tabs */}
-            <div style={{ display: "flex", gap: 4, marginBottom: 14 }}>
+            <div className="rf-prompt-tabs" style={{ display: "flex", gap: 4, marginBottom: 14 }}>
               {(["lyrics", "suno"] as const).map(tab => (
                 <button
                   key={tab}
@@ -438,6 +447,7 @@ Mood: ${mood}`;
             {/* Kopieer knop */}
             <button
               onClick={() => copyPrompt(activePromptTab)}
+              className="rf-copy-btn"
               style={{
                 width: "100%", padding: "11px", borderRadius: 8, border: "none",
                 background: copiedTab === activePromptTab ? "#22C55E" : "#FF2D2D",
@@ -457,6 +467,7 @@ Mood: ${mood}`;
             <select
               value={status}
               onChange={e => setStatus(e.target.value)}
+              className="rf-detail-select"
               style={{ width: "100%", background: "#0A0A0A", border: "1px solid #333", borderRadius: 8, padding: "11px 14px", color: "#fff", fontSize: 14, marginBottom: 16, fontFamily: "inherit", cursor: "pointer" }}
             >
               <option value="pending">pending — Wacht op betaling</option>
@@ -470,6 +481,7 @@ Mood: ${mood}`;
               value={lyrics}
               onChange={e => setLyrics(e.target.value)}
               placeholder="Voer hier de roast tekst in die naar de klant gestuurd wordt..."
+              className="rf-detail-textarea"
               style={{
                 width: "100%", minHeight: 200, background: "#0A0A0A",
                 border: "1px solid #333", borderRadius: 8, padding: "12px 14px",
@@ -482,6 +494,7 @@ Mood: ${mood}`;
             <button
               onClick={saveChanges}
               disabled={saving}
+              className="rf-save-btn"
               style={{ width: "100%", padding: "12px", borderRadius: 8, border: "none", background: saving ? "#1a1a1a" : "linear-gradient(135deg, #FF2D2D, #FF6B00)", color: "#fff", fontWeight: 700, fontSize: 14, cursor: saving ? "not-allowed" : "pointer", marginBottom: 8 }}
             >
               {saving ? "Opslaan..." : "Opslaan"}
@@ -499,6 +512,7 @@ Mood: ${mood}`;
               value={notes}
               onChange={e => setNotes(e.target.value)}
               placeholder="Bijv. klant belde, audio herkansen, speciale wens..."
+              className="rf-detail-textarea"
               style={{
                 width: "100%", minHeight: 100, background: "#0A0A0A",
                 border: "1px solid #333", borderRadius: 8, padding: "12px 14px",
@@ -510,6 +524,7 @@ Mood: ${mood}`;
             <button
               onClick={saveNotes}
               disabled={savingNotes}
+              className="rf-notes-btn"
               style={{
                 width: "100%", padding: "11px", borderRadius: 8, border: "none",
                 background: savingNotes ? "#1a1a1a" : "#333",
@@ -537,6 +552,7 @@ Mood: ${mood}`;
             <button
               onClick={uploadAudio}
               disabled={uploading}
+              className="rf-upload-btn"
               style={{ width: "100%", padding: "12px", borderRadius: 8, border: "1px solid #FF2D2D", background: uploading ? "#1a1a1a" : "#FF2D2D1a", color: uploading ? "#555" : "#FF2D2D", fontWeight: 700, fontSize: 14, cursor: uploading ? "not-allowed" : "pointer", marginBottom: 8 }}
             >
               {uploading ? "Uploaden..." : "⬆ Upload MP3"}
@@ -557,6 +573,7 @@ Mood: ${mood}`;
             <button
               onClick={deliverRoast}
               disabled={delivering}
+              className="rf-deliver-btn"
               style={{ width: "100%", padding: "15px", borderRadius: 10, border: "none", background: delivering ? "#1a1a1a" : "linear-gradient(135deg, #FF2D2D, #FF6B00)", color: "#fff", fontWeight: 900, fontSize: 15, cursor: delivering ? "not-allowed" : "pointer", marginBottom: 8, letterSpacing: -0.3 }}
             >
               {delivering ? "Versturen..." : "🔥 Verstuur roast naar klant"}

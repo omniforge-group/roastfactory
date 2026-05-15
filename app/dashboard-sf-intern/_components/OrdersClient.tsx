@@ -175,7 +175,7 @@ export default function OrdersClient({
   }
 
   return (
-    <div style={{ maxWidth: 1200, margin: "0 auto", padding: "32px 24px" }}>
+    <div className="rf-page-outer" style={{ maxWidth: 1200, margin: "0 auto", padding: "32px 24px" }}>
       <style>{`
         .rf-row:hover { background: #1a0505 !important; }
         .rf-btn:hover { background: #cc0000 !important; }
@@ -183,10 +183,12 @@ export default function OrdersClient({
         .rf-flag-btn:hover { opacity: 0.8 !important; }
         .rf-status-select { appearance: none; -webkit-appearance: none; }
         @media (max-width: 768px) {
-          .rf-stats-grid { grid-template-columns: repeat(2,1fr) !important; }
+          .rf-page-outer { padding: 16px 14px !important; }
+          .rf-stats-grid { grid-template-columns: repeat(2,1fr) !important; gap: 10px !important; }
           .rf-desktop { display: none !important; }
           .rf-mobile { display: flex !important; }
-          .rf-page-pad { padding: 16px 14px !important; }
+          .rf-orders-header h1 { font-size: 20px !important; }
+          .rf-orders-header p { font-size: 12px !important; }
         }
         @media (min-width: 769px) {
           .rf-mobile { display: none !important; }
@@ -194,7 +196,7 @@ export default function OrdersClient({
       `}</style>
 
       {/* Stats */}
-      <div className="rf-stats-grid rf-page-pad" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16, marginBottom: 32, padding: 0 }}>
+      <div className="rf-stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16, marginBottom: 32 }}>
         {[
           { emoji: "💳", label: "Nieuwe bestellingen", value: statPaid,      color: "#60A5FA" },
           { emoji: "⚙️", label: "In behandeling",      value: statProgress,  color: "#FF6B00" },
@@ -210,7 +212,7 @@ export default function OrdersClient({
       </div>
 
       {/* Header + delete bar */}
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16, flexWrap: "wrap", gap: 10 }}>
+      <div className="rf-orders-header" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16, flexWrap: "wrap", gap: 10 }}>
         <div>
           <h1 style={{ margin: 0, fontSize: 22, fontWeight: 900 }}>Alle roast bestellingen</h1>
           <p style={{ margin: "4px 0 0", fontSize: 13, color: "#666" }}>{orders.length} bestellingen — klik op Bekijk roast om te openen</p>
@@ -394,10 +396,10 @@ export default function OrdersClient({
               onTouchStart={onTouchStart}
               onTouchEnd={e => onTouchEnd(e, order.id, order.status)}
               style={{
-                background: "#111", border: `1px solid ${isUrgent ? "#FF2D2D" : "#222"}`,
-                borderRadius: 14, padding: "16px 18px",
+                background: "#111", border: "1px solid #222",
+                borderRadius: 14, padding: "12px 14px",
                 display: "flex", flexDirection: "column", gap: 10,
-                borderLeft: isUrgent ? "4px solid #FF2D2D" : undefined,
+                borderLeft: `4px solid ${isUrgent ? "#FF2D2D" : "#333"}`,
                 position: "relative", overflow: "hidden",
               }}
             >

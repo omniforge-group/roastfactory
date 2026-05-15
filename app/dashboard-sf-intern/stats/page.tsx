@@ -110,9 +110,18 @@ export default async function StatsPage() {
 
   return (
     <div style={{ maxWidth: 1100, margin: "0 auto", padding: "32px 24px" }}>
+      <style>{`
+        @media (max-width: 768px) {
+          .rf-stats-page { padding: 16px 14px !important; }
+          .rf-stats-summary { grid-template-columns: repeat(2,1fr) !important; gap: 10px !important; }
+          .rf-stats-row4 { grid-template-columns: 1fr !important; }
+          .rf-stats-h1 { font-size: 20px !important; }
+          .rf-stats-card { padding: 16px 18px !important; }
+        }
+      `}</style>
 
       {/* Row 1: 6 summary cards */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16, marginBottom: 24 }}>
+      <div className="rf-stats-summary" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16, marginBottom: 24 }}>
         {[
           { label: "Totale omzet",      value: `€${totalRevenue.toFixed(2).replace(".", ",")}`,       color: "#FF2D2D" },
           { label: "Deze maand",        value: `€${revenueThisMonth.toFixed(2).replace(".", ",")}`,   color: "#FF6B00" },
@@ -169,7 +178,7 @@ export default async function StatsPage() {
       </div>
 
       {/* Row 4: 3 columns */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 20 }}>
+      <div className="rf-stats-row4" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 20 }}>
 
         {/* Package distribution met % */}
         <div style={cardStyle}>
