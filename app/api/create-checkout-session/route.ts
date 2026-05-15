@@ -17,6 +17,7 @@ export async function POST(req: Request) {
     const {
       package: pkg,
       roastTarget,
+      roastCategory,
       occasion,
       roastLevel,
       ending,
@@ -44,6 +45,7 @@ export async function POST(req: Request) {
         customer_name: customerName,
         customer_email: email,
         roast_target: roastTarget,
+        roast_category: roastCategory || null,
         occasion,
         roast_level: roastLevel,
         ending: ending,

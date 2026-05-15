@@ -60,7 +60,7 @@ const TARGETS = [
   { emoji: "📱", label: "De groepschat" },
   { emoji: "💍", label: "Bachelor party" },
   { emoji: "😤", label: "Die ene gast die altijd stoer doet" },
-  { emoji: "✏️", label: "Anders", fill: "" },
+  { emoji: "✏️", label: "Anders" },
 ];
 
 const ROAST_LEVELS = [
@@ -89,11 +89,12 @@ export default function BestellenFlow() {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [occasionSelect, setOccasionSelect] = useState("");
-  const [clickedTarget, setClickedTarget] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const [form, setForm] = useState({
     package: "",
     roastTarget: "",
+    roastCategory: "",
     occasion: "",
     roastLevel: "",
     ending: "",
@@ -114,6 +115,7 @@ export default function BestellenFlow() {
   const step1Valid = !!form.package;
   const step2Valid =
     !!form.roastTarget &&
+    !!form.roastCategory &&
     !!form.occasion &&
     !!form.roastLevel &&
     !!form.ending &&
@@ -304,19 +306,32 @@ export default function BestellenFlow() {
 
             <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
 
+              {/* 1. Naam */}
+              <div>
+                <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: WHITE, marginBottom: 8 }}>
+                  Wat is de naam van je slachtoffer? 😈 <span style={{ color: RED }}>*</span>
+                </label>
+                <input
+                  placeholder="Bijv. Tim, Rutger, DJ Kleine..."
+                  value={form.roastTarget}
+                  onChange={(e) => setForm({ ...form, roastTarget: e.target.value })}
+                  style={inputStyle}
+                />
+              </div>
+
+              {/* 2. Categorie */}
               <div>
                 <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: WHITE, marginBottom: 12 }}>
-                  Wie ga jij slopen? 🔥 <span style={{ color: RED }}>*</span>
+                  In welke categorie valt je slachtoffer? <span style={{ color: RED }}>*</span>
                 </label>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8, marginBottom: 12 }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8 }}>
                   {TARGETS.map((t) => {
-                    const fillValue = "fill" in t ? t.fill : t.label;
-                    const isSel = clickedTarget === t.label;
+                    const isSel = selectedCategory === t.label;
                     return (
                       <button
                         key={t.label}
                         type="button"
-                        onClick={() => { setClickedTarget(t.label); setForm({ ...form, roastTarget: fillValue ?? "" }); }}
+                        onClick={() => { setSelectedCategory(t.label); setForm({ ...form, roastCategory: t.label }); }}
                         style={{
                           padding: "10px 8px",
                           borderRadius: 10,
@@ -336,14 +351,9 @@ export default function BestellenFlow() {
                     );
                   })}
                 </div>
-                <input
-                  placeholder="Of typ zelf een naam — bijv. Kevin"
-                  value={form.roastTarget}
-                  onChange={(e) => { setClickedTarget(null); setForm({ ...form, roastTarget: e.target.value }); }}
-                  style={inputStyle}
-                />
               </div>
 
+              {/* 3. Gelegenheid */}
               <div>
                 <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: WHITE, marginBottom: 8 }}>
                   Gelegenheid <span style={{ color: RED }}>*</span>
@@ -373,6 +383,7 @@ export default function BestellenFlow() {
                 )}
               </div>
 
+              {/* 4. Roast level */}
               <div>
                 <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: WHITE, marginBottom: 8 }}>
                   Roast level <span style={{ color: RED }}>*</span>
@@ -400,6 +411,7 @@ export default function BestellenFlow() {
                 </div>
               </div>
 
+              {/* 5. Ending */}
               <div>
                 <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: WHITE, marginBottom: 8 }}>
                   Hoe moet de roast eindigen? <span style={{ color: RED }}>*</span>
@@ -427,6 +439,7 @@ export default function BestellenFlow() {
                 </div>
               </div>
 
+              {/* 6. Inside jokes */}
               <div>
                 <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: WHITE, marginBottom: 8 }}>
                   Inside jokes & bijnamen <span style={{ color: RED }}>*</span>
@@ -444,6 +457,7 @@ export default function BestellenFlow() {
                 </p>
               </div>
 
+              {/* 7. Extra info */}
               <div>
                 <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: WHITE, marginBottom: 8 }}>
                   Extra info{" "}
@@ -565,7 +579,8 @@ export default function BestellenFlow() {
             <div style={{ background: GRAY, borderRadius: 16, padding: 24, marginBottom: 24 }}>
               <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
                 {[
-                  { label: "Roast target", value: form.roastTarget },
+                  { label: "Naam slachtoffer", value: form.roastTarget },
+                  { label: "Categorie", value: form.roastCategory },
                   { label: "Gelegenheid", value: form.occasion },
                   { label: "Roast level", value: `${selectedLevel?.label} ${selectedLevel?.emoji}` },
                   { label: "Afsluiting", value: `${selectedEnding?.emoji} ${selectedEnding?.label}` },
