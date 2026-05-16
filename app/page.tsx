@@ -206,10 +206,10 @@ export default function HomePage() {
                 <span className="text-[#FF2D2D]">FRIENDS.</span>
               </h1>
               <p className="mt-5 font-bebas text-2xl tracking-widest text-[#FF6B00] sm:text-3xl">
-                AI-GENERATED DISS TRACKS IN 60 SECONDEN.
+                DE ROAST DIE ZE NIET ZAGEN AANKOMEN.
               </p>
               <p className="mt-4 max-w-lg text-base leading-7 text-white/60">
-                Vul een paar inside jokes in en laat AI een persoonlijke roast maken die klaar is voor TikTok, Reels of de groepschat.
+                Jij levert de inside jokes. Wij leveren de vernietiging. Binnen 24 uur klaar om je slachtoffer of groepschat te slopen.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-4">
