@@ -13,6 +13,13 @@ body {
   font-family: var(--font-inter), Inter, Arial, sans-serif;
 }
 
+/* iOS Safari button reset */
+button {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #0A0A0A; }
