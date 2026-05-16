@@ -145,31 +145,35 @@ export default function UseCasesSection() {
               <button
                 onClick={() => togglePlay(i)}
                 style={{
-                  width: 40,
-                  height: 40,
+                  width: 36,
+                  height: 36,
                   borderRadius: "50%",
                   backgroundColor: "#FF2D2D",
                   border: "none",
                   outline: "none",
-                  color: "white",
-                  fontSize: 16,
                   cursor: "pointer",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   flexShrink: 0,
-                  padding: 0,
-                  margin: 0,
                   WebkitAppearance: "none",
-                  MozAppearance: "none",
                   appearance: "none",
                   WebkitTapHighlightColor: "transparent",
-                  boxShadow: "none",
+                  padding: 0,
                 }}
                 onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#CC0000"; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#FF2D2D"; }}
               >
-                {playing === i ? "⏸" : "▶"}
+                {playing === i ? (
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="1" y="1" width="4" height="12" rx="1" fill="white"/>
+                    <rect x="9" y="1" width="4" height="12" rx="1" fill="white"/>
+                  </svg>
+                ) : (
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="2,1 13,7 2,13" fill="white"/>
+                  </svg>
+                )}
               </button>
 
               {/* Voortgangsbalk + tijdweergave */}
