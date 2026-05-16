@@ -66,29 +66,29 @@ export default function UseCasesSection() {
           </Link>
 
           {!hidden.has(i) && (
-            <div className="flex justify-center" style={{ marginTop: 8 }}>
-              <button
-                onClick={() => togglePlay(i)}
-                style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: "50%",
-                  background: "#FF2D2D",
-                  border: "none",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: 16,
-                  color: "#FFFFFF",
-                  transition: "background 0.15s",
-                }}
-                onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = "#CC0000"; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = "#FF2D2D"; }}
-              >
-                {playing === i ? "⏸" : "▶"}
-              </button>
-            </div>
+            <button
+              onClick={() => togglePlay(i)}
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: "50%",
+                backgroundColor: "#FF2D2D",
+                border: "none",
+                outline: "none",
+                WebkitAppearance: "none",
+                color: "white",
+                fontSize: 16,
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                margin: "8px auto 0 auto",
+              }}
+              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#CC0000"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#FF2D2D"; }}
+            >
+              {playing === i ? "⏸" : "▶"}
+            </button>
           )}
         </div>
       ))}
