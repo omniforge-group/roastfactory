@@ -43,7 +43,10 @@ export default function UseCasesSection() {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {USE_CASES.map(({ emoji, label, audio }, i) => (
-        <div key={label} style={{ display: "flex", flexDirection: "column", alignItems: "stretch" }}>
+        <div
+          key={label}
+          className="overflow-hidden rounded-2xl border border-[#FF2D2D]/40 transition-all hover:border-[#FF2D2D] hover:shadow-[0_0_20px_rgba(255,45,45,0.15)]"
+        >
           <audio
             ref={el => { audioRefs.current[i] = el; }}
             src={`/audio/previews/${audio}`}
@@ -57,7 +60,7 @@ export default function UseCasesSection() {
 
           <Link
             href="/bestellen"
-            className="group flex items-center gap-4 rounded-2xl border border-[#FF2D2D]/40 bg-black p-5 transition-all hover:border-[#FF2D2D] hover:shadow-[0_0_20px_rgba(255,45,45,0.15)]"
+            className="group flex items-center gap-4 bg-black p-5"
           >
             <span className="text-3xl">{emoji}</span>
             <span className="font-semibold text-white transition-colors group-hover:text-[#FF2D2D]">
@@ -69,18 +72,10 @@ export default function UseCasesSection() {
           {!hidden.has(i) && (
             <button
               onClick={() => togglePlay(i)}
-              style={{
-                marginTop: 8,
-                background: "transparent",
-                border: "none",
-                color: "#FF2D2D",
-                fontSize: 12,
-                cursor: "pointer",
-                textAlign: "center",
-                padding: "4px 0",
-              }}
+              className="flex h-9 w-full cursor-pointer items-center justify-between border-none bg-[#FF2D2D] px-3.5 text-[13px] text-white transition-colors hover:bg-[#FF4444]"
             >
-              {playing === i ? "⏸ Pauzeer" : "▶ Voorbeeld"}
+              <span>{playing === i ? "⏸" : "▶"}</span>
+              <span>{playing === i ? "Pauzeer" : "Beluister voorbeeld"}</span>
             </button>
           )}
         </div>

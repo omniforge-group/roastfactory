@@ -253,6 +253,7 @@ export default function HomePage() {
         </section>
 
         {/* ── 2. USE CASES ────────────────────────────────────────────────── */}
+        <span id="voorbeelden" />
         <section id="wie-ga-je-slopen" className="bg-[#111111] py-20">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <h2 className="mb-12 font-bebas text-5xl tracking-wide text-white sm:text-6xl">
