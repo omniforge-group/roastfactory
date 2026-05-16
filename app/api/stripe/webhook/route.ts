@@ -49,12 +49,34 @@ export async function POST(req: Request) {
         return new Response("No order_id", { status: 400 });
       }
 
+      // Betaald bedrag en kortingsbedrag uit Stripe sessie
+      const amountPaid = session.amount_total != null ? session.amount_total / 100 : null;
+      const discountAmount = session.total_details?.amount_discount
+        ? session.total_details.amount_discount / 100
+        : 0;
+
+      // Kortingscode ophalen via Stripe API
+      let discountCode: string | null = null;
+      if (session.discounts && session.discounts.length > 0) {
+        const promoRef = session.discounts[0].promotion_code;
+        const promoId = typeof promoRef === "string" ? promoRef : (promoRef as { id: string } | null)?.id;
+        if (promoId) {
+          try {
+            const promo = await stripe.promotionCodes.retrieve(promoId);
+            discountCode = promo.code;
+          } catch {}
+        }
+      }
+
       const { data: order, error } = await supabaseAdmin
         .from("orders")
         .update({
           status: "paid",
           stripe_payment_intent:
             typeof session.payment_intent === "string" ? session.payment_intent : null,
+          amount_paid: amountPaid,
+          discount_amount: discountAmount,
+          discount_code: discountCode,
         })
         .eq("id", orderId)
         .select()
