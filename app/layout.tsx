@@ -20,26 +20,24 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "RoastFactory | Persoonlijke roast laten maken | Vanaf €4,99",
+  title: "RoastFactory | Persoonlijke roast op maat | Vanaf €4,99",
   description:
-    "Laat een professionele roast maken voor je vriend, collega of ex. Grappig, persoonlijk en binnen 24 uur geleverd. Battle mode, diss tracks en meer. Vanaf €4,99.",
+    "Laat een persoonlijke roast op maat maken voor je vriend, collega of ex. Grappig, rauw en binnen 24 uur geleverd. Geen AI onzin — echte roasts gemaakt voor jouw slachtoffer. Vanaf €4,99.",
   keywords:
-    "roast maken, persoonlijke roast, diss track, roast cadeau, verjaardag roast, bachelor party roast, roast laten maken, grappig cadeau, roast factory",
-  authors: [{ name: "RoastFactory" }],
-  creator: "RoastFactory",
+    "roast op maat, persoonlijke roast, roast cadeau, roast laten maken, diss track, verjaardag roast, bachelor party roast, groepschat roast",
   metadataBase: new URL("https://www.roastfactory.eu"),
   alternates: {
     canonical: "https://www.roastfactory.eu",
   },
   openGraph: {
-    title: "RoastFactory | Laat iemand professioneel roosteren 🔥",
+    title: "RoastFactory | Persoonlijke roast op maat 🔥",
     description:
-      "Personaliseerde roasts voor verjaardagen, bachelor parties en meer. Grappig, rauw en binnen 24 uur geleverd.",
+      "Jij levert de inside jokes. Wij leveren de vernietiging. Binnen 24 uur klaar om je slachtoffer of groepschat te slopen.",
     url: "https://www.roastfactory.eu",
     siteName: "RoastFactory",
     images: [
       {
-        url: "/images/og-image.svg",
+        url: "/images/og-image.png",
         width: 1200,
         height: 630,
         alt: "RoastFactory - Persoonlijke roasts op maat",
@@ -50,18 +48,18 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "RoastFactory | Laat iemand professioneel roosteren 🔥",
-    description:
-      "Personaliseerde roasts voor verjaardagen, bachelor parties en meer.",
-    images: ["/images/og-image.svg"],
+    title: "RoastFactory | Persoonlijke roast op maat 🔥",
+    description: "Jij levert de inside jokes. Wij leveren de vernietiging.",
+    images: ["/images/og-image.png"],
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-    },
+  },
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+    shortcut: "/logo.png",
   },
 };
 
@@ -72,6 +70,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="nl" className={`${bebasNeue.variable} ${inter.variable}`} suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/logo.png" />
+        <link rel="apple-touch-icon" href="/logo.png" />
+        <link rel="shortcut icon" href="/logo.png" />
+      </head>
       <body>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-FGSBTQFQ75"
